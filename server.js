@@ -23,3 +23,7 @@ app.get('/',function(요청,응답){
     응답.sendfile(__dirname + '/index.html')
 
 });
+app.get('/write',function(요청,응답){
+    응답.sendfile(__dirname + '/write.html')
+
+});
