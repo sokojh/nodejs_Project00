@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended : true}));
 
 app.listen(7080, function(){
 console.log('listening on 7080')
@@ -20,10 +22,16 @@ app.get('/beauty',function(요청,응답){
 });
 // /하나면 홈임
 app.get('/',function(요청,응답){
-    응답.sendfile(__dirname + '/index.html')
+    응답.sendfile(__dirname + '/index.html');
 
 });
 app.get('/write',function(요청,응답){
-    응답.sendfile(__dirname + '/write.html')
+    응답.sendfile(__dirname + '/write.html');
 
 });
+
+//어떤사람이 /add 경로로 pst요청을하면 ??를해주세요.__dirname
+app.post('/add',function(요청,응답){
+    응답.send('전송완료')
+
+}); 
