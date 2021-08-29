@@ -11,17 +11,18 @@
     <title>Hello, world!</title>
   </head>
   <body> 
-    <%- include('nav.html') %> 
+    <%- include('nav.html') %>  
     <div class="container mt-4">
-        <form action="/add" method="POST">
-            <h2>기록해도 안할줄 알지만</h2>
-            <div class="form-group"> 
+        <form action="/edit?_method=PUT" method="POST"> 
+            <h2>할일</h2> 
+            <input type="text" value="<%= post._id %>" name="id" style="display: none;">
+            <div class="form-group">    
               <label for="formGroupExampleInput">오늘의할일</label>
-              <input type="text" class="form-control" id="formGroupExampleInput" placeholder="<%= data.제목 %>" name="title">
-            </div>
+              <input value = "<%= post.제목 %>" type="text" class="form-control" id="formGroupExampleInput" name="title">
+            </div> 
             <div class="form-group">
               <label for="formGroupExampleInput2">due date</label>
-              <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="<%= data.날짜 %>" name="date">
+              <input value = "<%= post.날짜 %>" type="text" class="form-control" id="formGroupExampleInput2" name="date">
             </div> 
             <div>
                 <button type="submit" class="btn btn-outline-secondary">수정하기</button>
