@@ -36,6 +36,10 @@ app.get('/beauty',function(요청,응답){
     응답.send('뷰티제품을 쇼핑할 수 있는 페이지입니다.');
 
 });
+app.get('/stackview',function(요청,응답){
+    
+    응답.render('stackview.ejs'); 
+});
 // /하나면 홈임
 app.get('/',function(요청,응답){
     //응답.sendfile(__dirname + '/views/index.ejs');
