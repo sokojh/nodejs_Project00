@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -8,16 +9,16 @@ const methodOverride = require('method-override')
 app.use(methodOverride('_method')) 
 var db;
 const MongoClient = require('mongodb').MongoClient;
-MongoClient.connect('mongodb+srv://anxiety:anxiety09091@cluster0.tioqv.mongodb.net/todoapp?retryWrites=true&w=majority',function(에러,client){
+MongoClient.connect(process.env.DB_URL,function(에러,client){
  
     if(에러){return console.log(에러)} 
  
     db = client.db('todoapp');
     //db.collection('post').insertOne({ 이름 : 'john', _id : 100},function(에러,결과){
     //console.log('저장완료');}); 
-    app.listen(7080, function(){     
-        console.log('listening on 7080')    
-        
+    app.listen(process.env.PORT, function(){     
+        console.log('listening on '+ process.env.PORT)    
+         
     
 })
 
