@@ -50,9 +50,17 @@ app.get('/write',function(요청,응답){
     //응답.sendfile(__dirname + '/views/write.ejs');
     응답.render('write.ejs'); 
 });
- 
+app.get('/search',(요청,응답) => {
+    
+    console.log(요청.query.value)
+    db.collection('post').find({제목:요청.query.value}).toArray((에러,결과) =>{
+        console.log(결과)
+        응답.render('search.ejs',{posts : 결과});
+    })
+    
+});
 //어떤사람이 /add 경로로 pst요청을하면 ??를해주세요.__dirname
-app.post('/add',function(요청,응답){
+app.post('/add',(요청,응답) => {
     응답.send('전송완료')
     db.collection('counter').findOne({name : '게시물갯수'},function(에러,결과){
         console.log(결과.totalPost); 
@@ -120,7 +128,7 @@ app.put('/edit', function(요청,응답){
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
-
+// 미들웨어 사용하는방법. 미들웨어란? 페이지를 요청하는중간에 실행할 코드
 app.use(session({secret : '비밀코드', resave : true , saveUninitialized:false}));
 app.use(passport.initialize());
 app.use(passport.session());
