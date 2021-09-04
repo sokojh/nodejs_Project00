@@ -16,16 +16,69 @@
   <body> 
     <%- include('nav.html') %>   
     <center>
-<div class="container mt-4">
-<div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="검색하세요!🙋‍♀️🙋‍♂️" aria-label="Recipient's username" aria-describedby="button-addon2">
-    <div class="input-group-append">
-      <button class="btn btn-outline-primary" type="button" id="button-addon2">Search</button>
-    </div>
-</div>
-<div class="container mt-4">
-<p> 아이디: <%= posts.제목 %>
-</p>
+      <h4 class="ml-2 my-3 text-center">검색결과</h4>
+      <div class="container">
+        <div class="container input-group mb-2">
+          <input class="form-control" id="search-input">
+          <button class="input-group-append btn btn-primary" id="search">검색</button>
+        </div>
+        <script>
+          $('#search').click(function(){
+            var 입력한값 = $('#search-input').val()
+            window.location.replace('/search?value='+입력한값)
+
+          })
+
+        </script>
+ 
+      <ul class="list-group">  
+        <% for (var i =0; i < posts.length; i++){ %>
+        <li class="list-group-item">
+          <p>글번호 ㅣ <%= posts[i]._id %></p>  
+          <h4><a href="/detail/<%= posts[i]._id %>">  할일 제목 : <%= posts[i].제목 %></a> </h4>    
+          <p>할일 마감날짜 : <%= posts[i].날짜 %>  </p>    
+          <button type="button" class="btn btn-primary" data-id="<%= posts[i]._id %>"  onclick = moveEdit();>수정</button>
+          <button type="button" class="btn btn-danger" data-id="<%= posts[i]._id %>">삭제</button>  
+          <script type="text/javaScript">
+            function moveEdit(){
+                 location.href = "/edit/<%= posts[i]._id %>";
+            }
+            </script> 
+        </li>  
+          <% }%>   
+      </ul> 
+      </div>
+      
+      
+      <script>
+          $('.btn-danger').click(function(e){  
+            var 글번호 = e.target.dataset.id;
+            var 지금누른거 = $(this);
+             
+            $.ajax({ 
+            method : 'DELETE',
+            //'요청할경로'  
+            url : '/delete',
+            //'요청과 함께 보낼데이터' 
+            data : {_id : 글번호 }  
+             
+
+          }).done(function(결과){
+            //요청이 성공하면 요걸 실행해주세요~
+            console.log('성공했어염') 
+            지금누른거.parent('li').fadeOut(); 
+
+            }).fail(function(xhr,textStatus,errorThrown){
+              console.log(xhr,textStatus,errorThrown); 
+            });
+          })
+          //서버에 새로고침없이 /delete 경로로 DELETE 요청을 할거에요~
+
+
+        </script> 
+
+
+
 </div>
   
     </center> 

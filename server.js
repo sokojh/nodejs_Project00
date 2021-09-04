@@ -51,33 +51,31 @@ app.get('/write',function(요청,응답){
     응답.render('write.ejs'); 
 });
 app.get('/search',(요청,응답) => {
-    
+    var 검색조건 = [
+        {
+          $search: {
+            index: 'titleSearch',
+            text: {
+              query: 요청.query.value,
+              path: '제목'  // 제목날짜 둘다 찾고 싶으면 ['제목', '날짜']
+            }
+          }
+        }//,
+        //검색조건 더 주는법 -결과 정렬하기
+        //{ $sortv: {_id : 1 }},
+        //몇개만 가져올지 제한도 걸기 가능
+        //{ $limit : 2 },
+        //0주면 검색결과에 안보여줌
+        //{ $project : { 제목: 1, _id: 0, score : {$meta: "searchScore"}}}
+    ]  
     console.log(요청.query.value)
-    db.collection('post').find({제목:요청.query.value}).toArray((에러,결과) =>{
+    db.collection('post').aggregate(검색조건).toArray((에러,결과) =>{
         console.log(결과)
-        응답.render('search.ejs',{posts : 결과});
+        응답.render('search.ejs',{ posts : 결과})
     })
     
 });
-//어떤사람이 /add 경로로 pst요청을하면 ??를해주세요.__dirname
-app.post('/add',(요청,응답) => {
-    응답.send('전송완료')
-    db.collection('counter').findOne({name : '게시물갯수'},function(에러,결과){
-        console.log(결과.totalPost); 
-         
-        var 총게시물갯수 = 결과.totalPost;  
-        db.collection('post').insertOne({ _id : 총게시물갯수 + 1,제목 : 요청.body.title, 날짜 : 요청.body.date },function(에러,결과){
-            console.log('저장완료');
-            //counter라는 콜렉션에 있는 totalPost라는 항목도 1 증가시켜야함 (수정)
-            db.collection('counter').updateOne({name : '게시물갯수'},{ $inc : {totalPost:1}},function(에러,결과){
-                if(에러) {return console.log(에러)}
-                console.log(결과)   
-            });
-       })
-    
-    });
 
-    });   
 
 app.get('/list',function(요청,응답){
     
@@ -88,15 +86,7 @@ app.get('/list',function(요청,응답){
     });
 });  
 
-app.delete('/delete',function(요청,응답){
-    console.log(요청.body)
-    요청.body._id = parseInt(요청.body._id);
-    //요청.body에 담겨온  게시물번호를 가진 글을 db에서 찾아서 삭제해주세요.
-    db.collection('post').deleteOne(요청.body ,function(에러, 결과){
-        console.log('삭제완료'); 
-        응답.status(200).send({ message : '성공했다.'});
-    })   
-});    
+
 app.get('/detail/:id',function(요청,응답){
     db.collection('post').findOne({_id: parseInt(요청.params.id) },function(에러,결과){
         console.log(결과); 
@@ -195,3 +185,46 @@ passport.use(new LocalStrategy({
     })
     
   });
+
+  app.post('/register',function(요청,응답){
+      db.collection('login').insertOne({ id : 요청.body.id, pw : 요청.body.pw },function(에러,결과){
+          응답.redirect('/')
+      })
+  })
+  //어떤사람이 /add 경로로 pst요청을하면 ??를해주세요.__dirname
+app.post('/add',(요청,응답) => {
+    
+    응답.send('<a>전송완료</a>')
+    
+    db.collection('counter').findOne({name : '게시물갯수'},function(에러,결과){
+        console.log(결과.totalPost); 
+        
+        var 총게시물갯수 = 결과.totalPost;  
+        var 저장할거 = { _id : 총게시물갯수 + 1,제목 : 요청.body.title, 날짜 : 요청.body.date , 작성자 : 요청.user._id}
+        db.collection('post').insertOne(저장할거,function(에러,결과){
+            console.log('저장완료');
+            //counter라는 콜렉션에 있는 totalPost라는 항목도 1 증가시켜야함 (수정)
+            db.collection('counter').updateOne({name : '게시물갯수'},{ $inc : {totalPost:1}},function(에러,결과){
+                if(에러) {return console.log(에러)}
+                console.log(결과)   
+            });
+       })
+    
+    });
+    
+    });   
+    app.delete('/delete',function(요청,응답){
+        console.log('삭제요청들어옴');
+        console.log(요청.body);
+        요청.body._id = parseInt(요청.body._id);
+    
+        var 삭제할데이터 = { _id : 요청.body._id, 작성자 : 요청.user._id }
+    
+        //삭제할 데이터 요청.body에 담겨온  게시물번호를 가진 글을 db에서 찾고 현재로그인 중인 유저_id가작성자와  같으면 삭제해주세요.
+        db.collection('post').deleteOne(삭제할데이터 ,function(에러, 결과){
+            console.log('삭제완료'); 
+            if (결과.deleteCount==0) {console.log('삭제실패')}
+            응답.status(200).send({ message : '성공했다.'});
+        })
+    });
+    
