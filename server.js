@@ -1,6 +1,11 @@
 require('dotenv').config()
 const express = require('express');
 const app = express();
+
+const http = require('http').createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(http);
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended : true}));
 app.set('view engine','ejs');
@@ -16,7 +21,7 @@ MongoClient.connect(process.env.DB_URL,function(에러,client){
     db = client.db('todoapp');
     //db.collection('post').insertOne({ 이름 : 'john', _id : 100},function(에러,결과){
     //console.log('저장완료');}); 
-    app.listen(process.env.PORT, function(){     
+    http.listen(process.env.PORT, function(){     
         console.log('listening on '+ process.env.PORT)    
          
     
@@ -262,3 +267,14 @@ app.post('/upload',upload.single('프로필'),function(요청,응답){
 app.get('/image/:imageName', function(요청,응답){
     응답.sendFile(__dirname + '/public/image/' + 요청.params.imageName)
 });
+app.get('/chat',function(요청,응답){
+    응답.render('chat.ejs');
+});
+
+io.on('connection',function(socket){
+    console.log('연결되었어요');
+    socket.on('인삿말', function(data){
+     console.log(data)
+    })
+});
+
