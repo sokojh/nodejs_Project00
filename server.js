@@ -275,6 +275,7 @@ io.on('connection',function(socket){
     console.log('연결되었어요');
     socket.on('인삿말', function(data){
      console.log(data)
+     io.emit('퍼트리기', data );
     })
 });
 

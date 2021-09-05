@@ -13,7 +13,10 @@
   <body> 
     <%- include('nav.html') %>    
      <h3 class = "m-5 text-center">실시간 고객센터</h3>
-
+     <ul class="list-group  container" style="height : 300px; overflow-y: scroll;">
+        <li class="list-group-item">채팅해주세요~</li>
+        
+      </ul> 
      <div class="input-group mb-3 container">
         <input type="text" class="form-control" id="main-input" placeholder="내용을적어주세요 😊" aria-label="Recipient's username" aria-describedby="button-addon2">
         <div class="input-group-append">
@@ -27,6 +30,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      
     <!-- soket.io cdn-->
      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js" integrity="sha512-WL6WGKMPBiM9PnHRYIn5YEtq0Z8XP4fkVb4qy7PP4vhmYQErJ/dySyXuFIMDf1eEYCXCrQrMJfkNwKc9gsjTjA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Optional JavaScript; choose one of the two! -->
@@ -48,9 +52,11 @@
         
         $('#button-addon2').click(function(){
             socket.emit('인삿말',$('#main-input').val());
-            
-            
         });
+        socket.on('퍼트리기', function(data){
+    $('.list-group').append('<li class="list-group-item">'+ data +'</li>');
+    $('.list-group').scrollTop( $('.list-group').prop('scrollHeight') );
+  });
         </script>
   </body>
 </html>
