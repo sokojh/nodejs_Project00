@@ -15,18 +15,16 @@
   </head> 
   <body> 
     <%- include('nav.html') %>   
-
     <center>
-        <div class="container mt-4">
-            <h4 class="text-center mb-3">업로드페이지</h4>
-          <form method="POST" action="/upload" enctype="multipart/form-data">
-            <input type="file" name="프로필">
-            <button type="submit">전송</button>
-            <!--여러개 첨부하고 싶으면 input 여러개 첨부 태그 사용법 찾으셈-->
-            
-            </form>
-          </div>
-        </center>
+    <div class="card text-white bg-danger mb-3" style="max-width: 30rem;">
+        <div class="card-header">경고</div>
+        <div class="card-body">
+          <h5 class="card-title">로그인요청</h5>
+          <p class="card-text">로그인후 이용해주세요.</p> 
+        </div>
+      </div>
+    </center> 
+      
 
     
 
@@ -36,4 +34,4 @@
     
     
   </body>
-</html> 
+</html>

@@ -39,6 +39,7 @@
             <p>글번호 ㅣ <%= posts[i]._id %></p>  
             <h4><a href="/detail/<%= posts[i]._id %>">  할일 제목 : <%= posts[i].제목 %></a> </h4>    
             <p>할일 마감날짜 : <%= posts[i].날짜 %>  </p>    
+            
             <button type="button" class="btn btn-primary" data-id="<%= posts[i]._id %>"  onclick = moveEdit();>수정</button>
             <button type="button" class="btn btn-danger" data-id="<%= posts[i]._id %>">삭제</button>  
             <script type="text/javaScript">

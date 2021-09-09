@@ -51,10 +51,7 @@ app.get('/',function(요청,응답){
     //응답.sendfile(__dirname + '/views/index.ejs');
     응답.render('index.ejs');
 });
-app.get('/write',function(요청,응답){
-    //응답.sendfile(__dirname + '/views/write.ejs');
-    응답.render('write.ejs'); 
-});
+
 app.get('/search',(요청,응답) => {
     var 검색조건 = [
         {
@@ -155,13 +152,14 @@ function 로그인했니(요청,응답,next){
     if (요청.user){
         next()
     } else {
-        응답.send('로그인안하셨는데요?')
+        응답.render('login_req.ejs');
     }
 }
 
 passport.use(new LocalStrategy({
     usernameField: 'id',
     passwordField: 'pw',
+    nicknameField: 'nickname',
     session: true,
     passReqToCallback: false,
   }, function (입력한아이디, 입력한비번, done) {
@@ -197,27 +195,7 @@ passport.use(new LocalStrategy({
       })
   })
   //어떤사람이 /add 경로로 pst요청을하면 ??를해주세요.__dirname
-app.post('/add',(요청,응답) => {
-    
-    응답.send('<a>전송완료</a>')
-    
-    db.collection('counter').findOne({name : '게시물갯수'},function(에러,결과){
-        console.log(결과.totalPost); 
-        
-        var 총게시물갯수 = 결과.totalPost;  
-        var 저장할거 = { _id : 총게시물갯수 + 1,제목 : 요청.body.title, 날짜 : 요청.body.date , 작성자 : 요청.user._id}
-        db.collection('post').insertOne(저장할거,function(에러,결과){
-            console.log('저장완료');
-            //counter라는 콜렉션에 있는 totalPost라는 항목도 1 증가시켜야함 (수정)
-            db.collection('counter').updateOne({name : '게시물갯수'},{ $inc : {totalPost:1}},function(에러,결과){
-                if(에러) {return console.log(에러)}
-                console.log(결과)   
-            });
-       })
-    
-    });
-    
-    });   
+  
     app.delete('/delete',function(요청,응답){
         console.log('삭제요청들어옴');
         console.log(요청.body);
@@ -232,9 +210,6 @@ app.post('/add',(요청,응답) => {
             응답.status(200).send({ message : '성공했다.'});
         })
     });
-    //app.use 미들웨어 요청과 응답사이에 사용하는 것! /shop 경로로 들어오면 라우터 적용해주세요~
-app.use('/shop',require('./routes/shop.js'));
-app.use('/board/sub',require('./routes/board.js'));
 
 let multer = require('multer');
 
@@ -245,7 +220,7 @@ var storage = multer.diskStorage({
     filename : function(req,file,cb){
         cb(null, file.originalname )
         //파일명을 시간넣어서 바꾸고 싶으면 + '날짜'하면 됨(new Date())
-
+ 
     }
     //filefilter : function(req, file, cb){  } 확장자 안되게 거르는법 limts라고 파일크기 제한도 가능
 });
@@ -254,15 +229,11 @@ var upload = multer({ storage : storage });
 
 
 
-
-app.get('/upload',function(요청,응답){
-    응답.render('upload.ejs')
-});                             //input의 name속성 가져옴
+//input의 name속성 가져옴
 // 여러개하고싶다? upload.array(name태그,받을최대갯수)
-app.post('/upload',upload.single('프로필'),function(요청,응답){
-    
-    응답.send('업로드완료')
-});   
+//app.post('/upload',upload.single('프로필'),function(요청,응답){  
+//    응답.send('업로드완료')
+//});   
 
 app.get('/image/:imageName', function(요청,응답){
     응답.sendFile(__dirname + '/public/image/' + 요청.params.imageName)
@@ -279,3 +250,31 @@ io.on('connection',function(socket){
     })
 });
 
+app.get('/login_req',function(요청,응답){
+    응답.render('login_req.ejs');
+});
+    //app.use 미들웨어 요청과 응답사이에 사용하는 것! /shop 경로로 들어오면 라우터 적용해주세요~
+    app.use('/shop',require('./routes/shop.js'));
+    app.use('/board/sub',require('./routes/board.js'));
+    app.use('/wirte',require('./routes/wirte.js')); 
+app.post('/add',upload.single('프로필'),(요청,응답) => {
+    
+        응답.redirect('/list');
+        
+        db.collection('counter').findOne({name : '게시물갯수'},function(에러,결과){
+            console.log(결과.totalPost); 
+            
+            var 총게시물갯수 = 결과.totalPost;  
+            var 저장할거 = { _id : 총게시물갯수 + 1,제목 : 요청.body.title, 날짜 : 요청.body.date , 작성자 : 요청.user._id}
+            db.collection('post').insertOne(저장할거,function(에러,결과){
+                console.log('저장완료');
+                //counter라는 콜렉션에 있는 totalPost라는 항목도 1 증가시켜야함 (수정)
+                db.collection('counter').updateOne({name : '게시물갯수'},{ $inc : {totalPost:1}},function(에러,결과){
+                    if(에러) {return console.log(에러)}
+                    console.log(결과)   
+                });
+           })
+        
+        });
+        
+        }); 
