@@ -32,13 +32,13 @@ const db = mongo.db('weeksom')
 
 
 
-// /하나면 홈임
+// 하나면 홈임
 app.get('/', function (요청, 응답) {
-    //응답.sendfile(__dirname + '/views/index.ejs');
+    // 응답.sendfile(__dirname + '/views/index.ejs');
     응답.render('index.ejs');
 });
 
-app.use('/write', require('../routes/wirte'))
+app.use('/write', require('../routes/write'))
 app.use('/chat', require('../routes/chat'))
 app.use('/member', require('../routes/member'))
 app.use('/notice', require('../routes/notice'))

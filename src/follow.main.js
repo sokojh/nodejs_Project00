@@ -11,8 +11,38 @@ async function main() {
 
   // Reset
   await db.collection('users').deleteMany({})
+  await db.collection('chats').deleteMany({})
+  await db.collection('article').deleteMany({})
 
-  // Init
+  // 게시물등록 디비
+  await db.collection('article').insertOne(
+    {
+      email: '',
+      writer: '',
+      articleImgKey: [],
+      text: '',
+      createDate: new Date,
+    }
+  )
+  // 게시물 댓글 디비
+  // 채팅 디비
+  const hostname = 'b5받아온정보'
+  const guestname = '1받아온정보'
+  const roomId = [hostname, guestname].sort().toString()
+  const message = '받아온정보'
+  const password = '받아온정보'
+  await db.collection('chats').insertMany(
+    [
+      {
+        roomId: roomId,
+        email: hostname,
+        message: message,
+        date: new Date, // 자동입력
+        password: password,
+      }
+    ]
+  )
+  // 유져 디비
   await db.collection('users').insertMany([
     {
       email: 'test1@kakao.com',
@@ -58,7 +88,9 @@ async function main() {
   await db.collection('users').updateOne(filter, follow[fidx])
 
   // find검색, project필드
-  const cursor = db.collection('users').find({}).project({ _id: 0 })
+  const cursor = db.collection('chats').find({
+    roomId: '1받아온정보,b5받아온정보'
+  }).project({})
   // eslint-disable-next-line no-console
   await cursor.forEach(console.log)
 
