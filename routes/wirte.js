@@ -1,13 +1,8 @@
 
 var router = require('express').Router();
 
-function 로그인했니(요청,응답,next){
-    if (요청.user){
-        next()
-    } else {
-        응답.render('login_req.ejs')
-    }
-}
+
+
 router.use('/new',로그인했니);
 
 router.get('/new',function(요청,응답){
