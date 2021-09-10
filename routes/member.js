@@ -24,7 +24,7 @@ router.get('/join', async function (요청, 응답) {
 
     const email = 요청.user.email
     const password = '받아온정보'
-    const nickname = '받아온정보',
+    const nickname = '받아온정보'
 
     await db.collection('users').insertMany(
         {

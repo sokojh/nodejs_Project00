@@ -24,6 +24,16 @@ async function main() {
       createDate: new Date,
     }
   )
+  // 게시물 등록 이미지 포함
+  await db.collection('article').insertOne(
+    {
+      email: '',
+      writer: '',
+      articleImgKey: [result.key],
+      text: '',
+      createDate: new Date,
+    }
+  )
   // 게시물 댓글 디비
   // 채팅 디비
   const hostname = 'b5받아온정보'
