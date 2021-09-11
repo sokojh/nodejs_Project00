@@ -5,19 +5,16 @@
     <title>로그인</title>
   </head>
   <body>
-    <% if (!id) { %>
     <form action="/member/login" method="POST">
       <input type="text" placeholder="아이디입력" name="id" />
       <input type="text" placeholder="비번입력" name="passwword" />
       <input type="submit" value="서브밋" />
     </form>
-    <% } if (id) { %>
-    <form action="/member/join" method="POST">
+    <!-- <form action="/member/join" method="POST">
       <input type="text" placeholder="아이디입력" name="id" />
       <input type="text" placeholder="비번입력" name="passwword" />
       <input type="text" placeholder="닉네임입력" name="nickname" />
       <input type="submit" value="서브밋" />
-    </form>
-    <% } %>
+    </form> -->
   </body>
 </html>
