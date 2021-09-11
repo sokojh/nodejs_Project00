@@ -1,7 +1,10 @@
 require('dotenv').config() // env
 const mongo = require('./mongo') // 몽고 디비 연결모듈
 const express = require('express') // 익스프레스
+const session = require('express-session')
 const { Server } = require('socket.io') // 소캣 io
+const morgan = require('morgan') // 작동 로그 기록, 미들웨어로사용
+const path = require('path') // 
 
 const app = express() // 익스프레스 객체 생성
 
@@ -13,6 +16,7 @@ app.use(express.urlencoded({ extended: true }))
 // view 엔진을 ejs로 볼수있게 선언.
 app.set('view engine', 'ejs')
 // static 폴더 지정해주는것 public폴더를 고정폴더로 서버 시작할때 사용하게 만들어줌.
+app.use(morgan('dev'))
 app.use('/public', express.static('public'))
 // 폼에 매서드 만들수있는 라이브러리.
 const methodOverride = require('method-override')
