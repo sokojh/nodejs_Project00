@@ -1,16 +1,12 @@
-//env 환경설정 사용할수있도록 불러오는 것.
-require('dotenv').config()
-//공통 함수 기능 불러오는 것.
-//const app_function = require('./function_app');
-// db 연결하는 기능 불러오는 것.
-const mongo = require('./mongo')
-// express 라이브러리 사용하는 것.
-const express = require('express')
-const app = express()
-// 소켓.io 실시간 채팅 라이브러리 사용
+require('dotenv').config() // env
+const mongo = require('./mongo') // 몽고 디비 연결모듈
+const express = require('express') // 익스프레스
+const { Server } = require('socket.io') // 소캣 io
+
+const app = express() // 익스프레스 객체 생성
+const router = express.Router() // 라우터 객체 생성
 const http = require('http').createServer(app)
-const { Server } = require('socket.io')
-const io = new Server(http)
+const io = new Server(http) // 소캣 객체 생성
 
 // 클라이언트 POST request data의 body로부터 파라미터를 편리하게 추출합니다.
 app.use(express.urlencoded({ extended: true }))

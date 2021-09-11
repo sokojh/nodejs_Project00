@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const appfn = require('../src/function_app')
-const client = require('./mongo')
+const client = require('../src/mongo')
 
 router.use('/', appfn.로그인했니, (req, res) => {
   console.log('asdfasdf')

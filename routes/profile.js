@@ -1,9 +1,7 @@
 const router = require('express').Router()
 const appfn = require('../src/function_app')
 
-router.use('/new', appfn.로그인했니, (req, res) => {
-  console.log('asdfasdf')
-})
+router.use('/new', appfn.로그인했니, (req, res) => {})
 
 router.get('/new', function (요청, 응답) {
   //응답.sendfile(__dirname + '/views/write.ejs');
