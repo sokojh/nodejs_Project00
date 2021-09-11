@@ -4,7 +4,7 @@ const express = require('express') // 익스프레스
 const { Server } = require('socket.io') // 소캣 io
 
 const app = express() // 익스프레스 객체 생성
-const router = express.Router() // 라우터 객체 생성
+
 const http = require('http').createServer(app)
 const io = new Server(http) // 소캣 객체 생성
 

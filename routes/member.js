@@ -2,13 +2,14 @@ const router = require('express').Router()
 const appfn = require('../src/function_app')
 const client = require('../src/mongo')
 
-router.use('/', appfn.로그인했니, (req, res) => {
-  console.log('asdfasdf')
+router.use('/', (req, res) => {
+  //로그인 페이지
+  res.render('../views/login.ejs')
+  //페이지에서 로그인 정보 서브밋하면 아이디 비번정보가지고 /login으로 이동
 })
 
-router.get('/login', function (요청, 응답) {
-  // 응답.sendfile(__dirname + '/views/write.ejs');
-  응답.render('../views/write.ejs')
+router.use('/login', (req, res) => {
+  console.log(req.id, req.pw)
 })
 
 router.get('/join', async function (요청, 응답) {
