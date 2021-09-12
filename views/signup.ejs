@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>회원가입</title>
+  </head>
+  <body>
+    <h1>회원가입</h1>
+    <form action="/signup" method="POST" onsubmit="return validation()">
+      <input type="text" placeholder="email" name="email" /> <br />
+      <input type="text" placeholder="password" name="password" /> <br />
+      <input type="text" placeholder="password confirm" name="password" />
+      <br />
+      <input type="text" placeholder="nickname" name="nickname" /><br />
+      <input type="submit" value="서브밋" /><br />
+    </form>
+  </body>
+  <script>
+    function validation() {
+      // 유효성 검사좀 해줘용
+    }
+  </script>
+</html>
