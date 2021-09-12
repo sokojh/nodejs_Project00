@@ -6,6 +6,9 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
 
+client.connect()
+const db = client.db('weeksom')
+
 router.use(
   session({ secret: '세션비번', resave: true, saveUninitialized: false })
 )
@@ -40,23 +43,15 @@ passport.use(
     },
     async (email, password, done) => {
       console.log(email, password, '로 로그인시도 중')
-      await client.connect()
-      const db = client.db('weeksom')
-      const cursor = await db.collection('users').find(
-        { email: email }
-        // (err, result) => {
-        //   if (err) return done(err)
-        //   if (!result)
-        //     return done(null, false, { message: '아이디가 존재하지 않습니다' })
-        //   if (password == result.password) {
-        //     return done(null, result)
-        //   } else {
-        //     return done(null, false, { message: '비번이 틀렸습니다' })
-        //   }
-        // }
-      )
-      cursor.forEach(console.log)
-      client.close()
+      const result = await db.collection('users').findOne({ email: email }) // 디비에서 검색
+      if (!result)
+        // 결과값이 없으면
+        return done(null, false, { message: '아이디가 존재하지 않습니다' })
+      if (password == result.password) {
+        return done(null, result)
+      } else {
+        return done(null, false, { message: '비번이 틀렸습니다' })
+      }
     }
   )
 )
@@ -66,11 +61,13 @@ passport.serializeUser((user, done) => {
   done(null, user.email) // 세션데이터를 만들어서 쿠키로 보냄
 })
 
-// passport.deserializeUser(function(아이디,done){
-//   //디비에서 위에있는 user.id로 유저를 찾은 뒤에 유저정보를
-//   db.collection('login').findOne({id:아이디},function(에러,결과){
-//       done(null,결과)
-//   })
-// });
+passport.deserializeUser((email, done) => {
+  //쿠키에 로그인이메일 가져와서
+  //디비에서 위에있는 user.id로 유저를 찾은 뒤에 유저정보를
+  db.collection('users').findOne({ email: email }, (err, result) => {
+    console.log('쿠키확인', result.email) // 검색해보고
+    done(null, result.email) // 끝냄
+  })
+})
 
 module.exports = router
