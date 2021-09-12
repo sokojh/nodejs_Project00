@@ -42,7 +42,7 @@ passport.use(
       console.log(email, password, '로 로그인시도 중')
       await client.connect()
       const db = client.db('weeksom')
-      const cursor = await db.collection('users').findOne(
+      const cursor = await db.collection('users').find(
         { email: email }
         // (err, result) => {
         //   if (err) return done(err)
@@ -55,8 +55,8 @@ passport.use(
         //   }
         // }
       )
-      await cursor.forEach(console.log)
-      await client.close()
+      cursor.forEach(console.log)
+      client.close()
     }
   )
 )
