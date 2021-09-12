@@ -4,7 +4,7 @@ const client = require('../src/mongo')
 router.get(
   '/',
   (req, res, next) => {
-    if (req.body.email) {
+    if (req.user) {
       next()
     } else {
       res.send('not sign in')
@@ -12,8 +12,8 @@ router.get(
   },
   (req, res) => {
     console.log('클라이언트 : profile 라우터 연결')
-    console.log(req.body.email)
-    응답.render('profile.ejs', { 사용자: req.body.user })
+    console.log('전달받은 유져정보', req.user)
+    res.render('profile.ejs', { 사용자: req.user })
   }
 )
 

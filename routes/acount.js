@@ -1,12 +1,12 @@
 const router = require('express').Router()
 const client = require('../src/mongo')
 
-router.get('/', (req, res) => {
+router.get('/signup', (req, res) => {
   console.log('클라이언트 : signup 라우터 연결')
   res.render(`signup.ejs`)
 })
 
-router.post('/', (req, res, next) => {
+router.post('/signup', (req, res, next) => {
   console.log('클라이언트 : 포스트데이터 전송')
   console.log('서버에 전달받은 데이터 : ', req.body)
   console.log('서버 유효성 검사')
@@ -17,6 +17,11 @@ router.post('/', (req, res, next) => {
   } else {
     //res.redirect('/signup')
   }
+})
+
+router.get('/signin', (req, res) => {
+  console.log('클라이언트 : signin 라우터 연결')
+  res.render(`signin.ejs`)
 })
 
 module.exports = router

@@ -11,8 +11,7 @@ app.set('view engine', 'ejs') //뷰엔진 ejs 사용
 
 function loginCheck(req, res, next) {
   if (req.user) {
-    console.log('function loginCheck req.user : ', req.user)
-    console.log('\n')
+    console.log('function loginCheck req.user : ', req.user, '확인')
     next()
   } else {
     console.log('req.user 정보가 없습니다. 로그인페이지로 갑니다.')
@@ -30,12 +29,12 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
 
-client.connect()
-const db = client.db('weeksom')
-
 app.use(session({ secret: '세션비번', resave: true, saveUninitialized: false }))
 app.use(passport.initialize())
 app.use(passport.session())
+
+client.connect()
+const db = client.db('weeksom')
 
 app.post(
   '/',
@@ -43,9 +42,8 @@ app.post(
     //로컬 방식으로 인증
     failureRedirect: '/fail',
   }),
-  loginCheck,
   (req, res) => {
-    res.render('index.ejs', { email: req.body.email })
+    res.render('index.ejs')
   }
 )
 
@@ -59,11 +57,13 @@ passport.use(
       passReqToCallback: false, // 기타 입력값에 대해 req.body로 검증할지 여부
     },
     async (email, password, done) => {
-      console.log(email, '패스포트 로컬전략 로그인시도 중')
+      console.log('패스포트 로컬전략 로그인시도 :', email)
+
       const result = await db.collection('users').findOne({ email: email }) // 디비에서 검색
-      if (!result)
-        // 결과값이 없으면
+      // 결과값이 없으면
+      if (!result) {
         return done(null, false, { message: '아이디가 존재하지 않습니다' })
+      }
       if (password == result.password) {
         return done(null, result)
       } else {
@@ -75,24 +75,28 @@ passport.use(
 
 passport.serializeUser((user, done) => {
   // 패스포트에서 만들어진 result를 user로 받아서 사용
-  // @ts-ignore
-  console.log('시리얼라이즈 :', user.email)
+  console.log(
+    '시리얼라이즈 :',
+    // @ts-ignore
+    user.email,
+    '세션에 저장하고 세션데이터 쿠키에 전송'
+  )
   // @ts-ignore
   done(null, user.email) // 세션데이터를 만들어서 쿠키로 보냄
 })
 
-passport.deserializeUser((email, done) => {
+passport.deserializeUser(async (email, done) => {
   //쿠키에 세션정보 가져와서
   //디비에서 위에있는 user.id로 유저를 찾은 뒤에 유저정보를
   db.collection('users').findOne({ email: email }, (err, result) => {
-    console.log('디시리얼라이즈 확인 : ', result) // 검색해보고
+    console.log('디 시리얼라이즈 확인 : ', result.email) // 검색해보고
     done(null, result) // 끝냄
   })
 })
-
 // ------------------------------------------------
+
 app.use('/sendinput', loginCheck, require('../routes/sendinput'))
-app.use('/signup', require('../routes/signup'))
+app.use('/acount', require('../routes/acount'))
 app.use('/profile', loginCheck, require('../routes/profile'))
 
 module.exports = app
