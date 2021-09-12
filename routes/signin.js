@@ -2,6 +2,8 @@
 
 const router = require('express').Router()
 const client = require('../src/mongo')
+
+
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
@@ -26,6 +28,11 @@ router.post(
     //로컬 방식으로 인증
     failureRedirect: '/fail',
   }),
+  (req, res, next) => {
+    console.log('로그인정보 출력')
+    console.log(req.body.email)
+    next()
+  },
   (req, res) => {
     console.log(req.body)
     res.redirect('/signin')
