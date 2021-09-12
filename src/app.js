@@ -9,15 +9,18 @@ app.use(express.json()) // post로 전달된 페이로드를 받을 수 있음
 app.set('views', 'views') // 익스프레스 뷰 폴더 경로는 기본값으로 views를 사용
 app.set('view engine', 'ejs') //뷰엔진 ejs 사용
 
-function login(req, res, next) {
-  console.log('function login req.body.email : ', req.body.email)
-  console.log('function login req.user : ', req.user)
-  console.log('\n')
-  req.body.email = req.body.email
-  next()
+function loginCheck(req, res, next) {
+  if (req.user) {
+    console.log('function loginCheck req.user : ', req.user)
+    console.log('\n')
+    next()
+  } else {
+    console.log('req.user 정보가 없습니다. 로그인페이지로 갑니다.')
+    res.render('signin.ejs')
+  }
 }
 
-app.get('/', login, (req, res) => {
+app.get('/', loginCheck, (req, res) => {
   console.log('get / 클라이언트 : 인덱스 페이지 연결 \n')
   res.render(`index.ejs`)
 })
@@ -40,7 +43,7 @@ app.post(
     //로컬 방식으로 인증
     failureRedirect: '/fail',
   }),
-  login,
+  loginCheck,
   (req, res) => {
     res.render('index.ejs', { email: req.body.email })
   }
@@ -72,23 +75,24 @@ passport.use(
 
 passport.serializeUser((user, done) => {
   // 패스포트에서 만들어진 result를 user로 받아서 사용
+  // @ts-ignore
   console.log('시리얼라이즈 :', user.email)
+  // @ts-ignore
   done(null, user.email) // 세션데이터를 만들어서 쿠키로 보냄
 })
 
 passport.deserializeUser((email, done) => {
-  //쿠키에 로그인이메일 가져와서
+  //쿠키에 세션정보 가져와서
   //디비에서 위에있는 user.id로 유저를 찾은 뒤에 유저정보를
   db.collection('users').findOne({ email: email }, (err, result) => {
-    console.log('디시리얼라이즈 확인 : ', result.email) // 검색해보고
-    done(null, result.email) // 끝냄
+    console.log('디시리얼라이즈 확인 : ', result) // 검색해보고
+    done(null, result) // 끝냄
   })
 })
 
 // ------------------------------------------------
-app.use('/sendinput', login, require('../routes/sendinput'))
-app.use('/signup', login, require('../routes/signup'))
-//app.use('/signin', require('../routes/signin'))
-app.use('/profile', login, require('../routes/profile'))
+app.use('/sendinput', loginCheck, require('../routes/sendinput'))
+app.use('/signup', require('../routes/signup'))
+app.use('/profile', loginCheck, require('../routes/profile'))
 
 module.exports = app
