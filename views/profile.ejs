@@ -5,6 +5,13 @@
     <title>profile</title>
   </head>
   <body>
-    <p><%= 사용자.nickname %>의 프로필입니다.</p>
+    <h1><%= 사용자.nickname %>님의 프로필입니다.</h1>
+    이메일 : <%= 사용자.email %><br />
+    팔로워 : <%= 사용자.follower %><br />
+    팔로잉 : <%= 사용자.following %><br />
+    한마디 : <%= 사용자.userinfo %><br />
+    게시물 : <%= 사용자.article %><br />
+    즐겨찾기 : <%= 사용자.bookmark %><br />
+    <a href="/acount/modify">프로필 정보 변경</a>
   </body>
 </html>

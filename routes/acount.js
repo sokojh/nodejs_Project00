@@ -1,6 +1,13 @@
 const router = require('express').Router()
 const client = require('../src/mongo')
 
+//로그인
+router.get('/signin', (req, res) => {
+  console.log('클라이언트 : signin 라우터 연결')
+  res.render(`signin.ejs`)
+})
+
+// 회원가입
 router.get('/signup', (req, res) => {
   console.log('클라이언트 : signup 라우터 연결')
   res.render(`signup.ejs`)
@@ -19,9 +26,11 @@ router.post('/signup', (req, res, next) => {
   }
 })
 
-router.get('/signin', (req, res) => {
-  console.log('클라이언트 : signin 라우터 연결')
-  res.render(`signin.ejs`)
+// 프로필
+router.get('/profile', (req, res) => {
+  console.log('클라이언트 : profile 라우터 연결')
+  console.log('전달받은 유져정보', req.user)
+  res.render('profile.ejs', { 사용자: req.user })
 })
 
 module.exports = router
