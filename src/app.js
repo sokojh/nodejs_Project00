@@ -8,10 +8,10 @@ app.set('views', 'views') // 익스프레스 뷰 폴더 경로는 기본값으�
 app.set('view engine', 'ejs') //뷰엔진 ejs 사용
 
 // 몽구스 테스트
-const { Ariticle } = require('../api/index')
+const { Article } = require('../api/index')
 
 app.get('/read', Article.articleRead)
-app.post('/create', Ariticle.articleCreate)
+app.post('/create', Article.articleCreate)
 // ------------- 로그인 기능처리 -----------------
 const loginCheck = (req, res, next) => {
   if (req.user) {
@@ -27,7 +27,6 @@ const loginCheck = (req, res, next) => {
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
-const { Article } = require('../mongoose/schema')
 
 app.use(session({ secret: '세션비번', resave: true, saveUninitialized: false }))
 app.use(passport.initialize())

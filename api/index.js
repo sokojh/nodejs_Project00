@@ -1,7 +1,7 @@
-const Ariticle = require('./article')
+const Article = require('./article')
 const User = require('./user')
 
 module.exports = {
-  Ariticle,
+  Article,
   User,
 }
