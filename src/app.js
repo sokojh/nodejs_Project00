@@ -1,17 +1,17 @@
 // @ts-check
-
 const express = require('express') // 익스프레스 서버모듈 가져오기
 const app = express() // 익스프레스 객체 생성
-const client = require('../src/mongo')
-
+const client = require('../src/mongo') // 몽고디비 연결 정보
 app.use(express.urlencoded({ extended: true })) // 포스트 전송시 인코딩
 app.use(express.json()) // post로 전달된 페이로드를 받을 수 있음
 app.set('views', 'views') // 익스프레스 뷰 폴더 경로는 기본값으로 views를 사용
 app.set('view engine', 'ejs') //뷰엔진 ejs 사용
 
-function loginCheck(req, res, next) {
+// ------------- 로그인 기능처리 -----------------
+const loginCheck = (req, res, next) => {
   if (req.user) {
-    console.log('function loginCheck req.user : ', req.user, '확인')
+    console.log('req.user 정보 확인.')
+    // console.log('function loginCheck req.user : ', req.user, '확인')
     next()
   } else {
     console.log('req.user 정보가 없습니다. 로그인페이지로 갑니다.')
@@ -19,12 +19,6 @@ function loginCheck(req, res, next) {
   }
 }
 
-app.get('/', loginCheck, (req, res) => {
-  console.log('get / 클라이언트 : 인덱스 페이지 연결 \n')
-  res.render(`index.ejs`)
-})
-
-// ------------- 로그인 기능처리 -----------------
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
@@ -35,17 +29,6 @@ app.use(passport.session())
 
 client.connect()
 const db = client.db('weeksom')
-
-app.post(
-  '/',
-  passport.authenticate('local', {
-    //로컬 방식으로 인증
-    failureRedirect: '/fail',
-  }),
-  (req, res) => {
-    res.render('index.ejs')
-  }
-)
 
 passport.use(
   // 로그인 인증 모듈사용
@@ -102,9 +85,32 @@ passport.deserializeUser(async (email, done) => {
     done(null, result) // 끝냄
   })
 })
-// ------------------------------------------------
+// ------------------- 로그인처리 ----------------------
+
+app.get('/', loginCheck, (req, res) => {
+  console.log('get / 클라이언트 : 인덱스 페이지 연결 \n')
+  res.render(`index.ejs`)
+})
+
+app.post(
+  '/',
+  passport.authenticate('local', {
+    //로컬 방식으로 인증
+    failureRedirect: '/fail',
+  }),
+  (req, res) => {
+    res.render('index.ejs')
+  }
+)
 
 app.use('/sendinput', loginCheck, require('../routes/sendinput'))
 app.use('/acount', require('../routes/acount'))
+
+app.param('weeksonID', (req, res, next, value) => {
+  //weeksonID를 value로 가져옴
+  //디비조회하고 일치하는 정보를 req.profile에 넘겨줌
+  //next()로 절차넘김
+})
+app.use('/:weeksomID', loginCheck, require('../routes/profile'))
 
 module.exports = app
