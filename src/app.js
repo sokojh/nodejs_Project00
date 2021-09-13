@@ -9,7 +9,8 @@ app.set('view engine', 'ejs') //뷰엔진 ejs 사용
 
 // 몽구스 테스트
 const { Ariticle } = require('../api/index')
-app.get('read', Article.articleRead)
+
+app.get('/read', Article.articleRead)
 app.post('/create', Ariticle.articleCreate)
 // ------------- 로그인 기능처리 -----------------
 const loginCheck = (req, res, next) => {

@@ -11,8 +11,8 @@ const articleCreate = async (req, res) => {
 }
 
 // Read
-const articleRead = (req, res) => {
-  const articles = await model.Article
+const articleRead = async (req, res) => {
+  const articles = await model.Article.find({})
   res.send(articles)
 }
 
