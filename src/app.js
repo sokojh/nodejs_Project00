@@ -3,7 +3,7 @@ const express = require('express') // 익스프레스 서버모듈 가져오기
 const app = express() // 익스프레스 객체 생성
 //const client = require('../src/mongo') // 몽고디비 연결 정보
 app.use(express.urlencoded({ extended: true })) // 포스트 전송시 인코딩
-app.use(express.json()) // post로 전달된 페이로드를 받을 수 있음
+app.use(express.json()) // post로 전달된 페이로드를 받을 수 있음 => req.body 로 프론트 폼데이터 전달받음
 app.set('views', 'views') // 익스프레스 뷰 폴더 경로는 기본값으로 views를 사용
 app.set('view engine', 'ejs') //뷰엔진 ejs 사용
 
@@ -14,6 +14,7 @@ app.post('/create', Article.articleCreate)
 app.patch('/update', Article.articleUpdate)
 app.delete('/delete/:id', Article.articleDelete)
 // ------------- 로그인 기능처리 -----------------
+// @ts-ignore
 const loginCheck = (req, res, next) => {
   if (req.user) {
     console.log('req.user 정보 확인.')

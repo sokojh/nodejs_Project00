@@ -1,6 +1,5 @@
 const router = require('express').Router()
-const client = require('../src/mongo')
-
+const { User } = require('../api/index') // 몽구스 api 임포트
 //로그인
 router.get('/signin', (req, res) => {
   console.log('클라이언트 : signin 라우터 연결')
@@ -13,17 +12,6 @@ router.get('/signup', (req, res) => {
   res.render(`signup.ejs`)
 })
 
-router.post('/signup', (req, res, next) => {
-  console.log('클라이언트 : 포스트데이터 전송')
-  console.log('서버에 전달받은 데이터 : ', req.body)
-  console.log('서버 유효성 검사')
-  console.log('디비에 회원정보 입력') // 잘 되면
-  const db = false //true 안되면 false
-  if (db) {
-    //res.redirect('/signin')
-  } else {
-    //res.redirect('/signup')
-  }
-})
+router.post('/signup', User.userSignup) // 몽구스 유저등록 api 사용
 
 module.exports = router
