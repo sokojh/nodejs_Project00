@@ -5,14 +5,15 @@ const articleCreate = async (req, res) => {
   const { contentText } = req.body
 
   const newArticle = await Article({ contentText })
-  const saveRequest = await newArticle.save()
+  const saveRequest = await newArticle.save() // 디비에 저장
   console.log(saveRequest)
   res.send(saveRequest)
 }
 
 // Read
 const articleRead = async (req, res) => {
-  const articles = await Article.find({})
+  const email = req.body.email
+  const articles = await Article.find({email:email})
   res.send(articles)
 }
 

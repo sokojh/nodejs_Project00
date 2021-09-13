@@ -6,4 +6,4 @@ const Article = require('./article')
 module.exports = {
   User,
   Article,
-}
+} // = schema
