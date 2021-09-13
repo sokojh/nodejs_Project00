@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
-const Users = new mongoose.Schema({
+const User = new mongoose.Schema({
   email: { type: String, default: '', required: true, unique: true },
+  weeksomId: { type: String, required: true, unique: true },
   hashedPassword: { type: String, required: true },
   nickname: { type: String, required: true },
   profileImgKey: { type: String },
@@ -11,4 +12,4 @@ const Users = new mongoose.Schema({
   bookmark: { type: Array },
 })
 
-module.exports = Users
+module.exports = User

@@ -1,12 +1,16 @@
 // @ts-check
 const express = require('express') // 익스프레스 서버모듈 가져오기
 const app = express() // 익스프레스 객체 생성
-const client = require('../src/mongo') // 몽고디비 연결 정보
+//const client = require('../src/mongo') // 몽고디비 연결 정보
 app.use(express.urlencoded({ extended: true })) // 포스트 전송시 인코딩
 app.use(express.json()) // post로 전달된 페이로드를 받을 수 있음
 app.set('views', 'views') // 익스프레스 뷰 폴더 경로는 기본값으로 views를 사용
 app.set('view engine', 'ejs') //뷰엔진 ejs 사용
 
+// 몽구스 테스트
+const { Ariticle } = require('../api/index')
+app.get('read', Article.articleRead)
+app.post('/create', Ariticle.articleCreate)
 // ------------- 로그인 기능처리 -----------------
 const loginCheck = (req, res, next) => {
   if (req.user) {
@@ -22,13 +26,14 @@ const loginCheck = (req, res, next) => {
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
+const { Article } = require('../mongoose/schema')
 
 app.use(session({ secret: '세션비번', resave: true, saveUninitialized: false }))
 app.use(passport.initialize())
 app.use(passport.session())
 
-client.connect()
-const db = client.db('weeksom')
+//client.connect()
+//const db = client.db('weeksom')
 
 passport.use(
   // 로그인 인증 모듈사용
@@ -105,12 +110,6 @@ app.post(
 
 app.use('/sendinput', loginCheck, require('../routes/sendinput'))
 app.use('/acount', require('../routes/acount'))
-
-app.param('weeksonID', (req, res, next, value) => {
-  //weeksonID를 value로 가져옴
-  //디비조회하고 일치하는 정보를 req.profile에 넘겨줌
-  //next()로 절차넘김
-})
-app.use('/:weeksomID', loginCheck, require('../routes/profile'))
+app.use('/profile', require('../routes/profile'))
 
 module.exports = app
