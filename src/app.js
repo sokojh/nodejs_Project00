@@ -9,9 +9,10 @@ app.set('view engine', 'ejs') //뷰엔진 ejs 사용
 
 // 몽구스 테스트
 const { Article } = require('../api/index')
-
 app.get('/read', Article.articleRead)
 app.post('/create', Article.articleCreate)
+app.patch('/update', Article.articleUpdate)
+app.delete('/delete/:id', Article.articleDelete)
 // ------------- 로그인 기능처리 -----------------
 const loginCheck = (req, res, next) => {
   if (req.user) {

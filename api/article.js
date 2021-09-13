@@ -1,10 +1,10 @@
-const model = require('../mongoose/model')
+const { Article } = require('../mongoose/model')
 
 // Create
 const articleCreate = async (req, res) => {
   const { contentText } = req.body
 
-  const newArticle = await model.Article({ contentText })
+  const newArticle = await Article({ contentText })
   const saveRequest = await newArticle.save()
   console.log(saveRequest)
   res.send(saveRequest)
@@ -12,15 +12,23 @@ const articleCreate = async (req, res) => {
 
 // Read
 const articleRead = async (req, res) => {
-  const articles = await model.Article.find({})
+  const articles = await Article.find({})
   res.send(articles)
 }
 
 // Update
-const articleUpdate = (req, res) => {}
+const articleUpdate = async (req, res) => {
+  const { id, contentText } = req.body
+  const updatedArticle = await Article.findByIdAndUpdate(id, { contentText }) //리턴값으로 수정전 오리진데이터 사용
+  res.send(updatedArticle)
+}
 
 // Delete
-const articleDelete = (req, res) => {}
+const articleDelete = async (req, res) => {
+  const { id } = req.params
+  const deleteArticle = await Article.findByIdAndDelete(id)
+  res.send(deleteArticle)
+}
 
 module.exports = {
   articleCreate,
