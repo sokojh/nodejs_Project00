@@ -8,8 +8,6 @@ app.use(express.json()) // post로 전달된 페이로드를 받을 수 있음 =
 app.set('views', 'views') // 익스프레스 뷰 폴더 경로는 기본값으로 views를 사용
 app.set('view engine', 'ejs') //뷰엔진 ejs 사용
 
-// ------------- 로그인 기능처리 -----------------
-
 // @ts-ignore
 // 세션 로그인 확인 미들웨어 ( 쿠키해시값 => 패스포트 디시리얼라이즈 자동실행 => 세션정보 확인 )
 const loginCheck = (req, res, next) => {

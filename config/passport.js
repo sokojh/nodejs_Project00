@@ -1,6 +1,5 @@
 // 작성 기준 출처 : https://youtu.be/6FOq4cUdH8k?t=4055
 
-
 const LocalStrategy = require('passport-local').Strategy
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
@@ -28,8 +27,6 @@ const pp = (passport) => {
                 message: 'that email is not registered',
               })
             }
-            console.log(user)
-            console.log(email, password, user.hashedPassword)
             //Match password
             bcrypt.compare(password, user.hashedPassword, (err, isMatch) => {
               if (err) throw err
