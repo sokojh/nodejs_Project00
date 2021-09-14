@@ -13,6 +13,7 @@ app.get('/read', Article.articleRead)
 app.post('/create', Article.articleCreate)
 app.patch('/update', Article.articleUpdate)
 app.delete('/delete/:id', Article.articleDelete)
+
 // ------------- 로그인 기능처리 -----------------
 // @ts-ignore
 const loginCheck = (req, res, next) => {

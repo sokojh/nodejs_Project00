@@ -14,13 +14,18 @@ const model = (() => {
 
   // 아틀라스 클러스터 > 디비 연결
   //DB_URL 디비이름 사용(todoapp > weeksom으로 변경)
-  mongoose.connect(process.env.DB_URL, {
-    // 디비연결 사용 옵션들
-    // useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    // useFindAndModify: true,
-  })
+  mongoose
+    .connect(process.env.DB_URL, {
+      // 디비연결 사용 옵션들
+      // useCreateIndex: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      // useFindAndModify: true,
+    })
+    .then(() => {
+      console.log('weeksom 연결')
+    })
+    .catch((err) => console.log(err))
 
   // 스키마 연결
   const model = {}
