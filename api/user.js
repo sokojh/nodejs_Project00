@@ -1,10 +1,10 @@
 const { User } = require('../mongoose/model')
-
+const bcript = require('bcrypt')
 // 회원가입
 const userSignup = async (req, res) => {
-  const { email, weeksomId, password, nickname } = req.body
-
-  const newUser = await User({ email, weeksomId, password, nickname })
+  const { email, weeksomId, passwordConfirm, nickname } = req.body
+  const hashedPassword = bcript.hash(passwordConfirm, 10)
+  const newUser = await User({ email, weeksomId, hashedPassword, nickname })
   const saveRequest = await newUser.save() // 디비에 저장하면 저장된 데이터 리턴
   console.log(saveRequest)
   res.send(saveRequest)

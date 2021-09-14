@@ -35,6 +35,16 @@ app.use(session({ secret: '세션비번', resave: true, saveUninitialized: false
 app.use(passport.initialize())
 app.use(passport.session())
 
+// ----------------- passport mongoose -----------
+// const model = require('../mongoose/model')
+// const UserModel = model.User
+
+// passport.use(new LocalStrategy(UserModel.authenticate()))
+
+// passport.serializeUser(UserModel.serializeUser())
+// passport.deserializeUser(UserModel.deserializeUser())
+
+// ------------------ 기존 passport -------------
 //client.connect()
 //const db = client.db('weeksom')
 
