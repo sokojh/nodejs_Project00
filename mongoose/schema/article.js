@@ -12,6 +12,7 @@ const Article = mongoose.Schema({
   viewCount: { type: Number, default: 0 },
   likeCount: { type: Number, default: 0 },
   commentCount: { type: Number, default: 0 },
+  versionKey: false,
   // 카운트 스키마가 없으면 게시글의 갯수만큼 댓글 검색쿼리를 돌려야하고 디비성능이 떨어진다
 })
 

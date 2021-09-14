@@ -12,6 +12,8 @@ const Comment = mongoose.Schema({
 
   // 동적으로 변동될 수 있는 데이터
   likeCount: { type: Number, default: 0 },
+  versionKey: false,
+  
 })
 
 module.exports = Comment
