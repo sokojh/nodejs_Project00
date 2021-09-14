@@ -1,5 +1,9 @@
 const { User } = require('../mongoose/model')
+
 const bcrypt = require('bcrypt')
+
+
+
 // 회원가입
 const userSignup = async (req, res) => {
   const { email, weeksomId, passwordConfirm, nickname } = req.body

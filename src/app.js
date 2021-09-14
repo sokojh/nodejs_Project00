@@ -35,7 +35,7 @@ app.use(session({ secret: '세션비번', resave: true, saveUninitialized: false
 app.use(passport.initialize())
 app.use(passport.session())
 
-// ----------------- passport mongoose -----------
+// // ----------------- passport mongoose -----------
 // const model = require('../mongoose/model')
 // const UserModel = model.User
 
@@ -88,18 +88,10 @@ passport.serializeUser((user, done) => {
 })
 
 passport.deserializeUser(async (email, done) => {
-  // find 변경시도중
-  // const cursor = await db
-  //   .collection('users')
-  //   .find({ email: email })
-  //   .project({ _id: 0, password: 0, follower: 0, following: 0 })
-  //   .toArray()
-  // console.log('파인드함수로 찾은 결과값 : ')
-  // cursor.forEach(console.log)
-
   //쿠키에 세션정보 가져와서
   //디비에서 위에있는 user.id로 유저를 찾은 뒤에 유저정보를
   db.collection('users').findOne({ email: email }, (err, result) => {
+    // @ts-ignore
     console.log('디 시리얼라이즈 확인 : ', result.email) // 검색해보고
     done(null, result) // 끝냄
   })
