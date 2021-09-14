@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { User } = require('../api/index') // 몽구스 api 임포트
+const { User } = require('../api/0.index') // 몽구스 api 임포트
 
 //로그인
 router.get('/signin', (req, res) => {
