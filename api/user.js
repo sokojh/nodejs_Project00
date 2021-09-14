@@ -13,11 +13,13 @@ const userSignup = async (req, res) => {
   res.send(saveRequest)
 }
 
-// Read
-const articleRead = async (req, res) => {
-  const email = req.body.email
-  const articles = await Article.find({ email: email })
-  res.send(articles)
+// 프로필 유져 검색 /profile/:weeksomid
+const viewUserProfile = async (req, res, next) => {
+  const weeksomId = req.params.weeksomId
+  console.log(weeksomId)
+  const userProfile = await User.find({ weeksomId: weeksomId })
+  req.userProfile = userProfile[0]
+  next()
 }
 
 // Update
@@ -36,4 +38,5 @@ const articleDelete = async (req, res) => {
 
 module.exports = {
   userSignup,
+  viewUserProfile,
 }

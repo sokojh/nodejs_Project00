@@ -5,13 +5,14 @@
     <title>profile</title>
   </head>
   <body>
-    <h1><%= 사용자.nickname %>님의 프로필입니다.</h1>
-    이메일 : <%= 사용자.email %><br />
-    팔로워 : <%= 사용자.follower %><br />
-    팔로잉 : <%= 사용자.following %><br />
-    한마디 : <%= 사용자.userinfo %><br />
-    게시물 : <%= 사용자.article %><br />
-    즐겨찾기 : <%= 사용자.bookmark %><br />
+    <h1><%= 프로필.nickname %>님의 프로필입니다.</h1>
+    <p>주솟값에 weeksomId를 입력하면 다른유저프로필페이지를 볼 수 있습니다</p>
+    이메일 : <%= 프로필.email %><br />
+    팔로워 : <%= 프로필.follower %><br />
+    팔로잉 : <%= 프로필.following %><br />
+    한마디 : <%= 프로필.userinfo %><br />
+    게시물 : <%= 프로필.article %><br />
+    즐겨찾기 : <%= 프로필.bookmark %><br />
     <a href="/acount/modify">프로필 정보 변경</a>
   </body>
 </html>
