@@ -8,11 +8,11 @@ app.set('views', 'views') // 익스프레스 뷰 폴더 경로는 기본값으�
 app.set('view engine', 'ejs') //뷰엔진 ejs 사용
 
 // 몽구스 테스트
-const { Article } = require('../api/0.index')
-app.get('/read', Article.articleRead)
-app.post('/create', Article.articleCreate)
-app.patch('/update', Article.articleUpdate)
-app.delete('/delete/:id', Article.articleDelete)
+// const { Article } = require('../api/0.index')
+// app.get('/read', Article.articleRead)
+// app.post('/create', Article.articleCreate)
+// app.patch('/update', Article.articleUpdate)
+// app.delete('/delete/:id', Article.articleDelete)
 
 // ------------- 로그인 기능처리 -----------------
 // @ts-ignore
@@ -45,8 +45,9 @@ app.use(passport.session())
 // passport.deserializeUser(UserModel.deserializeUser())
 
 // ------------------ 기존 passport -------------
-//client.connect()
-//const db = client.db('weeksom')
+const client = require('./mongo')
+client.connect()
+const db = client.db('weeksom')
 
 passport.use(
   // 로그인 인증 모듈사용
