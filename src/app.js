@@ -1,4 +1,5 @@
 // @ts-check
+// 익스프레스 웹 기본 셋팅
 const express = require('express') // 익스프레스 서버모듈 가져오기
 const app = express() // 익스프레스 객체 생성
 //const client = require('../src/mongo') // 몽고디비 연결 정보
@@ -7,15 +8,10 @@ app.use(express.json()) // post로 전달된 페이로드를 받을 수 있음 =
 app.set('views', 'views') // 익스프레스 뷰 폴더 경로는 기본값으로 views를 사용
 app.set('view engine', 'ejs') //뷰엔진 ejs 사용
 
-// 몽구스 테스트
-// const { Article } = require('../api/0.index')
-// app.get('/read', Article.articleRead)
-// app.post('/create', Article.articleCreate)
-// app.patch('/update', Article.articleUpdate)
-// app.delete('/delete/:id', Article.articleDelete)
-
 // ------------- 로그인 기능처리 -----------------
+
 // @ts-ignore
+// 세션 로그인 확인 미들웨어 ( 쿠키해시값 => 패스포트 디시리얼라이즈 자동실행 => 세션정보 확인 )
 const loginCheck = (req, res, next) => {
   if (req.user) {
     console.log('req.user 정보 확인.')
@@ -27,9 +23,9 @@ const loginCheck = (req, res, next) => {
   }
 }
 
+// 패스포트 기본셋팅
 const passport = require('passport')
 const session = require('express-session')
-
 // express session
 app.use(session({ secret: '세션비번', resave: true, saveUninitialized: false }))
 // passport미들웨어 사용
@@ -38,28 +34,36 @@ app.use(passport.session())
 // passport 이메일 비번검사 및, 시리얼 디시리얼라이즈메서드
 require('../config/passport')(passport)
 
-const client = require('./mongo')
-client.connect()
-const db = client.db('weeksom')
-
+// 접속페이지
+// @ts-ignore
 app.get('/', loginCheck, (req, res) => {
   console.log('get / 클라이언트 : 인덱스 페이지 연결 \n')
   res.render(`index.ejs`)
 })
 
+// 로그인 인증 페이지 (시작페이지)
 app.post(
   '/',
   passport.authenticate('local', {
     //로컬 방식으로 인증
-    failureRedirect: '/fail',
+    failureRedirect: '/fail', // TODO 로그인 실패 페이지구성
   }),
+  // @ts-ignore
   (req, res) => {
     res.render('index.ejs')
   }
 )
 
+// 라우터 연결
 app.use('/sendinput', loginCheck, require('../routes/sendinput'))
 app.use('/acount', require('../routes/acount'))
 app.use('/profile', require('../routes/profile'))
+
+// 몽구스 테스트
+// const { Article } = require('../api/0.index')
+// app.get('/read', Article.articleRead)
+// app.post('/create', Article.articleCreate)
+// app.patch('/update', Article.articleUpdate)
+// app.delete('/delete/:id', Article.articleDelete)
 
 module.exports = app
