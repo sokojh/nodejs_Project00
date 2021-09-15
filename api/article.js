@@ -12,8 +12,8 @@ const articleCreate = async (req, res) => {
 
 // Read
 const articleRead = async (req, res, next) => {
-  const email = req.body.email
-  const articles = await Article.find({ email: email })
+  //const email = req.body.email
+  const articles = await Article.find({})
   req.Article = articles
   next()
 }
