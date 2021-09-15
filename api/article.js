@@ -14,7 +14,7 @@ const articleCreate = async (req, res) => {
 const articleRead = async (req, res, next) => {
   const email = req.body.email
   const articles = await Article.find({ email: email })
-  req.articles = articles
+  req.Article = articles
   next()
 }
 
