@@ -7,6 +7,7 @@ router.get('/', (req, res) => {
   console.log('전달받은 유져정보', req.user)
   res.render('profile.ejs', { 프로필: req.user })
 })
+
 // 검색프로필
 router.get('/:weeksomId', User.viewUserProfile, (req, res) => {
   console.log('클라이언트 : profile/:weeksomId 라우터 연결')

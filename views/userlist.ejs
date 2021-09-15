@@ -5,22 +5,39 @@
     <title>userlist</title>
   </head>
   <body>
+    <span id="userId"><%= user.weeksomId %></span>님이 로그인중입니다.
     <ul>
       <% userlist.forEach(user => { %>
       <li>
         <span><%= user.weeksomId %></span> <span><%= user.nickname %></span>
         <input
+          id="follow"
           type="button"
           value="
-        <% if (followingArr.indexOf(user.weeksomId) >= 0) { %>
-          unfollow
-        <% } else { %>
-          follow
-        <% } %>
-        "
+            <% if (followingArr.indexOf(user.weeksomId) >= 0) { %>
+              unfollow
+            <% } else { %>
+              follow
+            <% } %>
+          "
+          onclick="follow(this)"
         />
       </li>
       <% }) %>
     </ul>
   </body>
+  <script>
+    const follow = (follow)=>{
+      const weeksomId = follow.parentElement.firstElementChild.innerHTML
+      const userId = document.getElementById('userId').innerHTML
+      const data = {userId, weeksomId} 
+      let response = await fetch('/follow/follow', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(data)
+      });
+    }
+  </script>
 </html>
