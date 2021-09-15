@@ -8,8 +8,17 @@
     <ul>
       <% userlist.forEach(user => { %>
       <li>
-        <%= user.weeksomId %> <%= user.nickname %>
-        <input type="button" value="follow" />
+        <span><%= user.weeksomId %></span> <span><%= user.nickname %></span>
+        <input
+          type="button"
+          value="
+        <% if (followingArr.indexOf(user.weeksomId) >= 0) { %>
+          unfollow
+        <% } else { %>
+          follow
+        <% } %>
+        "
+        />
       </li>
       <% }) %>
     </ul>

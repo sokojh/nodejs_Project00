@@ -36,7 +36,7 @@ require('../config/passport')(passport)
 // @ts-ignore
 app.get('/', loginCheck, (req, res) => {
   console.log('get / 클라이언트 : 인덱스 페이지 연결 \n')
-  res.render(`index.ejs`)
+  res.render(`index.ejs`, { user: req.user })
 })
 
 // 로그인 인증 페이지 (시작페이지)
@@ -48,7 +48,7 @@ app.post(
   }),
   // @ts-ignore
   (req, res) => {
-    res.render('index.ejs')
+    res.render('index.ejs', { user: req.user })
   }
 )
 // 유져리스트
@@ -58,6 +58,7 @@ app.use('/sendinput', loginCheck, require('../routes/sendinput'))
 app.use('/acount', require('../routes/acount'))
 app.use('/profile', loginCheck, require('../routes/profile'))
 app.use('/userlist', loginCheck, require('../routes/userlist'))
+app.use('/follow', loginCheck, require('../routes/follow'))
 
 // 몽구스 테스트
 // const { Article } = require('../api/0.index')
