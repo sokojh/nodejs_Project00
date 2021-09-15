@@ -5,6 +5,9 @@ const app = express() // 익스프레스 객체 생성
 //const client = require('../src/mongo') // 몽고디비 연결 정보
 app.use(express.urlencoded({ extended: true })) // 포스트 전송시 인코딩
 app.use(express.json()) // post로 전달된 페이로드를 받을 수 있음 => req.body 로 프론트 폼데이터 전달받음 : 'body'parser
+// static 폴더 지정해주는것 public폴더를 고정폴더로 서버 시작할때 사용하게 만들어줌.
+app.use('/public', express.static('public'))
+
 app.set('views', 'views') // 익스프레스 뷰 폴더 경로는 기본값으로 views를 사용
 app.set('view engine', 'ejs') //뷰엔진 ejs 사용
 
@@ -59,6 +62,7 @@ app.use('/acount', require('../routes/acount'))
 app.use('/profile', loginCheck, require('../routes/profile'))
 app.use('/userlist', loginCheck, require('../routes/userlist'))
 app.use('/follow', loginCheck, require('../routes/follow'))
+app.use('/article', require('../routes/article'))
 
 // 몽구스 테스트
 // const { Article } = require('../api/0.index')
