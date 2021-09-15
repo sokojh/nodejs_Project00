@@ -64,6 +64,9 @@ app.use('/userlist', loginCheck, require('../routes/userlist'))
 app.use('/follow', loginCheck, require('../routes/follow'))
 app.use('/article', require('../routes/article'))
 
+const { User } = require('../api/0.index')
+app.use('/:weeksomId', require('../routes/profile'))
+
 // 몽구스 테스트
 // const { Article } = require('../api/0.index')
 // app.get('/read', Article.articleRead)
