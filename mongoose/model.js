@@ -28,8 +28,9 @@ const model = (() => {
     .catch((err) => console.log(err))
 
   // 스키마 연결
-  const model = {}
+  const model = {} //model 변수 선언
   for (let key in schema) {
+    //스키마에서 하나씩 꺼내서 key에 넣음
     model[key] = mongoose.model(key, schema[key])
   }
   return model

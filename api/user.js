@@ -1,11 +1,16 @@
-const { User } = require('../mongoose/model')
+const { User } = require('../mongoose/model') //model 객체에 exports한 스키마가 들어있음
+
+// const model = require(../mongoose/model)
+// const user = model.User
+// 이걸 저 위의 한줄로 만든거임
 
 // 회원가입
 const userSignup = async (req, res) => {
-  const { email, weeksomId, password, nickname } = req.body
+  //userSignup 메서드를 만듬. async:동기화함수
+  const { email, weeksomId, password, nickname } = req.body //body : 폼데이터
 
-  const newUser = await User({ email, weeksomId, password, nickname })
-  const saveRequest = await newUser.save() // 디비에 저장하면 저장된 데이터 리턴
+  const newUser = await User({ email, weeksomId, password, nickname }) //async를 붙이면 await(작업 끝날 때까지 기다려줌)이 붙은 항목에 가서 동기화된 작업을 해줌
+  const saveRequest = await newUser.save() // .save() : 디비에 저장하면 저장된 데이터 리턴
   console.log(saveRequest)
   res.send(saveRequest)
 }
