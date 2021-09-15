@@ -2,9 +2,8 @@ const { Article } = require('../mongoose/model')
 
 // Create
 const articleCreate = async (req, res) => {
-  const { contentText } = req.body
-
-  const newArticle = await Article({ contentText })
+  const { auther, contentImgKey, contentText } = req.body
+  const newArticle = await Article({ auther, contentImgKey, contentText })
   const saveRequest = await newArticle.save() // 디비에 저장
   console.log(saveRequest)
   res.send(saveRequest)
