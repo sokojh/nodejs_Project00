@@ -2,9 +2,8 @@ const { Article } = require('../mongoose/model')
 
 // Create
 const articleCreate = async (req, res) => {
-  const { contentText } = req.body
-
-  const newArticle = await Article({ contentText })
+  const { auther, contentImgKey, contentText } = req.body
+  const newArticle = await Article({ auther, contentImgKey, contentText })
   const saveRequest = await newArticle.save() // 디비에 저장
   console.log(saveRequest)
   res.send(saveRequest)
@@ -12,9 +11,9 @@ const articleCreate = async (req, res) => {
 
 // Read
 const articleRead = async (req, res, next) => {
-  //const email = req.body.email
-  const articles = await Article.find({})
-  req.Article = articles
+  const email = req.body.email
+  const articles = await Article.find({ email: email })
+  req.articles = articles
   next()
 }
 
