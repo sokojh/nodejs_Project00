@@ -51,11 +51,13 @@ app.post(
     res.render('index.ejs')
   }
 )
+// 유져리스트
 
 // 라우터 연결
 app.use('/sendinput', loginCheck, require('../routes/sendinput'))
 app.use('/acount', require('../routes/acount'))
-app.use('/profile', require('../routes/profile'))
+app.use('/profile', loginCheck, require('../routes/profile'))
+app.use('/userlist', loginCheck, require('../routes/userlist'))
 
 // 몽구스 테스트
 // const { Article } = require('../api/0.index')

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>userlist</title>
+  </head>
+  <body>
+    <ul>
+      <% userlist.forEach(user => { %>
+      <li>
+        <%= user.weeksomId %> <%= user.nickname %>
+        <input type="button" value="follow" />
+      </li>
+      <% }) %>
+    </ul>
+  </body>
+</html>

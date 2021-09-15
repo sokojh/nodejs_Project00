@@ -22,7 +22,16 @@ const viewUserProfile = async (req, res, next) => {
   next()
 }
 
+// 유져리스트
+const userList = async (req, res, next) => {
+  // 모든 유져 정보 배열검색
+  const userlist = await User.find({})
+  req.userlist = userlist
+  next()
+}
+
 module.exports = {
   userSignup,
   viewUserProfile,
+  userList,
 }

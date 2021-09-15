@@ -11,10 +11,11 @@ const articleCreate = async (req, res) => {
 }
 
 // Read
-const articleRead = async (req, res) => {
+const articleRead = async (req, res, next) => {
   const email = req.body.email
-  const articles = await Article.find({email:email})
-  res.send(articles)
+  const articles = await Article.find({ email: email })
+  req.articles = articles
+  next()
 }
 
 // Update
