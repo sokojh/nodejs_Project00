@@ -17,6 +17,14 @@ const articleRead = async (req, res, next) => {
   next()
 }
 
+// populate Read
+const articlePopRead = async (req, res, next) => {
+  //const email = req.body.email
+  const articles = await Article.find().populate('auther')
+  req.articles = articles
+  next()
+}
+
 // Update
 const articleUpdate = async (req, res) => {
   const { id, contentText } = req.body
@@ -36,4 +44,5 @@ module.exports = {
   articleRead,
   articleUpdate,
   articleDelete,
+  articlePopRead,
 }
