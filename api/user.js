@@ -36,7 +36,9 @@ const followUpdate = async (req, res, next) => {
   // 모든 유져 정보 배열검색
   const userId = req.body.userId
   const otherId = req.body.otherId
-  let status = req.body.status // 0이면 언팔, 1이면 팔로
+  const status = req.body.status // 0이면 언팔, 1이면 팔로
+
+  console.log(userId, otherId, status)
 
   const follow = [
     { $push: { following: otherId } }, // 팔로잉 추가
@@ -45,10 +47,7 @@ const followUpdate = async (req, res, next) => {
     { $pull: { follower: userId } }, // 팔로워 삭제
   ]
   const userUpdate = status === 0 ? follow[0] : follow[1]
-  const otherUpdate = status === 0 ? follow[3] : follow[4]
-
-  console.log('userUpdate', userUpdate)
-  console.log('otherUpdate', otherUpdate)
+  const otherUpdate = status === 0 ? follow[2] : follow[3]
 
   const user = await User.findOneAndUpdate({ weeksomId: userId }, userUpdate, {
     new: true,
