@@ -11,6 +11,7 @@ const User = new mongoose.Schema({
   following: { type: Array },
   follower: { type: Array },
   article: { type: Array },
+  articleCount: {type:Number, default:0, required:true },
   bookmark: { type: Array },
   versionKey: false,
 })

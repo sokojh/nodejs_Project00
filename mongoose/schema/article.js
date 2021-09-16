@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const AutoIncrement = require('mongoose-sequence')(mongoose)
 
 const Article = mongoose.Schema({
-  auther: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
+  auther: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   contentImgKey: { type: Array },
   contentText: { type: String, required: true },
   createDate: { type: Date, default: Date.now, required: true },
