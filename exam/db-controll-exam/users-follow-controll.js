@@ -24,10 +24,10 @@ async function main() {
   await db.collection('users').find().populate()
 
   // find검색, project필드
-  db.collection('chats')
-    .findOne({roomId: '1받아온정보,b5받아온정보'}, (err,result)=>{
-      
-  })
+  db.collection('chats').findOne(
+    { roomId: '1받아온정보,b5받아온정보' },
+    (err, result) => {}
+  )
 
   await client.close()
 }
