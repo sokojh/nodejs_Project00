@@ -1,5 +1,3 @@
-// @ts-check
-
 const { User } = require('../mongoose/model')
 const bcrypt = require('bcrypt')
 
