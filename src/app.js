@@ -59,12 +59,10 @@ app.post(
 // 라우터 연결
 app.use('/sendinput', loginCheck, require('../routes/sendinput'))
 app.use('/acount', require('../routes/acount'))
-app.use('/profile', loginCheck, require('../routes/profile'))
 app.use('/userlist', loginCheck, require('../routes/userlist'))
 app.use('/follow', loginCheck, require('../routes/follow'))
 app.use('/article', require('../routes/article'))
-
-const { User } = require('../api/0.index')
+app.use('/populateTest', require('../routes/populateTest'))
 app.use('/:weeksomId', require('../routes/profile'))
 
 // 몽구스 테스트
