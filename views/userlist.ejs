@@ -5,6 +5,7 @@
     <title>userlist</title>
   </head>
   <body>
+    <span id="userId"><%= userId %></span>님이 로그인했습니다.
     <ul>
       <% userlist.forEach(user => { %>
       <li>
@@ -12,15 +13,34 @@
         <input
           type="button"
           value="
-        <% if (followingArr.indexOf(user.weeksomId) >= 0) { %>
-          unfollow
-        <% } else { %>
-          follow
-        <% } %>
-        "
+          <% if (followingArr.indexOf(user.weeksomId) >= 0) { %>
+            unfollow
+          <% } else { %>
+            follow
+          <% } %>
+          "
+          onclick="follow(this)"
         />
       </li>
       <% }) %>
     </ul>
   </body>
+  <script>
+    const follow = async (followbtn) => {
+      const status = followbtn.value.trim() === 'follow' ? 0 : 1 // 팔로우 상태면 1, 언팔로 상태면 0
+      const userId = document.getElementById('userId').innerHTML
+      const otherId = followbtn.parentElement.firstElementChild.innerHTML
+      const data = { userId, otherId, status }
+      const url = 'http://localhost:7080/follow'
+      followbtn.value =
+        followbtn.value.trim() === 'follow' ? 'unfollow' : 'follow'
+      console.log(followbtn.value)
+
+      await fetch(url, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+    }
+  </script>
 </html>
