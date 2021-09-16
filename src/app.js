@@ -63,7 +63,7 @@ app.use('/profile', loginCheck, require('../routes/profile'))
 app.use('/userlist', loginCheck, require('../routes/userlist'))
 app.use('/follow', loginCheck, require('../routes/follow'))
 app.use('/article', require('../routes/article'))
-
+app.use('/comment', require('../routes/comment'))
 // 몽구스 테스트
 // const { Article } = require('../api/0.index')
 // app.get('/read', Article.articleRead)
