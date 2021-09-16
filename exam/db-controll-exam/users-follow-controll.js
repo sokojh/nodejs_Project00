@@ -21,7 +21,6 @@ async function main() {
 
   // @ts-ignore
   await db.collection('users').updateOne(filter, follow[fidx])
-  await db.collection('users').find().populate()
 
   // find검색, project필드
   db.collection('chats')
