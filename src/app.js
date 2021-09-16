@@ -3,7 +3,7 @@
 const express = require('express') // 익스프레스 서버모듈 가져오기
 const app = express() // 익스프레스 객체 생성
 //const client = require('../src/mongo') // 몽고디비 연결 정보
-app.use(express.urlencoded({ extended: true })) // 포스트 전송시 인코딩
+app.use(express.urlencoded({ extended: true })) // 포스트 전송시 인코딩, 익스텐디드는 중첩허용
 app.use(express.json()) // post로 전달된 페이로드를 받을 수 있음 => req.body 로 프론트 폼데이터 전달받음 : 'body'parser
 // static 폴더 지정해주는것 public폴더를 고정폴더로 서버 시작할때 사용하게 만들어줌.
 app.use('/public', express.static('public'))
@@ -15,11 +15,11 @@ app.set('view engine', 'ejs') //뷰엔진 ejs 사용
 // 세션 로그인 확인 미들웨어 ( 쿠키해시값 => 패스포트 디시리얼라이즈 자동실행 => 세션정보 확인 )
 const loginCheck = (req, res, next) => {
   if (req.user) {
-    console.log('req.user 정보 확인.')
+    console.log('사용자 로그인 확인.')
     // console.log('function loginCheck req.user : ', req.user, '확인')
     next()
   } else {
-    console.log('req.user 정보가 없습니다. 로그인페이지로 갑니다.')
+    console.log('로그인 정보가 없습니다. 로그인페이지로 갑니다.')
     res.render('signin.ejs')
   }
 }
@@ -59,11 +59,13 @@ app.post(
 // 라우터 연결
 app.use('/sendinput', loginCheck, require('../routes/sendinput'))
 app.use('/acount', require('../routes/acount'))
-app.use('/profile', loginCheck, require('../routes/profile'))
 app.use('/userlist', loginCheck, require('../routes/userlist'))
 app.use('/follow', loginCheck, require('../routes/follow'))
 app.use('/article', require('../routes/article'))
+app.use('/populateTest', require('../routes/populateTest'))
 app.use('/comment', require('../routes/comment'))
+app.use('/:weeksomId', require('../routes/profile'))
+
 // 몽구스 테스트
 // const { Article } = require('../api/0.index')
 // app.get('/read', Article.articleRead)

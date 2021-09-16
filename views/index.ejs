@@ -11,16 +11,11 @@
     <% } else { %>
     <h3>로그인되지않았습니다.</h3>
     <% } %>
-    <a href="/sendinput">데이터입력예제</a>
-    <br />
+    <a href="/sendinput">데이터입력예제</a> <br />
     <h2>계정정보</h2>
-    <a href="/acount/signup">회원가입예제</a>
-    <br />
-    <a href="/acount/signin">로그인예제</a>
-    <br />
-    <a href="/profile">본인 프로필페이지</a>
-    <br />
-    유저 프로필 검색
+    <a href="/acount/signup">회원가입예제</a> <br />
+    <a href="/acount/signin">로그인예제</a> <br />
+    유저 프로필
     <input
       type="text"
       id="searchProfile"
@@ -35,7 +30,7 @@
   <script>
     const searchProfile = () => {
       const profile = document.getElementById('searchProfile').value
-      location.href = `/profile/${profile}`
+      location.href = `/${profile}`
     }
   </script>
 </html>
