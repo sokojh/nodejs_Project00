@@ -7,7 +7,6 @@ router.get('/', User.userList, (req, res) => {
   // req.userlist로 모든 유저 정보 가져옴
   console.log(req.user.weeksomId)
   res.render('userlist.ejs', {
-    userId: req.user.weeksomId,
     userlist: req.userlist,
     followingArr: req.user.following,
     followerArr: req.user.follower,
