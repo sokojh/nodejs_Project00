@@ -11,14 +11,15 @@
       <li>
         <span><%= user.weeksomId %></span> <span><%= user.nickname %></span>
         <input
+          id="follow"
           type="button"
           class="btn"
           value="
-          <%_ if (followingArr.indexOf(user.weeksomId) >= 0) { %>
-            unfollow
-          <%_ } else { %>
-            follow
-          <%_ } %>
+            <% if (followingArr.indexOf(user.weeksomId) >= 0) { %>
+              unfollow
+            <% } else { %>
+              follow
+            <% } %>
           "
           onclick="follow(this)"
         />
