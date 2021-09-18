@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>commentList</title>
+  </head>
+  <body>
+    <%=userId%>로 로그인.
+    <ul>
+      <% commentList.forEach(comment => { %>
+      <li>
+        <div>게시물 : <%= comment.article_id %></div>
+        <span><%= comment.user_id %></span> <span><%= comment.text %></span>
+      </li>
+      <% }) %>
+    </ul>
+  </body>
+</html>

@@ -19,7 +19,6 @@ const articleRead = async (req, res, next) => {
 
 // populate Read
 const articlePopRead = async (req, res, next) => {
-  //const email = req.body.email
   const articles = await Article.find().populate('auther')
   req.articles = articles
   next()
@@ -34,6 +33,13 @@ const articleUpdate = async (req, res) => {
 
 // Delete
 const articleDelete = async (req, res) => {
+  const { id } = req.params
+  const deleteArticle = await Article.findByIdAndDelete(id)
+  res.send(deleteArticle)
+}
+
+// likeUp
+const like = async (req, res) => {
   const { id } = req.params
   const deleteArticle = await Article.findByIdAndDelete(id)
   res.send(deleteArticle)
