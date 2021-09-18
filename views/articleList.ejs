@@ -29,99 +29,45 @@
     <!-- top nav -->
     <%- include('htmlPiece/nav.html') %>   
         
-    <!-- test article -->
-    <div class="feedBox card w-75 h-50 mb-5">
-      <!-- 상단 영역 -->
-      <div class="var-profile p-3">
-        <div class="img-profile float-start"><img src="https://w.namu.la/s/cf33f7e97cb083f0e87192b5871f2dd0768ac458c966c1633d89cba4f26292ec42f91f0a68c60e1e57584c54ec15e5a1649b6a01b5bd0663b11490d2d6cc06911b442520a1fba401b3d30fd6e639ba20fb141e394a5ea8b1c85a0f35cd1ecfbfe9d849beefbd592af33a2742d4b97722" alt=""></div>
-        <div class="main-name-profile float-start ml-2">taeyeon_ss</div>
-        <a href="" class="float-end btn-profile"><i class="material-icons">more_horiz</i></a>
-      </div>
-      
-      <!-- 이미지 영역 -->
-      <div class="imgBox">
-        <img src="https://dangdangee.com/wp-content/uploads/2021/02/3-4.jpg" class="card-img-top" alt="...">
-      </div>
-
-      <!-- 하단 영역 -->
-      <div class="card-body">
-        <!-- 좋아요, 코멘트, DM 버튼 -->
-        <div class="card-btn d-flex mb-2">
-          <a href="" class="like-btn mr-3"><span class="material-icons">favorite_border</span></a>
-          <!-- 활성화 <a href="" class="like-btn mr-3"><span class="material-icons">favorite</span></a> -->
-          <a href="" class="like-btn mr-3"><span class="material-icons">chat_bubble_outline</span></a>
-          <a href="" class="like-btn mr-3"><span class="material-icons">mail_outline</span></a>
-          
-          <a href="" class="like-btn ml-auto"><span class="material-icons">bookmark_outline</span></a>
-          <!-- 활성화 <a href="" class="like-btn mr-3"><span class="material-icons">bookmark</span></a> -->
-        </div>
-
-        <!-- 좋아요 수 -->
-        <a href=""><h5 class="card-title"><b>좋아요 <span>n</span>개</b></h5></a>
-
-        <!-- 메인 글 -->
-        <p class="card-text"><a href=""><span class="name-profile mr-2">taeyeon_ss</span></a>나의 반려견 제로는 엄청 이쁘다구<a href=""><span class="more ml-1">...더 보기</span></a></p>
-
-        <!-- 댓글 모두보기 -->
-        <a href=""><p class="card-text mb-2">댓글 n개 모두 보기</p></a>
-
-        <!-- 댓글 미리보기 -->
-        <div class="comment_box d-flex">
-          <a href="" class="comment-name mr-2"><p><span class="name-profile">easy</span></p></a>
-          <p><span class="comment-comment">푸들은 역시 푸들이죠</span></p>
-          <!-- >> -->
-          <a href="" class="comment-like ml-auto"><p><span class="material-icons">favorite_border</span></p></a>
-          <!-- 활성화 <a href="" class="like-btn mr-3"><span class="material-icons">favorite</span></a> -->
-        </div>
-        <div class="comment_box d-flex">
-          <a href="" class="comment-name mr-2"><p><span class="name-profile">chan</span></p></a>
-          <p><span class="comment-comment">강아지는 역시 강아지죠</span></p>
-          <!-- >> -->
-          <a href="" class="comment-like ml-auto"><p><span class="material-icons">favorite_border</span></p></a>
-          <!-- 활성화 <a href="" class="like-btn mr-3"><span class="material-icons">favorite</span></a> -->
-        </div>
-
-        <!-- 발행 날짜 -->
-        <p class="postDate mt-2">9월 9일</p>
-      </div>
-    </div>
-
-    <!-- articles -->
+    <!-- 게시물 출력 -->
     <% articles.forEach(element => { %>
       <div class="feedBox card w-75 h-50 mb-5">
         <!-- 상단 영역 -->
         <div class="var-profile p-3">
+          <!-- 작성자 프로필 로고 -->
           <div class="img-profile float-start"><img src="<%= element.auther.profileImgKey %>" alt=""></div>
+          <!-- 작성자 닉네임 -->
           <div class="main-name-profile float-start ml-2"><%= element.auther.weeksomId %></div>
+          <!-- 게시물 ... 버튼 -->
           <a href="" class="float-end btn-profile"><i class="material-icons">more_horiz</i></a>
         </div>
         
-        <!-- 이미지 영역 -->
+        <!-- 메인 이미지 영역 -->
         <div class="imgBox">
           <img src="<%= element.contentImgKey[0] %>" class="card-img-top" alt="...">
         </div>
   
         <!-- 하단 영역 -->
         <div class="card-body">
-          <!-- 좋아요, 코멘트, DM 버튼 -->
           <div class="card-btn d-flex mb-2">
+            <!-- 좋아요 버튼 / 활성화 : favorite -->
             <a class="like-btn contents-btn mr-3" id='<%= element._id %>'><span class="material-icons">favorite_border</span></a>
-            <!-- 활성화<a href="" class="contents-btn mr-3"><span class="material-icons">favorite</span></a> -->
-            <a href="" class="contents-btn mr-3"><span class="material-icons">chat_bubble_outline</span></a>
+            <!-- 댓글 버튼 -->
+            <a href='/comment?article_id=<%= element._id %>' class="contents-btn mr-3"><span class="material-icons">chat_bubble_outline</span></a>
+            <!-- DM 버튼 -->
             <a href="" class="contents-btn mr-3"><span class="material-icons">mail_outline</span></a>
+            <!-- 북마크 버튼 / 활성화 : bookmark -->
             <a href="" class="contents-btn ml-auto"><span class="material-icons">bookmark_outline</span></a>
-            <!-- 활성화 <a href="" class="like-btn mr-3"><span class="material-icons">bookmark</span></a> -->
           </div>
   
           <!-- 좋아요 수 -->
           <a href=""><h5 class="card-title"><b>좋아요 <span class="likeCount<%= element._id %>"><%= element.likeCount %></span>개</b></h5></a>
-  
-          <!-- 메인 글 -->
+          <!-- 작성자 메인 글 -->
           <p class="card-text"><a href=""><span class="name-profile mr-2"><%= element.auther.weeksomId %></span></a><%= element.contentText %></p>
           <!-- 더 보기 <a href=""><span class="more ml-1">...더 보기</span></a> -->
 
           <!-- 댓글 모두보기 -->
-          <a href=""><p class="card-text mb-2">댓글 더 보기</p></a>
+          <a href='/comment?article_id=<%= element._id %>'><p class="card-text mb-2">댓글 더 보기</p></a>
   
           <!-- 댓글 미리보기
           <div class="comment_box d-flex">
@@ -148,7 +94,7 @@
 
     <br><br><br><br><br><br><br>
 
-    <!-- 하단 nav 아이콘 활성화를 위한 페이지 이름지정,  -->
+    <!-- 하단 nav 바 -->
     <%- include('htmlPiece/bottomNav.html') %>
 
     <!-- 부트스트랩 -->

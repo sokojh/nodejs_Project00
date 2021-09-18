@@ -8,7 +8,7 @@ const Comment = mongoose.Schema({
   likeCount: { type: Number, required: true },
   article_id: { type: mongoose.Schema.Types.ObjectId, required: true },
   like: { type: Array, required: true },
-  user_id: { type: String, required: true },
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 })
 
 Comment.plugin(AutoIncrement, { inc_field: 'totalCount' })
