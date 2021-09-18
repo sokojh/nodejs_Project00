@@ -66,3 +66,8 @@ h4 {
         font-size: 0.8em;
         margin-bottom: 0;
     }
+
+    /* 댓글 */
+    .comment_body {
+        padding: 0 1.25rem 1.25rem 1.25rem;
+    }
