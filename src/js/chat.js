@@ -11,6 +11,7 @@ const displayContainer = document.querySelector(".display-Container")
 chatInput.addEventListener("keypress", (event)=>{ //input 창에서 키프레스 이벤트가 발생할 때 이벤트를 인자로 넘겨줌
     if(event.keyCode === 13){
         send() //이벤트 키코드가 13 = 엔터면 실행한다
+        chatInput.value = ""; //텍스트박스 초기화
     }
 })
 
