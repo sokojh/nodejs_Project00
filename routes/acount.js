@@ -3,14 +3,20 @@ const { User } = require('../api/0.index') // 몽구스 api 임포트
 
 // 로그인
 router.get('/signin', (req, res) => {
-  console.log('클라이언트 : signin 라우터 연결')
+  console.log('signin 라우터 연결')
   res.render(`signin.ejs`)
 })
 
 // 회원가입
 router.get('/signup', (req, res) => {
-  console.log('클라이언트 : signup 라우터 연결')
+  console.log('signup 라우터 연결')
   res.render(`signup.ejs`)
+})
+
+// 회원정보 수정
+router.get('/modify', (req, res) => {
+  console.log('acountModify 라우터 연결')
+  res.render(`acountModify.ejs`, { user: req.user })
 })
 
 // 회원가입 디비입력

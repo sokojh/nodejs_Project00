@@ -8,17 +8,18 @@ const User = new mongoose.Schema({
   hashedPassword: { type: String, required: true },
   nickname: { type: String, required: true },
   profileImgKey: { type: String, default: '' },
-  userinfo: { type: String, default: '' },
+  userInfo: { type: String, default: '' },
   // 유져데이터
   following: { type: Array },
   follower: { type: Array },
-  article: { type: Array },
-  likeAticle: { type: Array },
-  bookmark: { type: Array },
-  // 카운 데이터
+  article: { type: Array }, // 작성 게시물들
+  likeArticle: { type: Array }, // 좋아요 누른 게시물들
+  bookmark: { type: Array }, // 즐겨찾기 게시물들
+  // 카운팅 데이터
   followingCount: { type: Number },
   followerCount: { type: Number },
-  likeCount: { type: Number },
+  articleCount: { type: Number },
+  likeACount: { type: Number },
   bookmarkCount: { type: Number },
   versionKey: false,
 })

@@ -1,4 +1,5 @@
 const { User } = require('../mongoose/model')
+const { Userdata } = require('../mongoose/model')
 const bcrypt = require('bcrypt')
 
 // 회원가입 /acount/signup
