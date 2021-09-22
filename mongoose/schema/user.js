@@ -10,6 +10,7 @@ const User = new mongoose.Schema({
   profileImgKey: { type: String, default: '' },
   userInfo: { type: String, default: '' },
   // 유져데이터
+  // 관리자 스키마 필요
   following: { type: Array },
   follower: { type: Array },
   article: { type: Array }, // 작성 게시물들
