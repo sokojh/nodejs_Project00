@@ -6,7 +6,7 @@ const { uploadFile, getFileStream } = require('../s3') // 업로드,다운로드
 const { articleCreate } = require('../api/article')
 
 router.get('/', (req, res, next) => {
-  console.log('post 라우터 연결')
+  console.log('post 라우터 연결', req.user)
   res.render('post.ejs', { 프로필: req.user })
 })
 // /post/images/:key 주소를 적으면  s3에서 이미지 받아오는 기능
