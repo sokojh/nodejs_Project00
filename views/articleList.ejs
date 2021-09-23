@@ -24,7 +24,15 @@
   const getDate = (writeDate) => {
     let writeDateFormat = new Date(writeDate)
     let writeDday = new Date().getDate() - writeDateFormat.getDate();
-    (writeDday != 1) ? document.write(writeDday + '일 전'): document.write('오늘')
+    (writeDday >= 1) ? document.write(writeDday + '일 전'): document.write('오늘')
+  }
+</script>
+
+<!--  -->
+<script>
+  const clickModal = (e) => {
+    console.log('click')
+    console.log(e)
   }
 </script>
 
@@ -32,6 +40,20 @@
   <!-- top nav -->
   <%- include('htmlPiece/nav.html') %>
 
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button class="btn btn-outline-danger btn-lg btn-block">게시물 삭제</button>
+          <button class="btn btn-outline-danger btn-lg btn-block">팔로우 취소</button>
+          <button class="btn btn-outline-danger btn-lg btn-block">신고🚨</button>
+          <button class="btn btn-outline-danger btn-lg btn-block">닫기</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- 게시물 출력 -->
   <% articles.forEach(element => { %>
   <div class="feedBox card w-75 h-50 mb-5">
@@ -42,7 +64,8 @@
       <!-- 작성자 닉네임 -->
       <div class="main-name-profile float-start ml-2"><%= element.auther.weeksomId %></div>
       <!-- 게시물 ... 버튼 -->
-      <a href="" class="float-end btn-profile"><i class="material-icons">more_horiz</i></a>
+      <a onclick=clickModal(this) class="float-end btn-profile"><i class="material-icons" data-toggle="modal"
+          data-target="#exampleModalCenter">more_horiz</i></a>
     </div>
 
     <!-- 메인 이미지 영역 -->
@@ -54,13 +77,13 @@
     <div class="card-body">
       <div class="card-btn d-flex mb-2">
         <!-- 좋아요 버튼 / 활성화 : favorite -->
-        <a class="like-btn contents-btn mr-3" id='<%= element._id %>'><span class="material-icons">
-            <%_ if (followingArr.indexOf(user.weeksomId) >= 0) { %>
-            favorite
-            <%_ } else { %>
-            favorite_border
-            <%_ } %>
-          </span></a>
+        <a class="like-btn contents-btn mr-3" id='<%= element._id %>'>
+          <% if (element.likePeoples.indexOf(myName) >= 0) { %>
+          <span class="material-icons" style="color: red;">favorite
+            <% } else { %>
+            <span class="material-icons">favorite_border
+              <% } %>
+            </span></a>
         <!-- 댓글 버튼 -->
         <a href='/comment?article_id=<%= element._id %>' class="contents-btn mr-3"><span
             class="material-icons">chat_bubble_outline</span></a>
@@ -117,14 +140,27 @@
   <!-- 하단 nav 바 -->
   <%- include('htmlPiece/bottomNav.html') %>
 
-  <!-- 부트스트랩 -->
+  <!-- modal -->
+  <script>
+    $('#myModal').on('shown.bs.modal', (thisBtn) => {
+      $('#myInput').trigger('focus')
+    })
+  </script>
+
+  <!-- 부트스트랩 js-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
   </script>
 
+  <!-- like-btn 이름 공백제거 -->
+  <script>
+    document.querySelectorAll('.like-btn span').forEach((element) => {
+      element.innerHTML = element.innerHTML.trim()
+    })
+  </script>
+
   <!-- ajax -->
   <script>
-    console.log('<%= myName %>')
     $(function () {
       // like 처리
       $('.like-btn').click(function (likeBtn) {
@@ -133,8 +169,8 @@
         let thisSpan = $(" span", this)
         let articleId = $(this).attr('id')
         let like = ".likeCount" + articleId
-        // 좋아요 안 한 상태
-        if (thisSpan.text() == 'favorite_border') {
+        // 좋아요 처리
+        if (status === 1) {
           $.ajax({
             url: '/article/likeUpdate',
             type: 'post',
@@ -142,26 +178,28 @@
               'articleId': articleId,
               'status': status
             }
-          }).done((result) => {
-            // thisSpan.text('favorite')
-            // thisSpan.css('color', 'red')
+          }).done((data) => {
+            likeBtn.target.innerHTML = 'favorite'
+            likeBtn.target.style.color = 'red'
+            $(like).text(Number($(like).text()) + 1)
           }).fail((err) => {
-            // thisSpan.text('favorite')
-            // thisSpan.css('color', 'red')
-            // $(like).text(Number($(like).text())+1)
+            console.log(err);
           })
-          // 좋아요 한 상태
+          // 좋아요 취소
         } else {
           $.ajax({
-            url: '/unLike',
+            url: '/article/likeUpdate',
             type: 'post',
-            data: articleId
-          }).done((result) => {
-            thisSpan.text('favorite_border')
-          }).fail((err) => {
-            thisSpan.text('favorite_border')
-            thisSpan.css('color', '')
+            data: {
+              'articleId': articleId,
+              'status': status
+            }
+          }).done((data) => {
+            likeBtn.target.innerHTML = 'favorite_border'
+            likeBtn.target.style.color = ''
             $(like).text(Number($(like).text()) - 1)
+          }).fail((err) => {
+            console.log(err);
           })
         }
       })

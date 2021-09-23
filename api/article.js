@@ -47,26 +47,37 @@ const articleDelete = async (req, res) => {
 const likeUpdate = async (req, res, next) => {
   let likePressName = req.user.weeksomId
   let _id = { _id: req.body.articleId }
+  //req.body.status === 1 // 좋아요 처리
+  //req.body.status === 0 // 좋지 않아요 처리
   let status = req.body.status
   if (status === '1') {
     await Article.findByIdAndUpdate(_id, {
       $inc: { likeCount: 1 },
       $addToSet: { likePeoples: likePressName },
+    }).exec((error, result) => {
+      error ? res.status(400).send('에러') : next()
     })
     await User.findOneAndUpdate(
       { weeksomId: likePressName },
       { $addToSet: { likeArticle: likePressName } }
-    )
+    ).exec((error, result) => {
+      error ? res.status(400).send('에러') : next()
+    })
   } else {
     await Article.findByIdAndUpdate(_id, {
       $inc: { likeCount: -1 },
       $pull: { likePeoples: likePressName },
+    }).exec((error, result) => {
+      error ? res.status(400).send('에러') : next()
     })
     await User.findOneAndUpdate(
       { weeksomId: likePressName },
       { $pull: { likeArticle: likePressName } }
-    )
+    ).exec((error, result) => {
+      error ? res.status(400).send('에러') : next()
+    })
   }
+  res.status(200).send('좋아요 성공')
   next()
 }
 

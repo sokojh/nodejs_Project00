@@ -11,8 +11,7 @@ router.get('/', Article.articlePopRead, (req, res) => {
 
 // 게시물 좋아요
 router.post('/likeUpdate', Article.likeUpdate, (req, res) => {
-  //req.body.status === 1 // 좋아요 처리
-  //req.body.status === 0 // 좋지 않아요 처리
+  console.log('라우터')
 })
 
 module.exports = router
