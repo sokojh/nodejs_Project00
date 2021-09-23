@@ -28,11 +28,29 @@
   }
 </script>
 
-<!--  -->
+<!-- 현재 모달창의 articleId 값 임의 저장 -->
 <script>
+  modalArticleId = null
   const clickModal = (e) => {
-    console.log('click')
-    console.log(e)
+    let userId = '<%= myUserInfo._id %>' // 현재 사용자의 id 값 저장
+    let thisArticleAutherId = e.id.split('/')[0] // 게시물의 작성자 id 값 저장
+    modalArticleId = e.id.split('/')[1] // 현재 클릭한 게시물의 id 갑 저장
+    modalBtm = document.getElementsByClassName('modal-delete')[0]
+    thisArticleAutherId === userId ? modalBtm.disabled = false : modalBtm.disabled = true
+  }
+  const articleDelete = () => {
+    $.ajax({
+      url: '/article/delete',
+      type: 'post',
+      data: {
+        '_id': modalArticleId
+      }
+    }).done((data) => {
+      console.log(data)
+      window.location.replace("../");
+    }).fail((err) => {
+      console.log(err);
+    })
   }
 </script>
 
@@ -46,10 +64,10 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-body">
-          <button class="btn btn-outline-danger btn-lg btn-block">게시물 삭제</button>
+          <button class="btn btn-outline-danger btn-lg btn-block modal-delete" onclick=articleDelete()>게시물 삭제</button>
           <button class="btn btn-outline-danger btn-lg btn-block">팔로우 취소</button>
           <button class="btn btn-outline-danger btn-lg btn-block">신고🚨</button>
-          <button class="btn btn-outline-danger btn-lg btn-block">닫기</button>
+          <button class="btn btn-outline-danger btn-lg btn-block" data-dismiss="modal">닫기</button>
         </div>
       </div>
     </div>
@@ -64,8 +82,8 @@
       <!-- 작성자 닉네임 -->
       <div class="main-name-profile float-start ml-2"><%= element.auther.weeksomId %></div>
       <!-- 게시물 ... 버튼 -->
-      <a onclick=clickModal(this) class="float-end btn-profile"><i class="material-icons" data-toggle="modal"
-          data-target="#exampleModalCenter">more_horiz</i></a>
+      <a onclick=clickModal(this) id='<%= element.auther._id %>/<%= element._id %>' class="float-end btn-profile"><i
+          class="material-icons" data-toggle="modal" data-target="#exampleModalCenter">more_horiz</i></a>
     </div>
 
     <!-- 메인 이미지 영역 -->
@@ -78,7 +96,7 @@
       <div class="card-btn d-flex mb-2">
         <!-- 좋아요 버튼 / 활성화 : favorite -->
         <a class="like-btn contents-btn mr-3" id='<%= element._id %>'>
-          <% if (element.likePeoples.indexOf(myName) >= 0) { %>
+          <% if (element.likePeoples.indexOf(myUserInfo.weeksomId) >= 0) { %>
           <span class="material-icons" style="color: red;">favorite
             <% } else { %>
             <span class="material-icons">favorite_border

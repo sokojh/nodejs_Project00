@@ -37,10 +37,13 @@ const articleUpdate = async (req, res) => {
 }
 
 // Delete
-const articleDelete = async (req, res) => {
-  const { id } = req.params
-  const deleteArticle = await Article.findByIdAndDelete(id)
-  res.send(deleteArticle)
+const articleDelete = async (req, res, next) => {
+  const deleteArticle = await Article.findByIdAndDelete(req.body).exec(
+    (error, result) => {
+      error ? res.status(400).send(error) : res.status(200).send(result)
+      next()
+    }
+  )
 }
 
 // likeUpdate

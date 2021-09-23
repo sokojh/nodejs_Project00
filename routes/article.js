@@ -5,13 +5,15 @@ const { Article } = require('../api/0.index') // 몽구스 api 임포트
 router.get('/', Article.articlePopRead, (req, res) => {
   res.render('articleList', {
     articles: req.articles,
-    myName: req.user.weeksomId,
+    myUserInfo: req.user,
   })
+  console.log(req.user)
 })
 
 // 게시물 좋아요
-router.post('/likeUpdate', Article.likeUpdate, (req, res) => {
-  console.log('라우터')
-})
+router.post('/likeUpdate', Article.likeUpdate, (req, res) => {})
+
+// 게시물 삭제
+router.post('/delete', Article.articleDelete, (req, res) => {})
 
 module.exports = router
