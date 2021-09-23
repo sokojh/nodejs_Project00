@@ -57,4 +57,4 @@ const main = (() => {
 
 */
 
-module.exports = { model, db }
+module.exports = model

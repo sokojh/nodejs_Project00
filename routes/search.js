@@ -1,5 +1,6 @@
 //@ts-check
-const model = require('../mongoose/model')
+const mongoose = require('mongoose')
+const db = mongoose.connection
 const router = require('express').Router()
 const { Article } = require('../api/0.index') // 몽구스 api 임포트
 
@@ -30,16 +31,15 @@ router.get('/v', (req, res) => {
     { $sort: { _id: 1 } },
     { $limit: 9 },
   ]
-  model.db
-    .collection('articles')
+  db.collection('articles')
     .aggregate(검색조건)
     .toArray((에러, 결과) => {
       console.log(결과.length)
       //res.render('search.ejs', { posts: 결과 })
       if (결과.length == 0) {
-        res.render('searchfail.ejs', { valuefail: req.query.value })
+        res.render('searchFail.ejs', { valuefail: req.query.value })
       } else {
-        res.render('search.ejs', { posts: 결과 })
+        res.render('searchSuc.ejs', { articles: 결과 })
       }
     })
 })
