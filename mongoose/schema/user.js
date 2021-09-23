@@ -12,6 +12,7 @@ const User = new mongoose.Schema({
   follower: { type: Array },
   article: { type: Array },
   bookmark: { type: Array },
+  likeArticle: { type: Array },
   versionKey: false,
 })
 
