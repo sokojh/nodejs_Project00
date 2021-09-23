@@ -1,5 +1,8 @@
+const { exec } = require('child_process')
 const { Article } = require('../mongoose/model')
+const { User } = require('../mongoose/model')
 
+//@ts-check
 // Create
 const articleCreate = async (req, res) => {
   const { auther, contentImgKey, contentText } = req.body
@@ -20,8 +23,8 @@ const articleRead = async (req, res, next) => {
 // populate Read
 const articlePopRead = async (req, res, next) => {
   const articles = await Article.find()
-    .sort({ createDate: -1 })
-    .populate('auther')
+    .sort({ createDate: -1 }) // 게시물을 작성일 기준으로 내림차순, 최근 게시물부터 출력
+    .populate('auther') // 게시물의 작성자를 받아오기 위한 관계 맺기
   req.articles = articles
   next()
 }
@@ -40,11 +43,31 @@ const articleDelete = async (req, res) => {
   res.send(deleteArticle)
 }
 
-// likeUp
-const like = async (req, res) => {
-  const { id } = req.params
-  const deleteArticle = await Article.findByIdAndDelete(id)
-  res.send(deleteArticle)
+// likeUpdate
+const likeUpdate = async (req, res, next) => {
+  let likePressName = req.user.weeksomId
+  let _id = { _id: req.body.articleId }
+  let status = req.body.status
+  if (status === '1') {
+    await Article.findByIdAndUpdate(_id, {
+      $inc: { likeCount: 1 },
+      $addToSet: { likePeoples: likePressName },
+    })
+    await User.findOneAndUpdate(
+      { weeksomId: likePressName },
+      { $addToSet: { likeArticle: likePressName } }
+    )
+  } else {
+    await Article.findByIdAndUpdate(_id, {
+      $inc: { likeCount: -1 },
+      $pull: { likePeoples: likePressName },
+    })
+    await User.findOneAndUpdate(
+      { weeksomId: likePressName },
+      { $pull: { likeArticle: likePressName } }
+    )
+  }
+  next()
 }
 
 module.exports = {
@@ -53,4 +76,5 @@ module.exports = {
   articleUpdate,
   articleDelete,
   articlePopRead,
+  likeUpdate,
 }
