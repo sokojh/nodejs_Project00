@@ -19,7 +19,9 @@ const articleRead = async (req, res, next) => {
 
 // populate Read
 const articlePopRead = async (req, res, next) => {
-  const articles = await Article.find().populate('auther')
+  const articles = await Article.find()
+    .sort({ createDate: -1 })
+    .populate('auther')
   req.articles = articles
   next()
 }
