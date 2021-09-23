@@ -65,7 +65,7 @@ app.use('/article', require('../routes/article'))
 app.use('/populateTest', require('../routes/populateTest'))
 app.use('/comment', require('../routes/comment'))
 app.use('/chat', require('../routes/chat'))
-app.use('/:weeksomId', require('../routes/profile'))
+//app.use('/:weeksomId', require('../routes/profile'))
 
 // 몽구스 테스트
 // const { Article } = require('../api/0.index')

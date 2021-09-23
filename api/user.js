@@ -30,10 +30,10 @@ const userList = async (req, res, next) => {
   next()
 }
 
-// 팔로우 추가 취소
+// 팔로우 추가 취소0
 const followUpdate = async (req, res, next) => {
   // 모든 유져 정보 배열검색
-  const userId = req.body.userId
+  const userId = req.user.weeksomId
   const otherId = req.body.otherId
   const status = req.body.status // 0이면 언팔, 1이면 팔로
 

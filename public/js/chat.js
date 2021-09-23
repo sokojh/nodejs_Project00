@@ -1,6 +1,6 @@
 ;('use strict') //자바스크립트 오류줄임
 
-const socket = io()
+const socket = io(`ws://${window.location.host}/chat`)
 
 const nickname = document.querySelector('#nickname') //css 선택자 사용가능
 const chatList = document.querySelector('.chatting-list')
@@ -11,12 +11,17 @@ const displayContainer = document.querySelector('.display-Container')
 chatInput.addEventListener('keypress', (event) => {
   //input 창에서 키프레스 이벤트가 발생할 때 이벤트를 인자로 넘겨줌
   if (event.keyCode === 13) {
+    console.log('전송버튼')
     send() //이벤트 키코드가 13 = 엔터면 실행한다
     chatInput.value = '' //텍스트박스 초기화
   }
 })
 
+sendButton.addEventListener('click', send) //클릭했을 때 이벤트 발생
+//데이터를 object 표기법으로 보냄
+
 function send() {
+  console.log('send')
   const param = {
     name: nickname.value,
     msg: chatInput.value,
@@ -25,9 +30,6 @@ function send() {
   //emit으로 보내고
   socket.emit('chatting', param) //param : 문자열로 소켓을 보냄, //chatting : 채팅 id
 }
-
-sendButton.addEventListener('click', send) //클릭했을 때 이벤트 발생
-//데이터를 object 표기법으로 보냄
 
 //on으로 받음
 socket.on('chatting', (data) => {

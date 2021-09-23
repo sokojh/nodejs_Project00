@@ -20,7 +20,7 @@ const User = new mongoose.Schema({
   followingCount: { type: Number },
   followerCount: { type: Number },
   articleCount: { type: Number },
-  likeACount: { type: Number },
+  likeAcount: { type: Number },
   bookmarkCount: { type: Number },
   versionKey: false,
 })

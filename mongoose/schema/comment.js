@@ -11,6 +11,6 @@ const Comment = mongoose.Schema({
   user_id: { type: String, required: true },
 })
 
-Comment.plugin(AutoIncrement, { inc_field: 'totalCount' })
+Comment.plugin(AutoIncrement, { inc_field: 'commentTotalCount' })
 
 module.exports = Comment

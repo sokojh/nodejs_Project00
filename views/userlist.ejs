@@ -37,9 +37,8 @@
       // 데이터 셋
       // 팔로우 상태면 1, 언팔로 상태면 0
       const status = followbtn.value.trim() === 'follow' ? 0 : 1
-      const userId = document.getElementById('userId').innerHTML
       const otherId = followbtn.parentElement.firstElementChild.innerHTML
-      const data = { userId, otherId, status }
+      const data = { otherId, status }
       const url = 'http://localhost:7080/follow'
       // 버튼내용변경
       followbtn.value =
@@ -50,6 +49,7 @@
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
+        //body: data,
       })
     }
   </script>
