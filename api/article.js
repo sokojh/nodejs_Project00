@@ -1,8 +1,6 @@
-const { exec } = require('child_process')
-const { Article } = require('../mongoose/model')
-const { User } = require('../mongoose/model')
+const { Article, User } = require('../mongoose/model')
 
-//@ts-check
+// @ts-check
 // Create
 const articleCreate = async (req, res) => {
   const { auther, contentImgKey, contentText } = req.body

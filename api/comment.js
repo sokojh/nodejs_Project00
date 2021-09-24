@@ -27,7 +27,6 @@ const commentWrite = async (req, res, next) => {
 }
 
 // article 좋아요
-
 // comment 좋아요
 
 module.exports = {
