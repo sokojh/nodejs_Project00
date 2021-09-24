@@ -9,7 +9,7 @@ const Article = mongoose.Schema({
   hashtag: { type: String },
 
   // 동적으로 변동될 수 있는 데이터
-  likePeople: { type: Array },
+  likePeoples: { type: Array },
   // 카운팅 데이터
   viewCount: { type: Number, default: 0 },
   likeCount: { type: Number, default: 0 },

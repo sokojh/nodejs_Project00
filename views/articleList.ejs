@@ -1,162 +1,228 @@
 <!doctype html>
 <html>
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <!-- 프로젝트 css -->
-    <link rel="stylesheet" href="/public/css/main.css">
-    <!-- 구글폰츠 아이콘 -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
-    <title>주간솜뭉치</title> 
-  </head>
-  <!-- Jqeury -->
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    
-  <body> 
-    <!-- top nav -->
-    <%- include('htmlPiece/nav.html') %>   
-        
-    <!-- test article -->
-    <div class="feedBox card w-75 h-50 mb-5">
-      <!-- 상단 영역 -->
-      <div class="var-profile p-3">
-        <div class="img-profile float-start"><img src="https://w.namu.la/s/cf33f7e97cb083f0e87192b5871f2dd0768ac458c966c1633d89cba4f26292ec42f91f0a68c60e1e57584c54ec15e5a1649b6a01b5bd0663b11490d2d6cc06911b442520a1fba401b3d30fd6e639ba20fb141e394a5ea8b1c85a0f35cd1ecfbfe9d849beefbd592af33a2742d4b97722" alt=""></div>
-        <div class="main-name-profile float-start ml-2">taeyeon_ss</div>
-        <a href="" class="float-end btn-profile"><i class="material-icons">more_horiz</i></a>
-      </div>
-      
-      <!-- 이미지 영역 -->
-      <div class="imgBox">
-        <img src="https://dangdangee.com/wp-content/uploads/2021/02/3-4.jpg" class="card-img-top" alt="...">
-      </div>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-      <!-- 하단 영역 -->
-      <div class="card-body">
-        <!-- 좋아요, 코멘트, DM 버튼 -->
-        <div class="card-btn d-flex mb-2">
-          <a href="" class="like-btn mr-3"><span class="material-icons">favorite_border</span></a>
-          <!-- 활성화 <a href="" class="like-btn mr-3"><span class="material-icons">favorite</span></a> -->
-          <a href="" class="like-btn mr-3"><span class="material-icons">chat_bubble_outline</span></a>
-          <a href="" class="like-btn mr-3"><span class="material-icons">mail_outline</span></a>
-          
-          <a href="" class="like-btn ml-auto"><span class="material-icons">bookmark_outline</span></a>
-          <!-- 활성화 <a href="" class="like-btn mr-3"><span class="material-icons">bookmark</span></a> -->
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <!-- 프로젝트 css -->
+  <link rel="stylesheet" href="/public/css/main.css">
+  <!-- 구글폰츠 아이콘 -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <title>주간솜뭉치</title>
+</head>
+<!-- Jqeury -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<!-- dateFormating -->
+<script>
+  const getDate = (writeDate) => {
+    let writeDateFormat = new Date(writeDate)
+    let writeDday = new Date().getDate() - writeDateFormat.getDate();
+    (writeDday >= 1) ? document.write(writeDday + '일 전'): document.write('오늘')
+  }
+</script>
+
+<!-- 현재 모달창의 articleId 값 임의 저장 -->
+<script>
+  modalArticleId = null
+  const clickModal = (e) => {
+    let userId = '<%= myUserInfo._id %>' // 현재 사용자의 id 값 저장
+    let thisArticleAutherId = e.id.split('/')[0] // 게시물의 작성자 id 값 저장
+    modalArticleId = e.id.split('/')[1] // 현재 클릭한 게시물의 id 갑 저장
+    modalBtm = document.getElementsByClassName('modal-delete')[0]
+    thisArticleAutherId === userId ? modalBtm.disabled = false : modalBtm.disabled = true
+  }
+  const articleDelete = () => {
+    $.ajax({
+      url: '/article/delete',
+      type: 'post',
+      data: {
+        '_id': modalArticleId
+      }
+    }).done((data) => {
+      console.log(data)
+      window.location.replace("../");
+    }).fail((err) => {
+      console.log(err);
+    })
+  }
+</script>
+
+<body>
+  <!-- top nav -->
+  <%- include('htmlPiece/nav.html') %>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button class="btn btn-outline-danger btn-lg btn-block modal-delete" onclick=articleDelete()>게시물 삭제</button>
+          <button class="btn btn-outline-danger btn-lg btn-block">팔로우 취소</button>
+          <button class="btn btn-outline-danger btn-lg btn-block">신고🚨</button>
+          <button class="btn btn-outline-danger btn-lg btn-block" data-dismiss="modal">닫기</button>
         </div>
-
-        <!-- 좋아요 수 -->
-        <a href=""><h5 class="card-title"><b>좋아요 <span>n</span>개</b></h5></a>
-
-        <!-- 메인 글 -->
-        <p class="card-text"><a href=""><span class="name-profile mr-2">taeyeon_ss</span></a>나의 반려견 제로는 엄청 이쁘다구<a href=""><span class="more ml-1">...더 보기</span></a></p>
-
-        <!-- 댓글 모두보기 -->
-        <a href=""><p class="card-text mb-2">댓글 n개 모두 보기</p></a>
-
-        <!-- 댓글 미리보기 -->
-        <div class="comment_box d-flex">
-          <a href="" class="comment-name mr-2"><p><span class="name-profile">easy</span></p></a>
-          <p><span class="comment-comment">푸들은 역시 푸들이죠</span></p>
-          <!-- >> -->
-          <a href="" class="comment-like ml-auto"><p><span class="material-icons">favorite_border</span></p></a>
-          <!-- 활성화 <a href="" class="like-btn mr-3"><span class="material-icons">favorite</span></a> -->
-        </div>
-        <div class="comment_box d-flex">
-          <a href="" class="comment-name mr-2"><p><span class="name-profile">chan</span></p></a>
-          <p><span class="comment-comment">강아지는 역시 강아지죠</span></p>
-          <!-- >> -->
-          <a href="" class="comment-like ml-auto"><p><span class="material-icons">favorite_border</span></p></a>
-          <!-- 활성화 <a href="" class="like-btn mr-3"><span class="material-icons">favorite</span></a> -->
-        </div>
-
-        <!-- 발행 날짜 -->
-        <p class="postDate mt-2">9월 9일</p>
       </div>
     </div>
+  </div>
+  <!-- 게시물 출력 -->
+  <% articles.forEach(element => { %>
+  <div class="feedBox card w-75 h-50 mb-5">
+    <!-- 상단 영역 -->
+    <div class="var-profile p-3">
+      <!-- 작성자 프로필 로고 -->
+      <div class="img-profile float-start"><img src="<%= element.auther.profileImgKey %>" alt=""></div>
+      <!-- 작성자 닉네임 -->
+      <div class="main-name-profile float-start ml-2"><%= element.auther.weeksomId %></div>
+      <!-- 게시물 ... 버튼 -->
+      <a onclick=clickModal(this) id='<%= element.auther._id %>/<%= element._id %>' class="float-end btn-profile"><i
+          class="material-icons" data-toggle="modal" data-target="#exampleModalCenter">more_horiz</i></a>
+    </div>
 
-    <!-- articles -->
-    <% articles.forEach(element => { %>
-      <div class="feedBox card w-75 h-50 mb-5">
-        <!-- 상단 영역 -->
-        <div class="var-profile p-3">
-          <div class="img-profile float-start"><img src="https://w.namu.la/s/cf33f7e97cb083f0e87192b5871f2dd0768ac458c966c1633d89cba4f26292ec42f91f0a68c60e1e57584c54ec15e5a1649b6a01b5bd0663b11490d2d6cc06911b442520a1fba401b3d30fd6e639ba20fb141e394a5ea8b1c85a0f35cd1ecfbfe9d849beefbd592af33a2742d4b97722" alt=""></div>
-          <div class="main-name-profile float-start ml-2"><%= element.auther %></div>
-          <a href="" class="float-end btn-profile"><i class="material-icons">more_horiz</i></a>
-        </div>
-        
-        <!-- 이미지 영역 -->
-        <div class="imgBox">
-          <img src="<%= element.contentImgKey[0] %>" class="card-img-top" alt="...">
-        </div>
-  
-        <!-- 하단 영역 -->
-        <div class="card-body">
-          <!-- 좋아요, 코멘트, DM 버튼 -->
-          <div class="card-btn d-flex mb-2">
-            <a href="" class="like-btn mr-3"><span class="material-icons">favorite_border</span></a>
-            <!-- 활성화 <a href="" class="like-btn mr-3"><span class="material-icons">favorite</span></a> -->
-            <a href="" class="like-btn mr-3"><span class="material-icons">chat_bubble_outline</span></a>
-            <a href="" class="like-btn mr-3"><span class="material-icons">mail_outline</span></a>
-            
-            <a href="" class="like-btn ml-auto"><span class="material-icons">bookmark_outline</span></a>
-            <!-- 활성화 <a href="" class="like-btn mr-3"><span class="material-icons">bookmark</span></a> -->
-          </div>
-  
-          <!-- 좋아요 수 -->
-          <a href=""><h5 class="card-title"><b>좋아요 <span><%= element.likeCount %></span>개</b></h5></a>
-  
-          <!-- 메인 글 -->
-          <p class="card-text"><a href=""><span class="name-profile mr-2"><%= element.auther %></span></a><%= element.contentText %><a href=""><span class="more ml-1">...더 보기</span></a></p>
-  
-          <!-- 댓글 모두보기 -->
-          <a href=""><p class="card-text mb-2">댓글 <span><%= element.commentCount %></span>개 모두 보기</p></a>
-  
-          <!-- 댓글 미리보기 -->
+    <!-- 메인 이미지 영역 -->
+    <div class="imgBox">
+      <img src="<%= element.contentImgKey[0] %>" class="card-img-top" alt="...">
+    </div>
+
+    <!-- 하단 영역 -->
+    <div class="card-body">
+      <div class="card-btn d-flex mb-2">
+        <!-- 좋아요 버튼 / 활성화 : favorite -->
+        <a class="like-btn contents-btn mr-3" id='<%= element._id %>'>
+          <% if (element.likePeoples.indexOf(myUserInfo.weeksomId) >= 0) { %>
+          <span class="material-icons" style="color: red;">favorite
+            <% } else { %>
+            <span class="material-icons">favorite_border
+              <% } %>
+            </span></a>
+        <!-- 댓글 버튼 -->
+        <a href='/comment?article_id=<%= element._id %>' class="contents-btn mr-3"><span
+            class="material-icons">chat_bubble_outline</span></a>
+        <!-- DM 버튼 -->
+        <a href="" class="contents-btn mr-3"><span class="material-icons">mail_outline</span></a>
+        <!-- 북마크 버튼 / 활성화 : bookmark -->
+        <a href="" class="contents-btn ml-auto"><span class="material-icons">bookmark_outline</span></a>
+      </div>
+
+      <!-- 좋아요 수 -->
+      <a href="">
+        <h5 class="card-title"><b>좋아요 <span class="likeCount<%= element._id %>"><%= element.likeCount %></span>개</b>
+        </h5>
+      </a>
+      <!-- 작성자 메인 글 -->
+      <p class="card-text"><a href=""><span
+            class="name-profile mr-2"><%= element.auther.weeksomId %></span></a><%= element.contentText %></p>
+      <!-- 더 보기 <a href=""><span class="more ml-1">...더 보기</span></a> -->
+
+      <!-- 댓글 모두보기 -->
+      <a href='/comment?article_id=<%= element._id %>'>
+        <p class="card-text mb-2">댓글 더 보기</p>
+      </a>
+
+      <!-- 댓글 미리보기
           <div class="comment_box d-flex">
             <a href="" class="comment-name mr-2"><p><span class="name-profile">easy</span></p></a>
             <p><span class="comment-comment">여기 댓글 맛집이네</span></p>
-            <!-- >> -->
             <a href="" class="comment-like ml-auto"><p><span class="material-icons">favorite_border</span></p></a>
-            <!-- 활성화 <a href="" class="like-btn mr-3"><span class="material-icons">favorite</span></a> -->
+            활성화 <a href="" class="like-btn mr-3"><span class="material-icons">favorite</span></a>
           </div>
           <div class="comment_box d-flex">
             <a href="" class="comment-name mr-2"><p><span class="name-profile">chan</span></p></a>
             <p><span class="comment-comment">강아지는 역시 강아지죠</span></p>
-            <!-- >> -->
             <a href="" class="comment-like ml-auto"><p><span class="material-icons">favorite_border</span></p></a>
-            <!-- 활성화 <a href="" class="like-btn mr-3"><span class="material-icons">favorite</span></a> -->
-          </div>
-  
-          <!-- 발행 날짜 -->
-          <p class="postDate mt-2"><%= element.createDate %></p>
-        </div>
-      </div>
-    <% }) %>
+            활성화 <a href="" class="like-btn mr-3"><span class="material-icons">favorite</span></a>
+          </div> -->
+
+      <!-- 발행 날짜 -->
+      <p class="postDate mt-2">
+        <script>
+          getDate('<%= element.createDate %>')
+        </script>
+      </p>
+    </div>
+  </div>
+  <% }) %>
 
 
 
 
-    <br><br><br><br><br><br><br>
+  <br><br><br><br><br><br><br>
 
+  <!-- 하단 nav 바 -->
+  <%- include('htmlPiece/bottomNav.html') %>
 
+  <!-- modal -->
+  <script>
+    $('#myModal').on('shown.bs.modal', (thisBtn) => {
+      $('#myInput').trigger('focus')
+    })
+  </script>
 
+  <!-- 부트스트랩 js-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+  </script>
 
+  <!-- like-btn 이름 공백제거 -->
+  <script>
+    document.querySelectorAll('.like-btn span').forEach((element) => {
+      element.innerHTML = element.innerHTML.trim()
+    })
+  </script>
 
+  <!-- ajax -->
+  <script>
+    $(function () {
+      // like 처리
+      $('.like-btn').click(function (likeBtn) {
+        // 좋아요 처리 == 1 , 안 좋아요 == 0
+        let status = likeBtn.target.innerHTML === 'favorite_border' ? 1 : 0
+        let thisSpan = $(" span", this)
+        let articleId = $(this).attr('id')
+        let like = ".likeCount" + articleId
+        // 좋아요 처리
+        if (status === 1) {
+          $.ajax({
+            url: '/article/likeUpdate',
+            type: 'post',
+            data: {
+              'articleId': articleId,
+              'status': status
+            }
+          }).done((data) => {
+            likeBtn.target.innerHTML = 'favorite'
+            likeBtn.target.style.color = 'red'
+            $(like).text(Number($(like).text()) + 1)
+          }).fail((err) => {
+            console.log(err);
+          })
+          // 좋아요 취소
+        } else {
+          $.ajax({
+            url: '/article/likeUpdate',
+            type: 'post',
+            data: {
+              'articleId': articleId,
+              'status': status
+            }
+          }).done((data) => {
+            likeBtn.target.innerHTML = 'favorite_border'
+            likeBtn.target.style.color = ''
+            $(like).text(Number($(like).text()) - 1)
+          }).fail((err) => {
+            console.log(err);
+          })
+        }
+      })
+    })
+  </script>
+</body>
 
-
-
-
-    <!-- 하단 nav 아이콘 활성화를 위한 페이지 이름지정,  -->
-    <script>
-      var thisPage = "homePage";
-    </script>
-    <%- include('htmlPiece/bottomNav.html') %>
-
-    <!-- 부트스트랩 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-  </body>
 </html>
