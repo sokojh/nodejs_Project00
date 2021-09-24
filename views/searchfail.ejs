@@ -16,62 +16,38 @@
   </head>
   <!-- Jqeury -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script>$('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').trigger('focus')
-  })</script>
 
   <body> 
     <!-- top nav -->
     <%- include('htmlPiece/nav.html') %>   
-  <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-  Launch demo modal
-</button>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle"><%# posts[0].contentText %></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <img src=<%# posts[0].contentImgKey%>>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
 </div>
      <br>
-     <br><br><br><br><br><br>   
+     <br><br><br>  
      <div class="container input-group mb-2">
         <input class="form-control" id="search-input">
         <button class="input-group-append btn btn-danger" id="search">검색</button>
       </div>
-      
-      <script>
-        $('#search').click(function(){
-          var 입력한값 = $('#search-input').val();
-          window.location.replace('/search/v?value=' + 입력한값)
-        });
-      
-      </script>
+      <br>  
+      <br>  
+      <br>  
+      <center><div>
+<h4> '<%= valuefail %>'은/는 검색결과가 없습니다.😂 </h4>
 
-
- 
+      </div></center>
 
     <!-- 하단 nav 바 -->
     <%- include('htmlPiece/bottomNav.html') %>
 
     <!-- 부트스트랩 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-
-
+    <script>
+        $('#search').click(function(){
+          var 입력한값 = $('#search-input').val();
+          window.location.replace('/search/v?value=' + 입력한값)
+        });
+      
+      </script>
+ 
   </body>
 </html>
