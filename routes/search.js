@@ -21,10 +21,10 @@ router.get('/v', (req, res) => {
   var 검색조건 = [
     {
       $search: {
-        index: 'articleSearch',
+        index: 'articleSearch', // 아틀라스 인덱스 사용
         text: {
-          query: req.query.value,
-          path: 'contentText',
+          query: req.query.value, // 검색쿼리는 주소값을 이용
+          path: 'contentText', // 텍스트데이터
         },
       },
     },

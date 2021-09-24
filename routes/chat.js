@@ -22,7 +22,6 @@ io.on('connection', (socket) => {
 }) //연결의 정보를 socket에 담음\
 
 router.get('/', (req, res) => {
-  
   // todo something
   res.render('chat.ejs')
 })
