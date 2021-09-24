@@ -1,15 +1,16 @@
 // @ts-check
 
 // 익스프레스 웹 기본 셋팅
-const express = require('express') // 익스프레스 서버모듈 가져오기
+const express = require('express')
+// 익스프레스 서버모듈 가져오기
 const app = express() // 익스프레스 객체 생성
-//const client = require('../src/mongo') // 몽고디비 연결 정보
+// const client = require('../src/mongo') // 몽고디비 연결 정보
 app.use(express.urlencoded({ extended: true })) // 포스트 전송시 인코딩, 익스텐디드는 중첩허용
 app.use(express.json()) // post로 전달된 페이로드를 받을 수 있음 => req.body 로 프론트 폼데이터 전달받음 : 'body'parser
 // static 폴더 지정해주는것 public폴더를 고정폴더로 서버 시작할때 사용하게 만들어줌.
 app.use('/public', express.static('public'))
 app.set('views', 'views') // 익스프레스 뷰 폴더 경로는 기본값으로 views를 사용
-app.set('view engine', 'ejs') //뷰엔진 ejs 사용
+app.set('view engine', 'ejs') // 뷰엔진 ejs 사용
 
 // @ts-ignore
 // 세션 로그인 확인 미들웨어 ( 쿠키해시값 => 패스포트 디시리얼라이즈 자동실행 => 세션정보 확인 )
@@ -27,8 +28,6 @@ const loginCheck = (req, res, next) => {
 // 패스포트 기본셋팅
 const passport = require('passport')
 const session = require('express-session')
-// multer 선언
-const multer = require('multer')
 
 // express session
 app.use(session({ secret: '세션비번', resave: true, saveUninitialized: false }))
@@ -49,7 +48,7 @@ app.get('/', loginCheck, (req, res) => {
 app.post(
   '/',
   passport.authenticate('local', {
-    //로컬 방식으로 인증
+    // 로컬 방식으로 인증
     failureRedirect: '/fail', // TODO 로그인 실패 페이지구성
   }),
   // @ts-ignore
@@ -70,13 +69,33 @@ app.use('/comment', require('../routes/comment'))
 app.use('/chat', require('../routes/chat'))
 app.use('/post', loginCheck, require('../routes/post'))
 app.use('/search', require('../routes/search'))
-//app.use('/:weeksomId', require('../routes/profile'))
 
-// 몽구스 테스트
-// const { Article } = require('../api/0.index')
-// app.get('/read', Article.articleRead)
-// app.post('/create', Article.articleCreate)
-// app.patch('/update', Article.articleUpdate)
-// app.delete('/delete/:id', Article.articleDelete)
+app.use('/@/:weeksomId', require('../routes/profile'))
+
+// -------------------------------------------------------------------------------------
+
+const http = require('http') // http 코어 모듈
+
+const server = http.createServer(app) // express를 http로 통해 실행
+const socketIO = require('socket.io')
+
+// 소켓 io
+const io = socketIO(server)
+
+const moment = require('moment')
+
+io.on('connection', (socket) => {
+  socket.on('chatting', (data) => {
+    // data : 클릭을 했을 때 넘겨받는 닉네임, 내용, 시간
+    const { name, msg } = data
+    console.log(data) // data를 보내고
+    io.emit('chatting', {
+      // 받고
+      name,
+      msg,
+      time: moment(new Date()).format('h:ss A'),
+    })
+  })
+}) // 연결의 정보를 socket에 담음
 
 module.exports = app

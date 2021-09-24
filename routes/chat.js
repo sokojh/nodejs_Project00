@@ -3,7 +3,8 @@ const { Chat } = require('../api/0.index') // 몽구스 api 임포트
 
 // 채팅 소캣 사용
 const server = require('http').createServer(router) // http로 통해 실행
-const socketIO = require('socket.io') // 소켓 io
+const socketIO = require('socket.io')
+// 소켓 io
 const io = socketIO(server)
 const moment = require('moment')
 
@@ -14,12 +15,12 @@ io.on('connection', (socket) => {
     console.log(data) // data를 보내고
     io.emit('chatting', {
       // 받고
-      name: name,
-      msg: msg,
+      name,
+      msg,
       time: moment(new Date()).format('h:ss A'),
     })
   })
-}) //연결의 정보를 socket에 담음\
+}) // 연결의 정보를 socket에 담음\
 
 router.get('/', (req, res) => {
   // todo something
