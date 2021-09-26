@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const { Chat } = require('../api/0.index') // 몽구스 api 임포트
 
 // 채팅 소캣 사용
 const server = require('http').createServer(router) // http로 통해 실행

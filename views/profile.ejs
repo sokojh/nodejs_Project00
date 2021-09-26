@@ -3,16 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <title>profile</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <!-- 구글폰츠 아이콘 -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- 문서 css -->
+    <link rel="stylesheet" href="/public/css/profile.css" />
   </head>
   <body>
-    <h1><%= 프로필.nickname %>님의 프로필입니다.</h1>
-    <p>주솟값에 weeksomId를 입력하면 다른유저프로필페이지를 볼 수 있습니다</p>
-    이메일 : <%= 프로필.email %><br />
-    팔로워 : <%= 프로필.follower %><br />
-    팔로잉 : <%= 프로필.following %><br />
-    한마디 : <%= 프로필.userinfo %><br />
-    게시물 : <%= 프로필.article %><br />
-    즐겨찾기 : <%= 프로필.bookmark %><br />
-    <a href="/acount/modify">프로필 정보 변경</a>
+    <!-- 상단바 -->
+    <nav>
+      <div>
+        <button>back</button>
+        <div>
+          <h2><%= 프로필.weeksomId %></h2>
+          <%= 프로필.articleCount %> post
+        </div>
+      </div>
+      <button class="modify">프로필 편집</button>
+    </nav>
+    <!-- 내용 -->
+    <section>
+      <div>
+        <img
+          id="profileImg"
+          src="<%= 프로필.profileImgKey %>"
+          alt="프로필이미지"
+        />
+        <h1><%= 프로필.nickname %>님의 프로필입니다.</h1>
+      </div>
+      <p>주솟값에 weeksomId를 입력하면 다른유저프로필페이지를 볼 수 있습니다</p>
+      이메일 : <%= 프로필.email %><br />
+      팔로워 : <%= 프로필.follower %><br />
+      팔로잉 : <%= 프로필.following %><br />
+      한마디 : <%= 프로필.userinfo %><br />
+      게시물 : <%= 프로필.article %><br />
+      즐겨찾기 : <%= 프로필.bookmark %><br />
+      <a href="/acount/modify">프로필 정보 변경</a>
+    </section>
+    <!-- 하단정보 -->
+    <footer></footer>
   </body>
 </html>

@@ -74,16 +74,12 @@ app.use('/@/:weeksomId', require('../routes/profile'))
 
 // -------------------------------------------------------------------------------------
 
-const http = require('http') // http 코어 모듈
-
-const server = http.createServer(app) // express를 http로 통해 실행
-
-const socketio = require('socket.io')
-
-const io = socketio(server)
 // 소켓 io
-
+const http = require('http').createServer(app)
+const { Server } = require('socket.io')
 const moment = require('moment')
+
+const io = new Server(http)
 
 io.on('connection', (socket) => {
   console.log('websocket connetion')
@@ -100,4 +96,4 @@ io.on('connection', (socket) => {
   })
 }) // 연결의 정보를 socket에 담음
 
-module.exports = server
+module.exports = http

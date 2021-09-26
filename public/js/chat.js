@@ -1,4 +1,4 @@
-('use strict')
+;('use strict')
 
 // 자바스크립트 오류줄임
 
@@ -65,6 +65,7 @@ function LiModel(name, msg, time) {
 // on으로 받음
 socket.on('chatting', (data) => {
   // 서버에서 데이터를 받았을 때
+  console.log('데이터 받음')
   const { name, msg, time } = data
   const item = new LiModel(name, msg, time) // item 변수에 new 키워드를 통해서 li 모델을 초기화
   item.makeLi() // makeLi()호출
