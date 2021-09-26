@@ -11,16 +11,21 @@ nav > div > div {
   margin-left: 5%;
 }
 section {
+  height:40%;
   background-color: aqua;
   justify-content: center;
-}
-#profileImg {
-  width: 15%;
-  height: 15%;
-  border-radius: 100%;
 }
 /* section > div {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 } */
+#profileImg {
+  width: 0.3vw;
+  height: 0.3vw;
+  border-radius: 100%;
+}
+footer {
+  height:40%;
+  background-color: gray;
+}

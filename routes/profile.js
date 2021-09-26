@@ -6,7 +6,7 @@ router.get(
   '/',
   (req, res, next) => {
     console.log('profile 라우터 연결')
-    if (req.user == req.params) {
+    if (req.user === req.params) {
       res.render('profile.ejs', { 프로필: req.user })
     } else {
       next()
