@@ -25,10 +25,44 @@
       (writeDday != 1) ? document.write(writeDday + '일 전') : document.write('오늘')
     }
   </script>
+  <!-- a 태그-->
+  <script>
+    $(document).ready(function(){
+      $("img").mouseover(function(){
+        $("img").css("background-color", "lightgray");
+      });
+    });
+    </script>
   <body> 
     <!-- top nav -->
     <%- include('htmlPiece/nav.html') %>   
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
         
+
+
+
+      <div class="modal-footer">
+        <input></input>
+        <button type="button" class="btn btn-primary">게시</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
     <!-- 게시물 출력 -->
     <div class="d-flex flex-row">
     <% articles.forEach(element => { %>
@@ -38,7 +72,7 @@
           <img src="<%= element.contentImgKey[0] %>" class="rounded float-left w-50" alt="...">
             <!-- 발행 날짜 -->
           <p class="postDate mt-2"><script>getDate('<%= element.createDate %>')</script></p>
-        
+          <span class="badge badge-success badge-pill">좋아요<%= element.likeCount %></span>
         </div>
   
       
@@ -59,7 +93,6 @@
 
     <!-- 부트스트랩 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-
- 
+  
   </body>
 </html>
