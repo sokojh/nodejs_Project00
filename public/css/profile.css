@@ -21,8 +21,7 @@ section {
   transform: translate(-50%, -50%);
 } */
 #profileImg {
-  width: 0.3vw;
-  height: 0.3vw;
+  width: 15%;
   border-radius: 100%;
 }
 footer {
