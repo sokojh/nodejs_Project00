@@ -19,7 +19,7 @@
   <!-- Jqeury -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-  <!-- dateFormating -->
+  <!-- dateFormating 시간.-->
   <script>
     const getDate = (writeDate) => {
       let writeDateFormat = new Date(writeDate)
@@ -27,51 +27,57 @@
       (writeDday != 1) ? document.write(writeDday + '일 전') : document.write('오늘')
     }
   </script>
-  <!--연습-->
- <script>
-  $(".hover").mouseleave(
-    function () {
-      $(this).removeClass("hover");
-    }
-  );
-
- </script>
+ 
+ 
   <body> 
+   
     <!-- top nav -->
     <%- include('htmlPiece/nav.html') %>   
+    <!-- 검색결과 텍스트-->
+    <div>
+    <center><h3><b><%= valueSuc %></b>의 검색결과 입니다. 😁 </h3></center><br>
+    <center><p><b>게시물</b> <%= searchReq %></p></center>
+  </div>
 
-
-  
-
-<!-- Modal -->
+<!-- 모달창 -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
+        🐑
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <!-- 모달 가운데 부분-->
       <div class="modal-body">
-        
+        <figure class="col-sm-2 snip1200">
+          <img src="https://imagescdn.gettyimagesbank.com/_500/201510/a10307186.jpg">
+          </figure>
+        </div>
 
 
-
+        <!--모달 밑부분영역-->
       <div class="modal-footer">
-        <input></input>
-        <button type="button" class="btn btn-primary">게시</button>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="댓글을입력하세요..." aria-label="" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-outline-primary" type="button">게시</button>
+          </div>
+        </div>
+      </div> 
       </div>
     </div>
+    </div>
   </div>
-</div>
-</div>
+
     <!-- 게시물 출력 -->
-    <div class="container">
+    <div class="container-sm">
     <div class="row">
     <% articles.forEach(element => { %>
         
         <!-- 메인 이미지 영역 -->
-        <figure class="col-1 snip1200">
+        <figure class="snip1200">
           <img src="<%= element.contentImgKey[0] %>" class="" alt="...">
           <figcaption>
             <center><p>💬<%= element.commentCount %> 🤍<%=element.likeCount%> </p></center>
@@ -93,6 +99,7 @@
     <% }) %>
 </div>
 </div>
+
     <br><br><br><br><br><br><br>
 
     <!-- 하단 nav 바 -->

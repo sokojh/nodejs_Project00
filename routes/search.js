@@ -35,7 +35,11 @@ router.get('/v', (req, res) => {
       if (결과.length == 0) {
         res.render('searchFail.ejs', { valuefail: req.query.value })
       } else {
-        res.render('searchSuc.ejs', { articles: 결과 })
+        res.render('searchSuc.ejs', {
+          articles: 결과,
+          valueSuc: req.query.value,
+          searchReq: 결과.length,
+        })
       }
     })
 })
