@@ -8,7 +8,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <!-- 프로젝트 css -->
+    
     <link rel="stylesheet" href="/public/css/main.css">
+    <link rel="stylesheet" href="/public/css/search.css">
     <!-- 구글폰츠 아이콘 -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
@@ -25,21 +27,21 @@
       (writeDday != 1) ? document.write(writeDday + '일 전') : document.write('오늘')
     }
   </script>
-  <!-- a 태그-->
-  <script>
-    $(document).ready(function(){
-      $("img").mouseover(function(){
-        $("img").css("background-color", "lightgray");
-      });
-    });
-    </script>
+  <!--연습-->
+ <script>
+  $(".hover").mouseleave(
+    function () {
+      $(this).removeClass("hover");
+    }
+  );
+
+ </script>
   <body> 
     <!-- top nav -->
     <%- include('htmlPiece/nav.html') %>   
-    <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-  Launch demo modal
-</button>
+
+
+  
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -64,17 +66,24 @@
 </div>
 </div>
     <!-- 게시물 출력 -->
-    <div class="d-flex flex-row">
+    <div class="container">
+    <div class="row">
     <% articles.forEach(element => { %>
         
         <!-- 메인 이미지 영역 -->
-        <div class="p-2">
-          <img src="<%= element.contentImgKey[0] %>" class="rounded float-left w-50" alt="...">
+        <figure class="col-1 snip1200">
+          <img src="<%= element.contentImgKey[0] %>" class="" alt="...">
+          <figcaption>
+            <center><p>💬<%= element.commentCount %> 🤍<%=element.likeCount%> </p></center>
+            
+            
+          </figcaption>
+          <a href="#" data-toggle="modal" data-target="#exampleModalCenter"></a>
             <!-- 발행 날짜 -->
-          <p class="postDate mt-2"><script>getDate('<%= element.createDate %>')</script></p>
-          <span class="badge badge-success badge-pill">좋아요<%= element.likeCount %></span>
-        </div>
-  
+          <!--<p class="postDate mt-2"><script>getDate('<%# element.createDate %>')</script></p>
+          <span class="badge badge-success badge-pill">좋아요<%# element.likeCount %></span>-->
+        </figure>
+        
       
   
           
@@ -83,9 +92,7 @@
       
     <% }) %>
 </div>
-
-
-
+</div>
     <br><br><br><br><br><br><br>
 
     <!-- 하단 nav 바 -->
