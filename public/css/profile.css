@@ -1,30 +1,100 @@
+@import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css');
+/* https://www.flaticon.com/kr/uicons */
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+
+
 nav {
-  height: 20%;
+  position: fixed;
+  height: 10vh;
+  width: 100vw;
   display: flex;
   justify-content: space-between;
-  background-color: red;
+  padding-top: 2vh;
+  padding-left: 3%;
+  padding-right: 3%;
+  background-color: white;
 }
 nav > div {
   display: flex;
+  font-size:2.2em;
+  font-weight: 900;
 }
-nav > div > div {
-  margin-left: 5%;
+#navIcon {
+  width: 21vw;
+  justify-content: space-between;
 }
+
+
+
 section {
-  height:40%;
-  background-color: aqua;
-  justify-content: center;
+  position: relative;
+  height:30vh;
+  top: 10vh;
 }
-/* section > div {
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-} */
+.profile {
+  display: flex;
+  justify-content: space-between;
+  padding:4%;
+}
+
+section > div > div {
+  width: 20vw;
+  height: 20vw;
+  text-align: center;
+}
+section > div > div > div {
+  font-size:1.5em;
+  font-weight: 900;
+  padding-top: 25%;
+  padding-bottom: 5%;
+}
+section > div > div > span {
+  font-size:1em;
+  font-weight: 500;
+}
 #profileImg {
-  width: 15%;
+  width: 20vw;
+  height: 20vw;
   border-radius: 100%;
 }
-footer {
-  height:40%;
-  background-color: gray;
+
+.tap {
+  font-size: 1.6em;
+  display: flex;
+  justify-content: space-between;
 }
+.tap > div {
+  width: 100%;
+  height: 30%;
+  border-bottom: 0.1em solid white;
+}
+.tapEl:hover{
+/* 온클릭 자바스크립트로 줄것 */
+  border-bottom: 0.1em solid black;
+}
+
+.article {
+  display: flex;
+  flex-flow:wrap;
+  justify-content: space-between;
+}
+.article > div {
+  width: 33vw;
+  height: 33vw;
+  background-color: black;
+  margin-top: 0.5%;
+}
+/* 
+footer {
+  position: relative;
+  height:40vh;
+  width: 100vw;
+  top: 10vh;
+  background-color: aquamarine;
+  opacity: 0.5;
+} */

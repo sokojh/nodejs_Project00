@@ -22,6 +22,7 @@ const commentWrite = async (req, res, next) => {
   var { article_id, text } = req.body // ajax data 에서 해당 값을 불러와 오브젝트로 저장
   const newComment = await Comment({ article_id, text, user_id: req.user._id }) // 스키마로 newComment 객체 생성
   const saveRequest = await newComment.save() // comment 객체로 디비에 저장
+  
   req.saveComment = saveRequest // 디비에 저장완료 후 저장된 객체 반환, 요청정보에 저장
   next()
 }
