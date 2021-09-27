@@ -70,7 +70,7 @@ app.use('/chat', require('../routes/chat'))
 app.use('/post', loginCheck, require('../routes/post'))
 app.use('/search', require('../routes/search'))
 
-app.use('/@/:weeksomId', require('../routes/profile'))
+app.use('/@/:weeksomId', loginCheck, require('../routes/profile'))
 
 // -------------------------------------------------------------------------------------
 

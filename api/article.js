@@ -12,9 +12,16 @@ const articleCreate = async (req, res) => {
 
 // Read
 const articleRead = async (req, res, next) => {
-  const email = req.body.email
-  const articles = await Article.find({ email: email })
+  const { email } = req.body
+  const articles = await Article.find({ email })
   req.articles = articles
+  next()
+}
+
+const profileArticle = async (req, res, next) => {
+  const { _id } = req.userProfile._id
+  const article = await Article.find({ auther: _id })
+  req.userArticle = article
   next()
 }
 
@@ -30,7 +37,7 @@ const articlePopRead = async (req, res, next) => {
 // Update
 const articleUpdate = async (req, res) => {
   const { id, contentText } = req.body
-  const updatedArticle = await Article.findByIdAndUpdate(id, { contentText }) //리턴값으로 수정전 오리진데이터 사용
+  const updatedArticle = await Article.findByIdAndUpdate(id, { contentText }) // 리턴값으로 수정전 오리진데이터 사용
   res.send(updatedArticle)
 }
 
@@ -46,11 +53,11 @@ const articleDelete = async (req, res, next) => {
 
 // likeUpdate
 const likeUpdate = async (req, res, next) => {
-  let likePressName = req.user.weeksomId
-  let _id = { _id: req.body.articleId }
-  //req.body.status === 1 // 좋아요 처리
-  //req.body.status === 0 // 좋지 않아요 처리
-  let status = req.body.status
+  const likePressName = req.user.weeksomId
+  const _id = { _id: req.body.articleId }
+  // req.body.status === 1 // 좋아요 처리
+  // req.body.status === 0 // 좋지 않아요 처리
+  const { status } = req.body
   if (status === '1') {
     await Article.findByIdAndUpdate(_id, {
       $inc: { likeCount: 1 },
@@ -89,4 +96,5 @@ module.exports = {
   articleDelete,
   articlePopRead,
   likeUpdate,
+  profileArticle,
 }

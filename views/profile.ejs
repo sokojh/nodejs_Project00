@@ -3,19 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <title>profile</title>
-
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-      crossorigin="anonymous"
-    />
-    <!-- 구글폰츠 아이콘 -->
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
     <!-- 리셋 css -->
     <link
       rel="stylesheet"
@@ -35,6 +22,7 @@
     </nav>
     <!-- 내용 -->
     <section>
+      <!-- 프로필 정보 -->
       <div class="profile">
         <div>
           <img
@@ -56,37 +44,61 @@
           <span>팔로잉</span>
         </div>
       </div>
-      <div class="profile"><%= 프로필.nickname %></div>
-
-      <a href="/acount/modify">프로필 정보 변경</a>
-      <div class="tap">
-        <div class="tapEl">
-          <i class="fi fi-rr-portrait"></i>
-        </div>
-        <div class="tapEl">
-          <i class="fi fi-rr-bookmark"></i>
-        </div>
-        <div class="tapEl">
-          <i class="fi fi-rr-heart"></i>
-        </div>
+      <div class="profileText">
+        <div><%= 프로필.nickname %></div>
+        <div><%= 프로필.userInfo %></div>
+        <% if (프로필.weeksomId === user.weeksomId) { %>
+        <a href="/acount/modify">프로필 정보 변경</a>
+        <% }%>
       </div>
-
-      <div class="article">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+      <!-- 게시물 정보 -->
+      <div class="tab_content">
+        <input type="radio" id="tab1" name="tab" checked />
+        <label for="tab1">
+          <i class="fi fi-rr-portrait"></i>
+        </label>
+        <input type="radio" id="tab2" name="tab" />
+        <label for="tab2">
+          <i class="fi fi-rr-bookmark"></i>
+        </label>
+        <input type="radio" id="tab3" name="tab" />
+        <label for="tab3">
+          <i class="fi fi-rr-heart"></i>
+        </label>
+        <div class="myArticle tabBox">
+          <% article.forEach(el => { %>
+          <div class="thumbnail">
+            <img src="<%=el.contentImgKey[0] %>" alt="" />
+          </div>
+          <% }); %>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+        </div>
+        <div class="bookmarkArticle tabBox">
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+        </div>
+        <div class="likeArticle tabBox">
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+        </div>
       </div>
     </section>
-    <!-- 하단정보 -->
-    <!-- <footer></footer> -->
   </body>
 </html>
