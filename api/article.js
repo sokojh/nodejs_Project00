@@ -17,11 +17,15 @@ const articleRead = async (req, res, next) => {
   req.articles = articles
   next()
 }
-
+// /@/:weeksomId 유저게시물, 북마크, 좋아요 컨텐츠 검색
 const profileArticle = async (req, res, next) => {
-  const { _id } = req.userProfile._id
-  const article = await Article.find({ auther: _id })
-  req.userArticle = article
+  const { _id, weeksomId } = req.userProfile
+  const userArticle = await Article.find({ auther: _id })
+  const likeArticle = await Article.find({
+    aulikePeoples: { $elemMatch: weeksomId },
+  })
+  req.likeArticle = likeArticle
+  req.userArticle = userArticle
   next()
 }
 

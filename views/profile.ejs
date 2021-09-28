@@ -79,11 +79,11 @@
           <i class="fi fi-rr-heart"></i>
         </label>
         <div class="myArticle tabBox">
-          <% for (let i =0; i < article.length ; i++) { %>
+          <% for (let i =0; i < userArticle.length ; i++) { %>
           <div class="thumbnail">
-            <img src="<%=article[i].contentImgKey[0] %>" alt="<%= i %>" />
+            <img src="<%= userArticle[i].contentImgKey[0] %>" alt="<%= i %>" />
           </div>
-          <% console.log(i)}; %>
+          <% }; %>
           <div class="dummy"></div>
           <div class="dummy"></div>
         </div>
@@ -92,26 +92,16 @@
           <div class="dummy"></div>
         </div>
         <div class="likeArticle tabBox">
-          <div class="dummy"></div>
-          <div class="dummy"></div>
-          <div class="dummy"></div>
-          <div class="dummy"></div>
-          <div class="dummy"></div>
-          <div class="dummy"></div>
-          <div class="dummy"></div>
-          <div class="dummy"></div>
-          <div class="dummy"></div>
-          <div class="dummy"></div>
-          <div class="dummy"></div>
-          <div class="dummy"></div>
-          <div class="dummy"></div>
+          <% for (let i =0; i < likeArticle.length ; i++) { %>
+          <div class="thumbnail">
+            <img src="<%= likeArticle[i].contentImgKey[0] %>" alt="<%= i %>" />
+          </div>
+          <% }; %>
           <div class="dummy"></div>
           <div class="dummy"></div>
         </div>
       </div>
     </section>
   </body>
-  <script>
-    
-  </script>
+  <script></script>
 </html>

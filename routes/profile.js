@@ -15,12 +15,10 @@ router.get(
   Article.profileArticle,
   (req, res) => {
     console.log('클라이언트 : /:weeksomId 라우터 연결')
-    req.userArticle.forEach((obj) => {
-      // console.log(obj)
-    })
     res.render('profile.ejs', {
       프로필: req.userProfile,
-      article: req.userArticle,
+      userArticle: req.userArticle,
+      likeArticle: req.likeArticle,
       user: req.user,
     })
   }
