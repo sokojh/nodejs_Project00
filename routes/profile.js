@@ -19,6 +19,7 @@ router.get(
       프로필: req.userProfile,
       userArticle: req.userArticle,
       likeArticle: req.likeArticle,
+      bookmarkArticle: req.bookmarkArticle,
       user: req.user,
     })
   }

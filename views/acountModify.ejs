@@ -42,7 +42,20 @@
           </div>
           <div></div>
         </div>
-        <form action="" >
+        <div id="password-confirm">
+          <input
+            id="pw"
+            type="password"
+            placeholder="password"
+            value="qwer1234#"
+          />
+          <input
+            type="button"
+            value="비밀번호 확인"
+            onclick="validPassword(this)"
+          />
+        </div>
+        <form action="" id="form">
           <div class="text">이메일 (중복불가)</div>
           <input type="text" value="<%= 프로필.email %>" />
           <div class="text">아이디 (중복불가)</div>
@@ -55,5 +68,25 @@
       </section>
     </div>
   </body>
-  <script></script>
+  <script>
+    async function validPassword(el) {
+      const pw = document.getElementById('pw').value
+      console.log(pw)
+      const url = 'http://localhost:7080/acount/validPassword'
+      await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pw }),
+      })
+        //.then((res) => res.json())
+        .then((data) => {
+          if (data.status === 200) {
+            document.getElementById('password-confirm').style.display = 'none'
+            document.getElementById('form').style.display = 'block'
+          } else {
+            document.getElementById('pw').value = ''
+          }
+        })
+    }
+  </script>
 </html>

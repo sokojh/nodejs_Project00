@@ -27,4 +27,7 @@ router.get('/modify', (req, res) => {
 // 회원가입 디비입력
 router.post('/signup', User.userSignup) // 몽구스 유저등록 api 사용
 
+// 사용자 비밀번호 확인
+router.post('/validPassword', User.validPassword)
+
 module.exports = router

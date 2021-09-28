@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt')
 const { User } = require('../mongoose/model')
-const { Userdata } = require('../mongoose/model')
 
 // 회원가입 /acount/signup
 const userSignup = async (req, res) => {
@@ -70,9 +69,25 @@ const followUpdate = async (req, res, next) => {
   )
 }
 
+const validPassword = async (req, res) => {
+  const { pw } = req.body
+  const userId = req.user.weeksomId
+  console.log(pw, userId)
+  const user = await User.findOne({ weeksomId: userId })
+  // 일치 1 불일치 0
+  const status = bcrypt.compareSync(pw, user.hashedPassword) ? 1 : 0
+  console.log('비번일치 1 불일치 0 :', status)
+  if (status === 1) {
+    res.sendStatus(200)
+  } else {
+    res.sendStatus(400)
+  }
+}
+
 module.exports = {
   userSignup,
   viewUserProfile,
   userList,
   followUpdate,
+  validPassword,
 }

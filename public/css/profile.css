@@ -138,7 +138,15 @@ input[id="tab2"]:checked ~ .bookmarkArticle {display: flex;}
 input[id="tab3"]:checked ~ .likeArticle {display: flex;}
 
 
-/* 회원정보편집 */
+
+
+/* 회원정보------------------------------------- */
+/* 비번검사 */
+#password-confirm {
+  padding: 4%;
+  width: 90vw;
+}
+/* 회원정보 */
 .text {
   font-size: 1em;
   padding-bottom: 2%;
@@ -146,13 +154,14 @@ input[id="tab3"]:checked ~ .likeArticle {display: flex;}
 }
 form {
   padding: 4%;
+  display: none;
 }
-form > input {
+form > input, #password-confirm > input  {
   width: 90vw;
-  height: 3vh;
+  height: 4vh;
   margin-bottom: 5%;
   border: 0;
   border-bottom: 2px solid rgb(216, 216, 216);
   font-size: 1.5em;
 }
-form > input:focus {outline:none;}
+input:focus {outline:none;}

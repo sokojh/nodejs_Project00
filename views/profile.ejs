@@ -92,8 +92,16 @@
             <div class="dummy"></div>
           </div>
           <div class="bookmarkArticle tabBox">
-            <div class="dummy"></div>
-            <div class="dummy"></div>
+            <% for (let i =0; i < bookmarkArticle.length ; i++) { %>
+              <div class="thumbnail">
+                <img
+                  src="<%= bookmarkArticle[i].contentImgKey[0] %>"
+                  alt="<%= i %>"
+                />
+              </div>
+              <% }; %>
+              <div class="dummy"></div>
+              <div class="dummy"></div>
           </div>
           <div class="likeArticle tabBox">
             <% for (let i =0; i < likeArticle.length ; i++) { %>
