@@ -12,96 +12,104 @@
     <link rel="stylesheet" href="/public/css/profile.css" />
   </head>
   <body>
-    <!-- 상단바 -->
-    <nav>
-      <div id="weeksomId">
-        <a href="http://localhost:7080/">
-          <i class="fi fi-rr-angle-double-small-left"></i>
-        </a>
-        <%= 프로필.weeksomId %>
-      </div>
-      <div id="navIcon">
-        <a href="http://localhost:7080/post">
-          <i class="fi fi-rr-add"></i>
-        </a>
-        <a href="">
-          <i class="fi fi-rr-menu-burger"></i>
-        </a>
-      </div>
-    </nav>
-    <!-- 내용 -->
-    <section>
-      <!-- 프로필 정보 -->
-      <div class="profile">
-        <div id="profileImgBox">
-          <img
-            id="profileImg"
-            src="<%= 프로필.profileImgKey %>"
-            alt="프로필이미지"
-          />
+    <div>
+      <!-- 상단바 -->
+      <nav>
+        <div id="weeksomId">
+          <a href="http://localhost:7080/">
+            <i class="fi fi-rr-angle-double-small-left"></i>
+          </a>
+          <%= 프로필.weeksomId %>
         </div>
-        <div>
-          <div><%= 프로필.articleCount %></div>
-          <span>게시물</span>
+        <div id="navIcon">
+          <a href="http://localhost:7080/post">
+            <i class="fi fi-rr-add"></i>
+          </a>
+          <a href="">
+            <i class="fi fi-rr-menu-burger"></i>
+          </a>
         </div>
-        <div>
-          <div><%= 프로필.followerCount %></div>
-          <span>팔로워</span>
-        </div>
-        <div>
-          <div><%= 프로필.followerCount %></div>
-          <span>팔로잉</span>
-        </div>
-      </div>
-      <div class="profileText">
-        <div><%= 프로필.nickname %></div>
-        <div><%= 프로필.userInfo %></div>
-      </div>
-      <% if (프로필.weeksomId === user.weeksomId) { %>
-      <div class="modifyBox">
-        <button class="modify">
-          <a href="/acount/modify">프로필 정보 변경</a>
-        </button>
-      </div>
-      <% }%>
-      <!-- 게시물 정보 -->
-      <div class="tab_content">
-        <input type="radio" id="tab1" name="tab" checked />
-        <label for="tab1">
-          <i class="fi fi-rr-portrait"></i>
-        </label>
-        <input type="radio" id="tab2" name="tab" />
-        <label for="tab2">
-          <i class="fi fi-rr-bookmark"></i>
-        </label>
-        <input type="radio" id="tab3" name="tab" />
-        <label for="tab3">
-          <i class="fi fi-rr-heart"></i>
-        </label>
-        <div class="myArticle tabBox">
-          <% for (let i =0; i < userArticle.length ; i++) { %>
-          <div class="thumbnail">
-            <img src="<%= userArticle[i].contentImgKey[0] %>" alt="<%= i %>" />
+      </nav>
+      <!-- 내용 -->
+      <section>
+        <!-- 프로필 정보 -->
+        <div class="profile">
+          <div id="profileImgBox">
+            <img
+              id="profileImg"
+              src="<%= 프로필.profileImgKey %>"
+              alt="프로필이미지"
+            />
           </div>
-          <% }; %>
-          <div class="dummy"></div>
-          <div class="dummy"></div>
-        </div>
-        <div class="bookmarkArticle tabBox">
-          <div class="dummy"></div>
-          <div class="dummy"></div>
-        </div>
-        <div class="likeArticle tabBox">
-          <% for (let i =0; i < likeArticle.length ; i++) { %>
-          <div class="thumbnail">
-            <img src="<%= likeArticle[i].contentImgKey[0] %>" alt="<%= i %>" />
+          <div>
+            <div><%= 프로필.articleCount %></div>
+            <span>게시물</span>
           </div>
-          <% }; %>
-          <div class="dummy"></div>
-          <div class="dummy"></div>
+          <div>
+            <div><%= 프로필.followerCount %></div>
+            <span>팔로워</span>
+          </div>
+          <div>
+            <div><%= 프로필.followerCount %></div>
+            <span>팔로잉</span>
+          </div>
         </div>
-      </div>
-    </section>
+        <div class="profileText">
+          <div><%= 프로필.nickname %></div>
+          <div><%= 프로필.userInfo %></div>
+        </div>
+        <% if (프로필.weeksomId === user.weeksomId) { %>
+        <div class="modifyBox">
+          <button class="modify">
+            <a href="/acount/modify">프로필 정보 변경</a>
+          </button>
+        </div>
+        <% }%>
+        <!-- 게시물 정보 -->
+        <div class="tab_content">
+          <input type="radio" id="tab1" name="tab" checked />
+          <label for="tab1">
+            <i class="fi fi-rr-portrait"></i>
+          </label>
+          <input type="radio" id="tab2" name="tab" />
+          <label for="tab2">
+            <i class="fi fi-rr-bookmark"></i>
+          </label>
+          <input type="radio" id="tab3" name="tab" />
+          <label for="tab3">
+            <i class="fi fi-rr-heart"></i>
+          </label>
+          <div class="myArticle tabBox">
+            <% for (let i =0; i < userArticle.length ; i++) { %>
+            <div class="thumbnail">
+              <img
+                src="<%= userArticle[i].contentImgKey[0] %>"
+                alt="<%= i %>"
+              />
+            </div>
+            <% }; %>
+            <div class="dummy"></div>
+            <div class="dummy"></div>
+          </div>
+          <div class="bookmarkArticle tabBox">
+            <div class="dummy"></div>
+            <div class="dummy"></div>
+          </div>
+          <div class="likeArticle tabBox">
+            <% for (let i =0; i < likeArticle.length ; i++) { %>
+            <div class="thumbnail">
+              <img
+                src="<%= likeArticle[i].contentImgKey[0] %>"
+                alt="<%= i %>"
+              />
+            </div>
+            <% }; %>
+            <div class="dummy"></div>
+            <div class="dummy"></div>
+          </div>
+        </div>
+      </section>
+    </div>
   </body>
   <script></script>
 </html>

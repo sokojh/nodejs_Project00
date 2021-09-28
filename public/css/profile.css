@@ -20,7 +20,7 @@ nav {
   justify-content: space-between;
   padding: 3vw;
   background-color: white;
-  z-index: 1;
+  z-index: 2;
 }
 nav > div {
   display: flex;
@@ -28,7 +28,9 @@ nav > div {
   font-weight: 900;
 }
 #navIcon {
-  width: 18vw;
+  width: 15vw;
+  font-size: 1.8em;
+  padding-top: 1.5%;
   justify-content: space-between;
 }
 nav a {
@@ -122,7 +124,8 @@ input[type="radio"]:checked + label {
   margin-top: 0.5%;
   overflow:hidden;
   padding: 0;
-  background-color: beige;
+  /* 게시물 왼쪽 정렬용 더미박스 */
+  background-color: white; 
 }
 .thumbnail > img {
   width:100%;
@@ -133,3 +136,23 @@ input[type="radio"]:checked + label {
 input[id="tab1"]:checked ~ .myArticle {display: flex;}
 input[id="tab2"]:checked ~ .bookmarkArticle {display: flex;}
 input[id="tab3"]:checked ~ .likeArticle {display: flex;}
+
+
+/* 회원정보편집 */
+.text {
+  font-size: 1em;
+  padding-bottom: 2%;
+  color:rgb(153, 153, 153)  ;
+}
+form {
+  padding: 4%;
+}
+form > input {
+  width: 90vw;
+  height: 3vh;
+  margin-bottom: 5%;
+  border: 0;
+  border-bottom: 2px solid rgb(216, 216, 216);
+  font-size: 1.5em;
+}
+form > input:focus {outline:none;}

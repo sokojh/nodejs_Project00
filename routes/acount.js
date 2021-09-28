@@ -20,7 +20,8 @@ router.get('/signup', (req, res) => {
 // 회원정보 수정
 router.get('/modify', (req, res) => {
   console.log('acountModify 라우터 연결')
-  res.render(`acountModify.ejs`, { user: req.user })
+  console.log(req.user)
+  res.render(`acountModify.ejs`, { 프로필: req.user })
 })
 
 // 회원가입 디비입력
