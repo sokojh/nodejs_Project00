@@ -32,7 +32,7 @@
    
   modalArticleId = null
   const clickModal = (e) => {
-    var text = "";
+    
     let thisArticleAutherId = e.id.split('/')[0] // 게시물의 작성자 id 값 저장
     modalArticleId = e.id.split('/')[1] // 현재 클릭한 게시물의 id 값 저장
     console.log(modalArticleId)
@@ -44,8 +44,8 @@
       }
     }).done((data) => {
       console.log(Object.values(data))
-      document.getElementById("modalText").innerHTML=Object.values(data)[3]
-      document.getElementById("imageUrl").innerHTML="<img src="+Object.values(data)[2]+">"
+      document.getElementById("modalText").innerHTML=data.contentText
+      document.getElementById("imageUrl").innerHTML='<img class="ss" src='+data.contentImgKey[0]+'>'
       
     }).fail((err) => {
       console.log(err);
@@ -58,13 +58,6 @@
  
   <body> 
    
-    <!-- top nav -->
-    <%- include('htmlPiece/nav.html') %>   
-    <!-- 검색결과 텍스트-->
-    <div>
-    <center><h3><b><%= valueSuc %></b>의 검색결과 입니다. 😁 </h3></center><br>
-    <center><p><b>게시물</b> <%= searchReq %></p></center>
-  </div>
 
 <!-- 모달창 -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -78,13 +71,13 @@
       </div>
       <!-- 모달 가운데 부분-->
       <div class="modal-body">
-        
-        <div class="row-cols-2">
-          <p class= "row-cols-lg-1" id ="imageUrl"></p>
+        <div class="container-sm">
+        <div class="row">
+          <p class= "snip1200" id ="imageUrl"></p>
           <p id="modalText"></p>
         </div>
         </div>
-
+      </div>
 
         <!--모달 밑부분영역-->
       <div class="modal-footer">
@@ -99,9 +92,17 @@
     </div>
     </div>
   </div>
-
+ 
+ <!-- 검색결과 텍스트-->
+  <!-- top nav -->
+  <%- include('htmlPiece/nav.html') %>   
+   
+ <div>
+  <center><h3><b><%= valueSuc %></b>의 검색결과 입니다. 😁 </h3></center><br>
+  <center><p><b>게시물</b> <%= searchReq %></p></center>
+</div>
     <!-- 게시물 출력 -->
-    <div class="container-sm">
+    <div class="container-sm"> 
     <div class="row">
     <% articles.forEach(element => { %>
         
@@ -126,6 +127,7 @@
           
       
     <% }) %>
+    
 </div>
 </div>
 

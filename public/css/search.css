@@ -2,9 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800);
 /* 스크롤 없애기*/
 
-div.center1{
-    text-align:center;
-}
+
 
 body{
      -ms-overflow-style: none; 
@@ -12,8 +10,12 @@ body{
     } ::-webkit-scrollbar { 
          display: none; }
          
-
-
+img.ss{
+  text-align: center;
+  
+  width: 80%;
+  height: 80%;
+}
 figure.snip1200 {
     
   font-family: 'Raleway', Arial, sans-serif;
