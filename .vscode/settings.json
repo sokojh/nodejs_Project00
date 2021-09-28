@@ -23,18 +23,6 @@
   },
   "[html]": {
     "editor.suggest.insertMode": "replace",
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "gitlens.codeLens.scopes": [
-      "document"
-    ],
-
-
-=======
     "gitlens.codeLens.scopes": ["document"]
->>>>>>> origin
-=======
-    "gitlens.codeLens.scopes": ["document"]
->>>>>>> base
   }
 }
