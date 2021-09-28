@@ -43,12 +43,10 @@
         '_id': modalArticleId
       }
     }).done((data) => {
-      console.log(data)
-      for(data11 in data)  {
-        text+= data11 + " : "  + data[data11] + '<br>'
-      } document.getElementById("modalload").innerHTML=text;
-
-      //window.location.replace("../");
+      console.log(Object.values(data))
+      document.getElementById("modalText").innerHTML=Object.values(data)[3]
+      document.getElementById("imageUrl").innerHTML="<img src="+Object.values(data)[2]+">"
+      
     }).fail((err) => {
       console.log(err);
     })
@@ -80,9 +78,10 @@
       </div>
       <!-- 모달 가운데 부분-->
       <div class="modal-body">
-        <p id="modalload"></p>
+        
         <div class="row-cols-2">
-          <img src="https://imagescdn.gettyimagesbank.com/_500/201510/a10307186.jpg">
+          <p class= "row-cols-lg-1" id ="imageUrl"></p>
+          <p id="modalText"></p>
         </div>
         </div>
 
