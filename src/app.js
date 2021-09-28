@@ -49,7 +49,7 @@ app.post(
   '/',
   passport.authenticate('local', {
     // 로컬 방식으로 인증
-    failureRedirect: '/fail', // TODO 로그인 실패 페이지구성
+    failureRedirect: '/acount/signin-fail', // TODO 로그인 실패 페이지구성
   }),
   // @ts-ignore
   (req, res) => {

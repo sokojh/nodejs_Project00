@@ -6,6 +6,10 @@ router.get('/signin', (req, res) => {
   console.log('signin 라우터 연결')
   res.render(`signin.ejs`)
 })
+// 로그인실패
+router.get('/signin-fail', (req, res) => {
+  res.render(`signin-fail.ejs`, { msg: '로그인정보가 없습니다.' })
+})
 
 // 회원가입
 router.get('/signup', (req, res) => {
