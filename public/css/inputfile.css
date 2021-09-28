@@ -1,0 +1,29 @@
+.filebox .upload-name {
+    display: inline-block;
+    height: 40px;
+    padding: 10 20px;
+    vertical-align: top;
+    border: 1px solid #dddddd;
+    width: 89%;
+    color: #999999;
+}
+
+.filebox label {
+    display: inline-block;
+    padding: 10px 40px;
+    color: #fff; 
+    vertical-align: top;
+    background-color: #999999;
+    cursor: pointer;
+    height: 40px;
+    margin-left: 0px; 
+}
+
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}

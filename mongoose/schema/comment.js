@@ -5,12 +5,16 @@ const AutoIncrement = require('mongoose-sequence')(mongoose)
 const Comment = mongoose.Schema({
   text: { type: String, required: true },
   createDate: { type: Date, default: Date.now, required: true },
-  likeCount: { type: Number, required: true },
-  article_id: { type: mongoose.Schema.Types.ObjectId, required: true },
-  like: { type: Array, required: true },
-  user_id: { type: String, required: true },
+  likeCount: { type: Number, required: true, default: 0 },
+  article_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'Article',
+  },
+  like: { type: Array, required: true, default: [] },
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 })
 
-Comment.plugin(AutoIncrement, { inc_field: 'totalCount' })
+Comment.plugin(AutoIncrement, { inc_field: 'commentTotalCount' })
 
 module.exports = Comment

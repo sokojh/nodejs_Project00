@@ -2,25 +2,179 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>signin</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인 페이지</title>
+    <style>
+      .main_box {
+        border: 0px solid;
+      }
+
+      .login_box {
+        width: 380px;
+        height: 520px;
+        margin: auto;
+        border-radius: 3px;
+      }
+
+      .form_box {
+        width: 300px;
+        margin: auto;
+      }
+
+      .form_title {
+        width: 300px;
+        text-align: center;
+      }
+
+      .form_title_p {
+        font-weight: bold;
+        font-size: 22px;
+        display: inline-block;
+        padding-top: 8px;
+      }
+
+      .form_input {
+        width: 98%;
+        height: 30px;
+        border: 1px solid;
+        border-radius: 3px;
+        border-color: gray;
+      }
+
+      .form_user {
+        color: black;
+      }
+
+      .form_alert {
+        padding-bottom: 10px;
+      }
+
+      .form_text_alert {
+        height: 20px;
+      }
+
+      .form_login_button {
+        width: 100%;
+        height: 44px;
+        margin: 2% 0;
+        background-color: rgb(43, 113, 204);
+        border: 1px solid;
+        border-radius: 3px;
+        color: white;
+        font-size: 17px;
+        font-weight: 500;
+      }
+      .form_join_button {
+        width: 100%;
+        height: 44px;
+        margin: 2% 0;
+        background-color: skyblue;
+        border: 1px solid;
+        border-radius: 3px;
+        color: white;
+        font-size: 17px;
+        font-weight: 500;
+      }
+
+      .form_kakao_button {
+        background: url('images/kakaoButton.png');
+        width: 100%;
+        height: 44px;
+        border: 1px solid;
+        border-radius: 3px;
+      }
+
+      .form_google_button {
+        background: url('images/btn_google_signin_dark_focus_web.png');
+        width: 100%;
+        height: 44px;
+        border: 1px solid;
+        border-radius: 3px;
+      }
+    </style>
   </head>
   <body>
-    <h1>로그인</h1>
-    <form action="/" method="POST">
-      <input
-        type="text"
-        placeholder="email"
-        name="email"
-        value="test6@kakao.com"
-      />
-      <input
-        type="text"
-        placeholder="password"
-        name="password"
-        value="qwer1234#"
-      />
-      <input type="submit" value="서브밋" />
-    </form>
-    <a href="/acount/signup">회원가입</a>
+    <div id="box" class="main_box">
+      <div class="login_box">
+        <div class="form_box">
+          <form name="login_form" action="/" method="POST">
+            <div class="form_title">
+              <p class="form_title_p">주간솜뭉치</p>
+            </div>
+            <div>
+              <div>
+                <p class="form_user">EMAIL</p>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="email"
+                  placeholder="abcd1234@email.com"
+                  class="form_input"
+                  value="test1@kakao.com"
+                />
+              </div>
+              <div class="form_alert">
+                <div id="alert_email" class="form_text_alert"></div>
+              </div>
+            </div>
+            <div>
+              <div>
+                <p class="form_user">PASSWORD</p>
+              </div>
+              <div>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Enter password"
+                  class="form_input"
+                  onkeydown="if(event.keyCode == 13) login()"
+                  value="qwer1234#"
+                />
+              </div>
+              <div class="form_alert">
+                <div id="alert_password" class="form_text_alert"></div>
+              </div>
+            </div>
+
+            <div>
+              <button type="submit" class="form_login_button" onclick="login()">
+                로그인
+              </button>
+              <button
+                type="submit"
+                class="form_join_button"
+                onclick="location.href='./signup.ejs'"
+              >
+                회원가입
+              </button>
+              <button type="submit" class="form_kakao_button" onclick="login()">
+                카카오로 시작하기
+              </button>
+              <button type="submit" class="form_goole_button" onclick="login()">
+                구글로 시작하기
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      function login() {
+        let form = document.login_form
+        if (!form.email.value) {
+          alert('이메일을 입력해주세요.')
+          form.email.focus()
+          return false
+        }
+        if (!form.password.value) {
+          alert('비밀번호를 입력해주세요.')
+          form.password.focus()
+          return false
+        }
+        return true
+      }
+    </script>
   </body>
 </html>

@@ -1,14 +1,17 @@
-const router = require('express').Router()
-const { findSourceMap } = require('module')
+// @ts-check
+const router = require('express').Router({ mergeParams: true })
 const { Comment } = require('../api/0.index') // 몽구스 api 임포트
 
-// comment 출력
-router.get('/', Comment.commentList, (req, res) => {
-  console.log('커멘트 라우터 연결')
-  res.render('comment.ejs', {
-    commentList: req.commentList,
-    userId: req.user.weeksomId,
-  })
+// :articleId 댓글 리스트 출력
+router.get('/', Comment.articleCommentList, (req, res) => {
+  // @ts-ignore
+  res.render('commentList', { list: req.commentList, user: req.user })
+})
+
+router.post('/write', Comment.commentWrite, (req, res) => {
+  // @ts-ignore
+  const { saveComment } = req
+  saveComment ? res.status(200).send({ save: saveComment }) : res.status(400)
 })
 
 module.exports = router
