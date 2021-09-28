@@ -80,7 +80,7 @@
       <!-- 작성자 프로필 로고 -->
       <div class="img-profile float-start"><img src="<%= element.auther.profileImgKey %>" alt=""></div>
       <!-- 작성자 닉네임 -->
-      <div class="main-name-profile float-start ml-2"><%= element.auther.weeksomId %></div>
+      <a href="/@/<%=element.auther.weeksomId%>"><div class="main-name-profile float-start ml-2"><%= element.auther.weeksomId %></div></a>
       <!-- 게시물 ... 버튼 -->
       <a onclick=clickModal(this) id='<%= element.auther._id %>/<%= element._id %>' class="float-end btn-profile"><i
           class="material-icons" data-toggle="modal" data-target="#exampleModalCenter">more_horiz</i></a>
