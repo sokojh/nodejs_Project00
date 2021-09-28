@@ -9,11 +9,7 @@ const router = require('express').Router()
 // Article.articlePopRead 미들웨어 제거
 router.get('/', (req, res) => {
   console.log('search 라우터 연결')
-  // @ts-ignore
-  res.render('search', { articles: req.articles })
-  // @ts-ignore
-  console.log(req.articles)
-  console.log(req.query.value)
+  res.render('search')
 })
 // 검색 value값 전용
 router.get('/v', (req, res) => {
@@ -29,7 +25,7 @@ router.get('/v', (req, res) => {
         },
       },
     },
-    { $sort: { _id: 1 } },
+    { $sort: { createDate: -1 } },
     { $limit: 9 },
   ]
   db.collection('articles')
@@ -40,7 +36,11 @@ router.get('/v', (req, res) => {
       if (결과.length === 0) {
         res.render('searchFail.ejs', { valuefail: req.query.value })
       } else {
-        res.render('searchSuc.ejs', { articles: 결과 })
+        res.render('searchSuc.ejs', {
+          articles: 결과,
+          valueSuc: req.query.value,
+          searchReq: 결과.length,
+        })
       }
     })
 })
