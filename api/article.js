@@ -8,16 +8,7 @@ const articleCreate = async (req, res) => {
   const { auther, contentImgKey, contentText } = req.body
   const newArticle = await Article({ auther, contentImgKey, contentText })
   const saveRequest = await newArticle.save() // 디비에 저장
-  console.log(saveRequest)
   res.send(saveRequest)
-}
-
-// Read
-const articleRead = async (req, res, next) => {
-  const email = req.body.email
-  const articles = await Article.find({ email: email })
-  req.articles = articles
-  next()
 }
 
 // populate Read
@@ -46,8 +37,9 @@ const articleDelete = async (req, res, next) => {
   )
 }
 
-// likeUpdate
+// 좋아요 설정
 const likeUpdate = async (req, res, next) => {
+  let myWeeksomId = { weeksomId: req.user.weeksomId }
   let likePeoples = { likePeoples: req.user.weeksomId }
   let likeArticle = { likeArticle: req.body.articleId }
   let _id = { _id: req.body.articleId }
@@ -74,22 +66,59 @@ const likeUpdate = async (req, res, next) => {
     }).exec((error, result) => {
       error ? res.status(400).send('에러') : next()
     })
-    await User.findOneAndUpdate(
-      { weeksomId: likePressName },
-      { $pull: likeArticle }
-    ).exec((error, result) => {
-      error ? res.status(400).send('에러') : next()
-    })
+    await User.findOneAndUpdate(myWeeksomId, { $pull: likeArticle }).exec(
+      (error, result) => {
+        error ? res.status(400).send('에러') : next()
+      }
+    )
   }
   res.status(200).send('좋아요 성공')
   next()
 }
 
+// 북마크 설정
+const bookmarkUpdate = async (req, res, next) => {
+  let myWeeksomId = { weeksomId: req.user.weeksomId }
+  let bookmarkPeoples = { bookmarkPeoples: req.user.weeksomId }
+  let bookmark = { bookmark: req.body.articleId }
+  let _id = { _id: req.body.articleId }
+  let status = req.body.status
+  //status === 1 // 북마크 설정
+  //status === 0 // 북마크 취소 설정
+  if (status === '1') {
+    console.log('좋아요 처리')
+    await Article.findByIdAndUpdate(_id, { $addToSet: bookmarkPeoples }).exec(
+      (error, result) => {
+        error ? res.status(400).send('에러') : next()
+      }
+    )
+    await User.findOneAndUpdate(myWeeksomId, { $addToSet: bookmark }).exec(
+      (error, result) => {
+        error ? res.status(400).send('에러') : next()
+      }
+    )
+  } else {
+    console.log('북마크 취소 설정')
+    await Article.findByIdAndUpdate(_id, { $pull: bookmarkPeoples }).exec(
+      (error, result) => {
+        error ? res.status(400).send('에러') : next()
+      }
+    )
+    await User.findOneAndUpdate(myWeeksomId, { $pull: bookmark }).exec(
+      (error, result) => {
+        error ? res.status(400).send('에러') : next()
+      }
+    )
+  }
+  res.status(200).send('북마크 설정 성공')
+  next()
+}
+
 module.exports = {
   articleCreate,
-  articleRead,
   articleUpdate,
   articleDelete,
   articlePopRead,
   likeUpdate,
+  bookmarkUpdate,
 }

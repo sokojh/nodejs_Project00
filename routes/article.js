@@ -7,11 +7,13 @@ router.get('/', Article.articlePopRead, (req, res) => {
     articles: req.articles,
     myUserInfo: req.user,
   })
-  console.log(req.user)
 })
 
 // 게시물 좋아요
 router.post('/likeUpdate', Article.likeUpdate, (req, res) => {})
+
+//게시물 북마크 처리
+router.post('/bookmarkUpdate', Article.bookmarkUpdate, (req, res) => {})
 
 // 게시물 삭제
 router.post('/delete', Article.articleDelete, (req, res) => {})

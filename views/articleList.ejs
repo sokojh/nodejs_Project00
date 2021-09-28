@@ -108,7 +108,13 @@
         <!-- DM 버튼 -->
         <a href="" class="contents-btn mr-3"><span class="material-icons">mail_outline</span></a>
         <!-- 북마크 버튼 / 활성화 : bookmark -->
-        <a href="" class="contents-btn ml-auto"><span class="material-icons">bookmark_outline</span></a>
+        <a class="bookmark-btn contents-btn ml-auto" id='<%= element._id %>'>
+          <% if (element.bookmarkPeoples.indexOf(myUserInfo.weeksomId) >= 0) { %>
+            <span class="material-icons" style="color: blue;">bookmark
+          <% } else { %>
+            <span class="material-icons">bookmark_outline
+          <% } %>
+        </span></a>
       </div>
 
       <!-- 좋아요 수 -->
@@ -123,22 +129,30 @@
 
       <!-- 댓글 모두보기 -->
       <a href='/comment?article_id=<%= element._id %>'>
-        <p class="card-text mb-2">댓글 더 보기</p>
+        <p class="card-text mb-2">댓글 <b><%= element.commentCount %>개</b> 더 보기</p>
       </a>
 
       <!-- 댓글 미리보기
-          <div class="comment_box d-flex">
-            <a href="" class="comment-name mr-2"><p><span class="name-profile">easy</span></p></a>
-            <p><span class="comment-comment">여기 댓글 맛집이네</span></p>
-            <a href="" class="comment-like ml-auto"><p><span class="material-icons">favorite_border</span></p></a>
-            활성화 <a href="" class="like-btn mr-3"><span class="material-icons">favorite</span></a>
-          </div>
-          <div class="comment_box d-flex">
-            <a href="" class="comment-name mr-2"><p><span class="name-profile">chan</span></p></a>
-            <p><span class="comment-comment">강아지는 역시 강아지죠</span></p>
-            <a href="" class="comment-like ml-auto"><p><span class="material-icons">favorite_border</span></p></a>
-            활성화 <a href="" class="like-btn mr-3"><span class="material-icons">favorite</span></a>
-          </div> -->
+      <div class="comment_box d-flex">
+        <a href="" class="comment-name mr-2">
+          <p><span class="name-profile">easy</span></p>
+        </a>
+        <p><span class="comment-comment">여기 댓글 맛집이네</span></p>
+        <a href="" class="comment-like ml-auto">
+          <p><span class="material-icons">favorite_border</span></p>
+        </a>
+        활성화 <a href="" class="like-btn mr-3"><span class="material-icons">favorite</span></a>
+      </div>
+      <div class="comment_box d-flex">
+        <a href="" class="comment-name mr-2">
+          <p><span class="name-profile">chan</span></p>
+        </a>
+        <p><span class="comment-comment">강아지는 역시 강아지죠</span></p>
+        <a href="" class="comment-like ml-auto">
+          <p><span class="material-icons">favorite_border</span></p>
+        </a>
+        활성화 <a href="" class="like-btn mr-3"><span class="material-icons">favorite</span></a>
+      </div> -->
 
       <!-- 발행 날짜 -->
       <p class="postDate mt-2">
@@ -176,11 +190,16 @@
       element.innerHTML = element.innerHTML.trim()
     })
   </script>
+  <!-- bookmark-btn 이름 공백제거 -->
+  <script>
+    document.querySelectorAll('.bookmark-btn span').forEach((element) => {
+      element.innerHTML = element.innerHTML.trim()
+    })
+  </script>
 
-  <!-- ajax -->
+
   <script>
     $(function () {
-      // like 처리
       $('.like-btn').click(function (likeBtn) {
         // 좋아요 처리 == 1 , 안 좋아요 == 0
         let status = likeBtn.target.innerHTML === 'favorite_border' ? 1 : 0
@@ -216,6 +235,50 @@
             likeBtn.target.innerHTML = 'favorite_border'
             likeBtn.target.style.color = ''
             $(like).text(Number($(like).text()) - 1)
+          }).fail((err) => {
+            console.log(err);
+          })
+        }
+      })
+    })
+  </script>
+
+  <!-- bookMark -->
+  <script>
+    $(() => {
+      $('.bookmark-btn').click(function (bookmarkBtn) {
+        // bookmark 요청 == 1 , bookmark 취소 요청 == 0
+        let status = bookmarkBtn.target.innerHTML === 'bookmark_outline' ? 1 : 0
+        console.log(status)
+        let thisSpan = $(" span", this)
+        let articleId = $(this).attr('id')
+        // bookmark 요청
+        if (status === 1) {
+          $.ajax({
+            url: '/article/bookmarkUpdate',
+            type: 'post',
+            data: {
+              'articleId': articleId,
+              'status': status
+            }
+          }).done((data) => {
+            bookmarkBtn.target.innerHTML = 'bookmark'
+            bookmarkBtn.target.style.color = 'blue'
+          }).fail((err) => {
+            console.log(err);
+          })
+        // bookmark 취소 요청
+        } else {
+          $.ajax({
+            url: '/article/bookmarkUpdate',
+            type: 'post',
+            data: {
+              'articleId': articleId,
+              'status': status
+            }
+          }).done((data) => {
+            bookmarkBtn.target.innerHTML = 'bookmark_outline'
+            bookmarkBtn.target.style.color = ''
           }).fail((err) => {
             console.log(err);
           })

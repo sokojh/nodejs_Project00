@@ -122,9 +122,11 @@
             type: 'post',
             data: articleId
           }).done((result) => {
+            console.log(result)
             thisSpan.innerHTML = 'favorite_border'
             thisSpan.style.color = ''
           }).fail((err) => {
+            console.log(err)
             thisSpan.innerHTML = 'favorite_border'
             thisSpan.style.color = ''
             $(like).text(Number($(like).text()) - 1)
