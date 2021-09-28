@@ -45,6 +45,15 @@ const articleDelete = async (req, res, next) => {
     }
   )
 }
+//modal 글 가져오기
+const modalUpdate = async (req, res, next) => {
+  const modalArticlesRead = await Article.findById(req.body).exec(
+    (error, result) => {
+      error ? res.status(400).send(error) : res.status(200).send(result)
+      next()
+    }
+  )
+}
 
 // likeUpdate
 const likeUpdate = async (req, res, next) => {
@@ -91,4 +100,5 @@ module.exports = {
   articleDelete,
   articlePopRead,
   likeUpdate,
+  modalUpdate,
 }
