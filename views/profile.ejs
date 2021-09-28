@@ -14,17 +14,26 @@
   <body>
     <!-- 상단바 -->
     <nav>
-      <div id="weeksomId"><%= 프로필.weeksomId %></div>
+      <div id="weeksomId">
+        <a href="http://localhost:7080/">
+          <i class="fi fi-rr-angle-double-small-left"></i>
+        </a>
+        <%= 프로필.weeksomId %>
+      </div>
       <div id="navIcon">
-        <i class="fi fi-rr-add"></i>
-        <i class="fi fi-rr-menu-burger"></i>
+        <a href="http://localhost:7080/post">
+          <i class="fi fi-rr-add"></i>
+        </a>
+        <a href="">
+          <i class="fi fi-rr-menu-burger"></i>
+        </a>
       </div>
     </nav>
     <!-- 내용 -->
     <section>
       <!-- 프로필 정보 -->
       <div class="profile">
-        <div>
+        <div id="profileImgBox">
           <img
             id="profileImg"
             src="<%= 프로필.profileImgKey %>"
@@ -47,10 +56,14 @@
       <div class="profileText">
         <div><%= 프로필.nickname %></div>
         <div><%= 프로필.userInfo %></div>
-        <% if (프로필.weeksomId === user.weeksomId) { %>
-        <a href="/acount/modify">프로필 정보 변경</a>
-        <% }%>
       </div>
+      <% if (프로필.weeksomId === user.weeksomId) { %>
+      <div class="modifyBox">
+        <button class="modify">
+          <a href="/acount/modify">프로필 정보 변경</a>
+        </button>
+      </div>
+      <% }%>
       <!-- 게시물 정보 -->
       <div class="tab_content">
         <input type="radio" id="tab1" name="tab" checked />
@@ -66,39 +79,39 @@
           <i class="fi fi-rr-heart"></i>
         </label>
         <div class="myArticle tabBox">
-          <% article.forEach(el => { %>
+          <% for (let i =0; i < article.length ; i++) { %>
           <div class="thumbnail">
-            <img src="<%=el.contentImgKey[0] %>" alt="" />
+            <img src="<%=article[i].contentImgKey[0] %>" alt="<%= index%>" />
           </div>
-          <% }); %>
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
+          <% console.log(i)}; %>
+          <div class="dummy"></div>
+          <div class="dummy"></div>
         </div>
         <div class="bookmarkArticle tabBox">
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
+          <div class="dummy"></div>
+          <div class="dummy"></div>
         </div>
         <div class="likeArticle tabBox">
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
-          <div class="thumbnail"></div>
+          <div class="dummy"></div>
+          <div class="dummy"></div>
+          <div class="dummy"></div>
+          <div class="dummy"></div>
+          <div class="dummy"></div>
+          <div class="dummy"></div>
+          <div class="dummy"></div>
+          <div class="dummy"></div>
+          <div class="dummy"></div>
+          <div class="dummy"></div>
+          <div class="dummy"></div>
+          <div class="dummy"></div>
+          <div class="dummy"></div>
+          <div class="dummy"></div>
+          <div class="dummy"></div>
         </div>
       </div>
     </section>
   </body>
+  <script>
+    
+  </script>
 </html>
