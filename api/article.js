@@ -22,10 +22,10 @@ const profileArticle = async (req, res, next) => {
   const { _id, weeksomId } = req.userProfile
   const userArticle = await Article.find({ auther: _id })
   const likeArticle = await Article.find({
-    likePeoples: { $elemMatch: weeksomId },
+    likePeoples: weeksomId,
   })
   const bookmarkArticle = await Article.find({
-    bookmarkPeoples: { $elemMatch: weeksomId },
+    bookmarkPeoples: weeksomId,
   })
   req.likeArticle = likeArticle
   req.userArticle = userArticle
