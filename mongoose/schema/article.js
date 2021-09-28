@@ -10,6 +10,7 @@ const Article = mongoose.Schema({
 
   // 동적으로 변동될 수 있는 데이터
   likePeoples: { type: Array },
+  bookmarkPeoples: { type: Array },
   // 카운팅 데이터
   viewCount: { type: Number, default: 0 },
   likeCount: { type: Number, default: 0 },
