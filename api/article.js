@@ -6,7 +6,6 @@ const articleCreate = async (req, res) => {
   const { auther, contentImgKey, contentText } = req.body
   const newArticle = await Article({ auther, contentImgKey, contentText })
   const saveRequest = await newArticle.save() // 디비에 저장
-  console.log(saveRequest)
   res.send(saveRequest)
 }
 
@@ -58,51 +57,100 @@ const articleDelete = async (req, res, next) => {
     }
   )
 }
+// modal 글 가져오기
+const modalUpdate = async (req, res, next) => {
+  const modalArticlesRead = await Article.findById(req.body).exec(
+    (error, result) => {
+      error ? res.status(400).send(error) : res.status(200).send(result)
+      next()
+    }
+  )
+}
 
-// likeUpdate
+// 좋아요 설정
 const likeUpdate = async (req, res, next) => {
-  const likePressName = req.user.weeksomId
+  const myWeeksomId = { weeksomId: req.user.weeksomId }
+  const likePeoples = { likePeoples: req.user.weeksomId }
+  const likeArticle = { likeArticle: req.body.articleId }
   const _id = { _id: req.body.articleId }
-  // req.body.status === 1 // 좋아요 처리
-  // req.body.status === 0 // 좋지 않아요 처리
   const { status } = req.body
+  // status === 1 // 좋아요 처리
+  // status === 0 // 좋아요 취소 처리
   if (status === '1') {
     await Article.findByIdAndUpdate(_id, {
       $inc: { likeCount: 1 },
-      $addToSet: { likePeoples: likePressName },
+      $addToSet: likePeoples,
     }).exec((error, result) => {
       error ? res.status(400).send('에러') : next()
     })
     await User.findOneAndUpdate(
-      { weeksomId: likePressName },
-      { $addToSet: { likeArticle: likePressName } }
+      { weeksomId: req.user.weeksomId },
+      { $addToSet: likeArticle }
     ).exec((error, result) => {
       error ? res.status(400).send('에러') : next()
     })
   } else {
     await Article.findByIdAndUpdate(_id, {
       $inc: { likeCount: -1 },
-      $pull: { likePeoples: likePressName },
+      $pull: likePeoples,
     }).exec((error, result) => {
       error ? res.status(400).send('에러') : next()
     })
-    await User.findOneAndUpdate(
-      { weeksomId: likePressName },
-      { $pull: { likeArticle: likePressName } }
-    ).exec((error, result) => {
-      error ? res.status(400).send('에러') : next()
-    })
+    await User.findOneAndUpdate(myWeeksomId, { $pull: likeArticle }).exec(
+      (error, result) => {
+        error ? res.status(400).send('에러') : next()
+      }
+    )
   }
   res.status(200).send('좋아요 성공')
   next()
 }
 
+// 북마크 설정
+const bookmarkUpdate = async (req, res, next) => {
+  const myWeeksomId = { weeksomId: req.user.weeksomId }
+  const bookmarkPeoples = { bookmarkPeoples: req.user.weeksomId }
+  const bookmark = { bookmark: req.body.articleId }
+  const _id = { _id: req.body.articleId }
+  const { status } = req.body
+  // status === 1 // 북마크 설정
+  // status === 0 // 북마크 취소 설정
+  if (status === '1') {
+    console.log('좋아요 처리')
+    await Article.findByIdAndUpdate(_id, { $addToSet: bookmarkPeoples }).exec(
+      (error, result) => {
+        error ? res.status(400).send('에러') : next()
+      }
+    )
+    await User.findOneAndUpdate(myWeeksomId, { $addToSet: bookmark }).exec(
+      (error, result) => {
+        error ? res.status(400).send('에러') : next()
+      }
+    )
+  } else {
+    console.log('북마크 취소 설정')
+    await Article.findByIdAndUpdate(_id, { $pull: bookmarkPeoples }).exec(
+      (error, result) => {
+        error ? res.status(400).send('에러') : next()
+      }
+    )
+    await User.findOneAndUpdate(myWeeksomId, { $pull: bookmark }).exec(
+      (error, result) => {
+        error ? res.status(400).send('에러') : next()
+      }
+    )
+  }
+  res.status(200).send('북마크 설정 성공')
+  next()
+}
+
 module.exports = {
   articleCreate,
-  articleRead,
   articleUpdate,
   articleDelete,
   articlePopRead,
   likeUpdate,
   profileArticle,
+  bookmarkUpdate,
+  modalUpdate,
 }

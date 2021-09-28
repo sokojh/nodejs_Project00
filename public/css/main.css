@@ -32,10 +32,9 @@ h4 {
         overflow: hidden;
     }
     .img-profile > img {
-        width: 200%;
-        height: 200%;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        object-position:-15px;
     }
     .main-name-profile{
         line-height: 32px;
@@ -66,9 +65,9 @@ h4 {
         margin-bottom: 0;
     }
     /* 모달 */
-    .modal-body{
+    /*.modal-body{
         /* padding: 0; */
-    }
+    /*}
     /* 댓글 */
     .comment_body {
         padding: 0 1.25rem 1.25rem 1.25rem;
