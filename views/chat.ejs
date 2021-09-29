@@ -6,30 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>chat</title>
     <link rel="stylesheet" href="/public/css/chat.css" />
+    <!-- 구글폰츠 아이콘 -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
-  <body> 
-    <div class="wrapper">
-      <div class="user-container">
-        <label for="nickname">대화명</label>
-        <input type="text" id="nickname" value="<%= user.weeksomId %>" />
-        <input type="text" id="profileImg" value="<%= user.profileImgKey %>" />
-        <%= profileImg = user.profileImgKey %>
-      </div>
-      <div class="display-container">
-        <ul class="chatting-list"></ul>
-        <!-- 채팅을 li 구조로 늘어놓게 함-->
-      </div>
-      <div class="input-container">
-        <span>
-          <input type="text" class="chatting-input" />
-          <button class="send-button">전송</button>
-        </span>
-      </div>
+  <body>
+  <!-- top nav -->
+  <%- include('htmlPiece/nav.html') %>
+
+    <div class="container">
+        <div class="col_1">
+          One of three columns
+        </div>
+        <div class="col_2">
+          <div class="wrapper">
+            <div class="user-container">
+              <label for="nickname">대화명</label>
+            </div>
+            <div class="display-container">
+              <ul class="chatting-list"></ul>
+              <!-- 채팅을 li 구조로 늘어놓게 함 -->
+            </div>
+            <div class="input-container">
+              <span>
+                <input type="text" class="chatting-input" />
+                <button class="send-button">전송</button>
+              </span>
+            </div>
+          </div>
+        </div>
     </div>
+
+    
+  
+
     <!-- socket io 라이브러리 -->
-    <script>
-      const profileImg = `<%= user.profileImgKey %>`
-    </script>
+
     <script
       src="https://cdn.socket.io/4.1.2/socket.io.min.js"
       integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg"
