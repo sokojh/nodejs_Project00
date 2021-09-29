@@ -24,7 +24,8 @@
     const getDate = (writeDate) => {
       let writeDateFormat = new Date(writeDate)
       let writeDday = new Date().getDate() - writeDateFormat.getDate();
-      (writeDday != 1) ? document.write(writeDday + '일 전') : document.write('오늘')
+      let result=(writeDday != 1) ? writeDday + '일 전' : '오늘'
+      return result
     }
   </script>
   <!-- 모달창 데이터 전달-->
@@ -40,15 +41,18 @@
       url: '/search/modalUpdate',
       type: 'post',
       data: {
-        '_id': modalArticleId
+        '_id': modalArticleId,
+        'article_id':modalArticleId
       }
     }).done((data) => {
       console.log(Object.values(data))
-      document.getElementById("modalText").innerHTML=Object.values(data)[3]
-      document.getElementById("imageUrl").innerHTML="<img src="+Object.values(data)[2]+">"
+      document.getElementById("modalText").innerHTML="<p>"+data.contentText+'</p>'
+      document.getElementById("modalImageUrl").innerHTML="<center><img class='ss' src="+data.contentImgKey[0]+"></center>"
+      document.getElementById("modalDate").innerHTML=getDate(data.createDate)
+      document.getElementById("modalComment").innerHTML=data.text
       
-    }).fail((err) => {
-      console.log(err);
+    }).fail((err) => { 
+      console.log(err); 
     })
   }
 
@@ -79,9 +83,11 @@
       <!-- 모달 가운데 부분-->
       <div class="modal-body">
         
-        <div class="row-cols-2">
-          <p class= "row-cols-lg-1" id ="imageUrl"></p>
+        <div class=""> 
+          <p id="modalImageUrl"></p>
           <p id="modalText"></p>
+          <p id="modalDate"></p>
+          <p id="modalComment"></p>
         </div>
         </div>
 
@@ -122,7 +128,7 @@
       
   
           
-       
+        
           
       
     <% }) %>

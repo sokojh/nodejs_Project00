@@ -3,7 +3,22 @@
 /* 스크롤 없애기*/
 
 div.center1{
+  position: relative;
+  width: 100%;
+  height: 0;
     text-align:center;
+    padding-bottom: 133%
+}
+p.ss{
+  text-align: center;
+}
+
+img.ss{
+  position: 'absolute';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 body{

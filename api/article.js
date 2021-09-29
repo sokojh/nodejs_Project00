@@ -1,6 +1,6 @@
 const { exec } = require('child_process')
 const { Article } = require('../mongoose/model')
-const { User } = require('../mongoose/model')
+const { User, Comment } = require('../mongoose/model')
 
 //@ts-check
 // Create
@@ -38,12 +38,20 @@ const articleDelete = async (req, res, next) => {
 }
 //modal 글 가져오기
 const modalUpdate = async (req, res, next) => {
-  const modalArticlesRead = await Article.findById(req.body).exec(
+  const modalArticlesRead = await Article.findById(req.body._id).exec(
     (error, result) => {
       error ? res.status(400).send(error) : res.status(200).send(result)
       next()
     }
   )
+  console.log(req.body)
+  var foo = new Object()
+  foo.article_id = req.body['article_id']
+  console.log(foo)
+  const commentList = await Comment.findOne(foo) //가져와 검색
+    .sort({ createDate: -1 }) // 댓글 내림차순
+    .populate('user_id') // 댓글 작성자 정보 첨부
+  console.log('코멘트시작-------' + commentList)
 }
 
 // 좋아요 설정
