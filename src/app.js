@@ -93,7 +93,10 @@ io.sockets.on('connection', (socket) => {
     // data : 클릭을 했을 때 넘겨받는 닉네임, 내용, 시간
     const { name, msg } = data
     console.log(data) // data를 보내고
-    console.log('roomId : ', roomId)
+    console.log('접속 roomId : ', roomId)
+
+    // 디비작업공간
+    
     io.to(roomId).emit('chatting', {
       // 받고
       name,
