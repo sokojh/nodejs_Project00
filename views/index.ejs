@@ -4,8 +4,16 @@
     <meta charset="UTF-8" />
     <title>index</title>
   </head>
+  <style>
+    body {
+      font-size: 2.5em;
+    }
+    input {
+      font-size: 1.5em;
+    }
+  </style>
   <body>
-    <h1>관리자 인덱스 페이지입니다.</h1>
+    <h1>관리자 인덱스</h1>
     <% if (user) {%>
     <h3><%=user.nickname%>님이 로그인했습니다.</h3>
     <% } else { %>
@@ -23,7 +31,7 @@
       placeholder="userProfile : weeksomId "
       value="test1"
     />
-    <input type="submit" value="searchProfile" onclick="searchProfile()" />
+    <input type="submit" value="search" onclick="searchProfile()" />
     <br />
     <a href="/userlist">유져리스트 팔로우</a> <br />
     <h2>메인화면</h2>

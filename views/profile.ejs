@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/public/css/profile.css" />
   </head>
   <body>
-    <div>
+    <div id="main">
       <!-- 상단바 -->
       <nav>
         <div id="weeksomId">
@@ -60,8 +60,9 @@
         </div>
         <% if (프로필.weeksomId === user.weeksomId) { %>
         <div class="modifyBox">
-          <button class="modify">
-            <a href="/acount/modify">프로필 정보 변경</a>
+          <button class="modify" onclick="up()">
+            프로필정보변경
+            <!-- <a href="/acount/modify">프로필 정보 변경</a> -->
           </button>
         </div>
         <% }%>
@@ -93,15 +94,15 @@
           </div>
           <div class="bookmarkArticle tabBox">
             <% for (let i =0; i < bookmarkArticle.length ; i++) { %>
-              <div class="thumbnail">
-                <img
-                  src="<%= bookmarkArticle[i].contentImgKey[0] %>"
-                  alt="<%= i %>"
-                />
-              </div>
-              <% }; %>
-              <div class="dummy"></div>
-              <div class="dummy"></div>
+            <div class="thumbnail">
+              <img
+                src="<%= bookmarkArticle[i].contentImgKey[0] %>"
+                alt="<%= i %>"
+              />
+            </div>
+            <% }; %>
+            <div class="dummy"></div>
+            <div class="dummy"></div>
           </div>
           <div class="likeArticle tabBox">
             <% for (let i =0; i < likeArticle.length ; i++) { %>
@@ -118,6 +119,16 @@
         </div>
       </section>
     </div>
+
+    <%- include('htmlPiece/profileModify.ejs') %>
   </body>
-  <script></script>
+  <script>
+    const up = () => {
+      const modal = document.querySelector('.body')
+      modal.style.display = 'block'
+      modal.style.top = 0
+      modal.style.opacity = 1
+      document.getElementById('main').style.opacity = 0
+    }
+  </script>
 </html>

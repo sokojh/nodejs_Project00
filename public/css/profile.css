@@ -1,11 +1,21 @@
 @import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css');
 /* https://www.flaticon.com/kr/uicons */
-body {
+body{
   margin: 0;
   width: 100vw;
   height: 100vh;
+  font-size: 2.2em;
 }
-
+#main {
+  transition: opacity 0.5s;
+}
+.body{
+  position: absolute;
+  top:100vh;
+  z-index: 1;
+  opacity: 0;
+  transition: top 0.5s, opacity 0.5s ;
+}
 a {
   text-decoration: none;
 }
@@ -43,6 +53,7 @@ nav a {
 }
 .modify {
   width: 100%;
+  font-size: 1.1em;
   text-align: center;
 }
 
@@ -85,12 +96,17 @@ section > div > div > span {
 .profileText {
   padding-left: 4%;
   padding-right: 4%;
+  font-size: 1.1em;
   height: auto;
+}
+.profileText > div {
+  padding-top: 2%;
 }
 
 /* 탭갤러리 정보 */
 .tab_content {
   width: 100vw;
+  height: 8vw;
   font-size: 1.6em;
   display: flex;
   flex-flow:wrap;
@@ -162,6 +178,6 @@ form > input, #password-confirm > input  {
   margin-bottom: 5%;
   border: 0;
   border-bottom: 2px solid rgb(216, 216, 216);
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 input:focus {outline:none;}
