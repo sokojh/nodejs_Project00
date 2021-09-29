@@ -3,27 +3,27 @@
     padding: 0;
 }
 
-html, body {
-    height: 100%;
+body {
+    width: 100vw;
+    height: 100vh;
 }
 
 .container{
-    padding: 0 450px 0 450px;
-    display: flex;
-	flex-wrap: wrap;
     background: #fafafa;
 }
 
-.col_1{
-    flex: 1 1 40%;
-    border: 1px solid #dbdbdb;
+
+.col_2{
+    
+    position: absolute;
 
 }
 
-.col_2{
-    flex: 1 1 40%;
+.col_1, .col_2{
+    
+    width: 100vw;
+    height: 100vh;
     border: 1px solid #dbdbdb;
-    padding: 0 24px 0 24px;
     
 }
 

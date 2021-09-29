@@ -6,16 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>chat</title>
     <link rel="stylesheet" href="/public/css/chat.css" />
-    <!-- 구글폰츠 아이콘 -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   </head>
   <body>
   <!-- top nav -->
   <%- include('htmlPiece/nav.html') %>
 
     <div class="container">
+      <input type="checkbox" id="chat" />
+      <label for="chat">채팅</label>
         <div class="col_1">
-          One of three columns
+          친구검색
+          <form action="/chat" method="POST">
+          <input type="text" value="test1" name="weeksomId" id="chatSearch">
+          <button value="친구찾기" onclick="chatSearch">친구찾기</button>
+          <div id="friends">
+            
+          </div>
+        </form>
+          
         </div>
         <div class="col_2">
           <div class="wrapper">
@@ -35,6 +44,40 @@
           </div>
         </div>
     </div>
+
+    <script>
+      async function chatSearch() {
+          const weeksomId = document.getElementById('chatSearch')
+          const url = 'http://localhost:7080/chat'
+          await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(searchUser),
+          }).then(data => {
+            return data.json()
+          }).then(data => {
+            console.log(data.weeksomId)
+            console.log(data.profileImgKey)
+            const template = `
+            
+            `
+
+
+            const friends = document.getElementById('friends')
+            const newSpan = document.createElement('span')
+            const newImg = document.createElement('img')
+            newDiv.innerHTML = data.weeksomId
+            newImg.setAttribute("src", `${data.profileImgKey}`)
+            friends.appendChild(newSpan)
+            friends.appendChild(newImg)
+
+
+          })
+      }
+
+    </script>
 
     
   
