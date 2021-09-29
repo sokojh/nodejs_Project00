@@ -29,12 +29,14 @@ function send() {
 
 sendButton.addEventListener('click', send) // 클릭했을 때 이벤트 발생
 // 데이터를 object 표기법으로 보냄
-function room(evt) {
-  console.log(evt.childNodes[1].childNodes[1]) // 상대방 이미지 태그
-  const join = [myId, evt.childNodes[3].innerHTML].sort()
-  const roomId = join[0] + join[1]
-  socket.emit('oneToOne', `${roomId}`)
+
+function room(thisElement) {
+  const urId = thisElement.childNodes[3].innerHTML
+  const join = [myId, urId].sort()
+  const roomName = join[0] + join[1]
+  socket.emit('oneToOne', `${roomName}`)
 }
+
 // on으로 받음
 socket.on('chatting', (data) => {
   // 서버에서 데이터를 받았을 때

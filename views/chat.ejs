@@ -25,7 +25,14 @@
           id="chatSearch"
         />
         <button onclick="chatSearch()">친구찾기</button>
-        <div id="friends"></div>
+        <div id="friends">
+          <div class="searchUser" onclick="room(this)">
+            <div class="imgBox">
+              <img src="${urImg}" alt="" />
+            </div>
+            <div class="weeksomId">${urId}</div>
+          </div>
+        </div>
       </div>
       <div class="col_2">
         <div class="wrapper">
@@ -52,8 +59,10 @@
       const myId = '<%= user.weeksomId %>'
       let urImg = ''
       async function chatSearch() {
+        // 검색할 유져 아이디값
         const weeksomId = document.getElementById('chatSearch').value
         const url = 'http://localhost:7080/chat'
+        // 디비에서 유져 검색
         await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -63,17 +72,19 @@
             return data.json()
           })
           .then((data) => {
+            // 디비에서 유져 검색해서 받아온 데이터
             urImg = data.profileImgKey
+            urId = data.weeksomId
             const friends = document.getElementById('friends')
             const newDiv = document.createElement('div')
             const template = `<div class="searchUser" onclick="room(this)">
               <div class="imgBox">
                 <img
-                src="${data.profileImgKey}"
+                src="${urImg}"
                 alt=""
                 />
                 </div>
-                <div class="weeksomId">${data.weeksomId}</div>
+                <div class="weeksomId">${urId}</div>
                 </div>`
             newDiv.innerHTML = template
             friends.appendChild(newDiv)

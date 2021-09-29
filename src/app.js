@@ -83,10 +83,13 @@ const io = new Server(http)
 
 io.sockets.on('connection', (socket) => {
   let roomId = ''
-  socket.on('oneToOne', (data) => {
-    roomId = data
-    socket.join(data)
-    console.log(data, '룸연결')
+  socket.on('oneToOne', (roomName) => {
+    roomId = roomName
+    // 프라이빗 룸 작성
+    socket.join(roomId)
+    console.log(roomId, '룸연결')
+
+    // 1. 저장된 채팅 내역을 프론트에 뿌리기
   })
 
   socket.on('chatting', (data) => {
@@ -96,6 +99,7 @@ io.sockets.on('connection', (socket) => {
     console.log('접속 roomId : ', roomId)
 
     // 디비작업공간
+    // 2. name msg time 디비로 추가
 
     io.to(roomId).emit('chatting', {
       // 받고
