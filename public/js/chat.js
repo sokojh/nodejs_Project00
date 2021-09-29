@@ -9,7 +9,6 @@ const chatList = document.querySelector('.chatting-list')
 const chatInput = document.querySelector('.chatting-input')
 const sendButton = document.querySelector('.send-button')
 const displayContainer = document.querySelector('.display-Container')
-console.log(profileImg)
 
 chatInput.addEventListener('keypress', (event) => {
   // input 창에서 키프레스 이벤트가 발생할 때 이벤트를 인자로 넘겨줌
@@ -30,13 +29,20 @@ function send() {
 
 sendButton.addEventListener('click', send) // 클릭했을 때 이벤트 발생
 // 데이터를 object 표기법으로 보냄
-
+function room(evt) {
+  console.log(evt.childNodes[1].childNodes[1]) // 상대방 이미지 태그
+  const join = [myId, evt.childNodes[3].innerHTML].sort()
+  const roomId = join[0] + join[1]
+  console.log(roomId)
+  socket.emit('oneToOne', `${roomId}`)
+}
 // on으로 받음
 socket.on('chatting', (data) => {
   // 서버에서 데이터를 받았을 때
   const { name, msg, time } = data
   const item = new LiModel(name, msg, time) // item 변수에 new 키워드를 통해서 li 모델을 초기화
   item.makeLi() // makeLi()호출
+  // TODO 오류남
   displayContainer.scrollTo(0, displayContainer.scrollHeight) // 현재 스크롤값을 읽음
 })
 
@@ -50,9 +56,10 @@ function LiModel(name, msg, time) {
 
   this.makeLi = () => {
     const li = document.createElement('li')
-    li.classList.add(nickname.value === this.name ? 'sent' : 'received')
+    const youAndMe = nickname.value === this.name
+    li.classList.add(youAndMe ? 'sent' : 'received')
     // nickname에 value가 넘겨받은 이름과 같으면? 클래스를 sent로 주고 아니면 received로 줌
-
+    const profileImg = youAndMe ? myImg : urImg
     // Destructuring
     const dom = `<span class= "profile">
         <span class = "user">${this.name}</span> 

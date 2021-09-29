@@ -82,16 +82,23 @@ const moment = require('moment')
 const io = new Server(http)
 
 io.sockets.on('connection', (socket) => {
-  console.log('websocket connetion')
+  let roomId = ''
+  socket.on('oneToOne', (data) => {
+    roomId = data
+    console.log(data, '룸아이디가 와야 정상')
+    socket.join(data)
+  })
+
   socket.on('chatting', (data) => {
     // data : 클릭을 했을 때 넘겨받는 닉네임, 내용, 시간
     const { name, msg } = data
     console.log(data) // data를 보내고
-    io.emit('chatting', {
+    console.log('roomId : ', roomId)
+    io.to(roomId).emit('chatting', {
       // 받고
       name,
       msg,
-      time: moment(new Date()).format('h:ss A'),
+      time: moment(new Date()).format('h:mm:ss A'),
     })
   })
 }) // 연결의 정보를 socket에 담음

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -7,40 +7,81 @@
     <title>chat</title>
     <link rel="stylesheet" href="/public/css/chat.css" />
     <!-- 구글폰츠 아이콘 -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
   </head>
   <body>
-  <!-- top nav -->
-  <%- include('htmlPiece/nav.html') %>
-
     <div class="container">
-        <div class="col_1">
-          One of three columns
-        </div>
-        <div class="col_2">
-          <div class="wrapper">
-            <div class="user-container">
-              <label for="nickname">대화명</label>
-            </div>
-            <div class="display-container">
-              <ul class="chatting-list"></ul>
-              <!-- 채팅을 li 구조로 늘어놓게 함 -->
-            </div>
-            <div class="input-container">
-              <span>
-                <input type="text" class="chatting-input" />
-                <button class="send-button">전송</button>
-              </span>
-            </div>
+      <input type="checkbox" id="chat" />
+      <label for="chat">채팅</label>
+      <div class="col_1">
+        <input
+          type="text"
+          value="test6"
+          placeholder="weeksomId"
+          name="weeksomId"
+          id="chatSearch"
+        />
+        <button onclick="chatSearch()">친구찾기</button>
+        <div id="friends"></div>
+      </div>
+      <div class="col_2">
+        <div class="wrapper">
+          <div class="user-container">
+            <input id="nickname" type="text" value="<%= user.weeksomId%>" />
+            <label for="nickname">대화명</label>
+          </div>
+          <div class="display-container">
+            <ul class="chatting-list"></ul>
+            <!-- 채팅을 li 구조로 늘어놓게 함 -->
+          </div>
+          <div class="input-container">
+            <span>
+              <input type="text" class="chatting-input" />
+              <button class="send-button">전송</button>
+            </span>
           </div>
         </div>
+      </div>
     </div>
 
-    
-  
+    <script>
+      const myImg = '<%= user.profileImgKey %>'
+      const myId = '<%= user.weeksomId %>'
+      let urImg = ''
+      async function chatSearch() {
+        const weeksomId = document.getElementById('chatSearch').value
+        const url = 'http://localhost:7080/chat'
+        await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ weeksomId }),
+        })
+          .then((data) => {
+            return data.json()
+          })
+          .then((data) => {
+            urImg = data.profileImgKey
+            const friends = document.getElementById('friends')
+            const newDiv = document.createElement('div')
+            const template = `<div class="searchUser" onclick="room(this)">
+              <div class="imgBox">
+                <img
+                src="${data.profileImgKey}"
+                alt=""
+                />
+                </div>
+                <div class="weeksomId">${data.weeksomId}</div>
+                </div>`
+            newDiv.innerHTML = template
+            friends.appendChild(newDiv)
+          })
+      }
+    </script>
 
     <!-- socket io 라이브러리 -->
-
     <script
       src="https://cdn.socket.io/4.1.2/socket.io.min.js"
       integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg"
