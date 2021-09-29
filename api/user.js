@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-const { User } = require('../mongoose/model') //model 객체에 exports한 스키마가 들어있음
-
-// const model = require(../mongoose/model)
-// const user = model.User
-// 이걸 저 위의 한줄로 만든거임
-=======
 const bcrypt = require('bcrypt')
 const { User } = require('../mongoose/model')
->>>>>>> basechan
 
 // 회원가입 /acount/signup
 const userSignup = async (req, res) => {
