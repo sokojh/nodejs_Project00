@@ -1,26 +1,27 @@
-const router = require('express').Router()
-const client = require('../src/mongo')
+const router = require('express').Router({ mergeParams: true }) // mergeParams 옵션을 줘야 이전파라미터를 받아옴
+const { User, Article } = require('../api/0.index') // 몽구스 api 임포트
 
 // 프로필
 router.get(
-  '/:weeksomId',
-  async (req, res, next) => {
-    console.log('클라이언트 : profile 라우터 연결')
-    console.log('전달받은 유져정보', req.user)
-    console.log('전달받은 파라미터 정보', req.params)
-    const weeksomId = req.params
-
-    console.log('디비작업은 왜 안함?')
-    const db = await client.db('weeksom')
-    console.log('디비작업은 왜 안함?')
-    const cursor = await db.collection('users').find({ weeksomId: weeksomId })
-    console.log('디비작업은 왜 안함?')
-    cursor.forEach(console.log)
-    console.log('디비작업은 왜 안함?')
-    next()
+  '/',
+  User.viewUserProfile,
+  (req, res, next) => {
+    if (req.userProfile !== undefined) {
+      next()
+    } else {
+      res.redirect('/', { msg: '해당 아이디가 없습니다.' })
+    }
   },
+  Article.profileArticle,
   (req, res) => {
-    res.render('profile.ejs', { 사용자: req.user })
+    console.log('클라이언트 : /:weeksomId 라우터 연결')
+    res.render('profile.ejs', {
+      프로필: req.userProfile,
+      userArticle: req.userArticle,
+      likeArticle: req.likeArticle,
+      bookmarkArticle: req.bookmarkArticle,
+      user: req.user,
+    })
   }
 )
 

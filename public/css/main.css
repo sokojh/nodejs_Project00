@@ -1,0 +1,74 @@
+h4 {
+    font-family: '맑은고딕';
+    }
+    a{
+        cursor: pointer;
+        text-decoration: none;
+        color: #444444;
+    }
+    p, .comment-like > p > span{
+        font-size: 1em;
+    }
+    a:hover, a:hover > span, a:hover > p > span{
+        text-decoration: none;
+        color: #ff6060;
+    }
+    /* main */
+        /* 게시물 */
+    .float-start{
+        float: left;
+    }
+    .float-end{
+        float: right;
+    }
+    .card{
+        margin: 0 auto 0;
+    }
+    .img-profile {
+        width: 32px;
+        height: 32px;
+        border: 1px solid #dddddd;
+        border-radius: 100%;
+        overflow: hidden;
+    }
+    .img-profile > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .main-name-profile{
+        line-height: 32px;
+        font-weight: bold;
+        color: #444444;
+    }
+    .btn-profile{
+        height: 32px;
+        padding: 4px;
+        color: #444444;
+    }
+    
+    .name-profile{
+        line-height: 32px;
+        font-weight: bold;
+        color: #444444;
+    }
+    .comment_box > p, .comment_box > a > p{
+        margin: 0;
+    }
+    .comment_box > p > span {
+        text-align: center;
+        line-height: 32px;
+    }
+    .postDate{
+        color: gray;
+        font-size: 0.8em;
+        margin-bottom: 0;
+    }
+    /* 모달 */
+    /*.modal-body{
+        /* padding: 0; */
+    /*}
+    /* 댓글 */
+    .comment_body {
+        padding: 0 1.25rem 1.25rem 1.25rem;
+    }

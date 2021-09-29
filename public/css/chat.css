@@ -1,0 +1,130 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+.wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* 말풍선 세로 정렬 */
+    overflow: hidden;
+}
+
+.user-container {
+    background: #a9bdce;
+    flex:1; /* 비율로 크기 조정 */
+    display: none; /* 레이블태그, input 태그 정렬 */
+    justify-content: flex-start; /* 왼쪽부터 시작 */
+    align-items: center;
+    padding: 0.5rem;
+}
+
+.user-container label{
+    font-size: 14px;
+    margin-right: 1rem;
+}
+
+.user-container input{
+    border-radius: 3px;
+    border:none;
+    height: 50%;
+}
+
+.display-container{
+    flex: 12;
+    background: #b2c7d9;
+    overflow-y: scroll; /* 채팅이 쌓이면 스크롤 생성 */
+}
+
+.input-container{
+    flex: 1;
+    display: flex;
+    justify-content: stretch; /* 끝부터 끝까지 영역 차지 */
+    align-items: center;
+}
+
+.input-container span{ /* 메세지 전송 부분 */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.3rem;
+    width: 100%;
+}
+
+.chatting-input{
+    font-size: 18px;
+    height: 100%;
+    flex: 8;
+    border: none;
+}
+
+.send-button{
+    flex: 1;
+    background: #ffed33;
+    border: none;
+    height: 100%;
+    border-radius: 3px;
+}
+
+.chatting-list li{
+    width: 90%;
+    padding: 0.3rem;
+    display: flex;
+    justify-content: flex-start; /* 왼쪽부터 시작 */
+    align-items: flex-end; /* 라인밑으로 정렬 */
+    margin-top: 0.5rem;
+}
+
+.profile{
+    display: flex;
+    flex-direction: column; /* 세로정렬 */
+    align-items: center; /* 중앙정렬 */
+    justify-content: center;
+    flex: 1;
+
+}
+
+.profile .user {
+    font-size: 10px;
+    margin-bottom: 0.3rem;
+}
+
+.profile .image{
+    border-radius: 50%; /* 동그란 프사 */
+    object-fit: cover; /* 이미지 모양에 맞춰서 잘라줌. 깨지지 않음*/
+    width: 50%; /* 리사이징 */
+    height: 50%;
+}
+
+.message {
+    border-radius: 5px;
+    padding: 0.5rem;
+    font-size: 12px;
+    margin: 0 5px;
+    flex: 7;
+}
+
+.time {
+    font-size: 10px;
+    margin: 0 5px;
+
+}
+
+.sent {
+    flex-direction: row-reverse; /* 내가 보낸 메세지는 오른쪽에 붙도록 역순배열 */
+    float: right;
+}
+
+.sent .message {
+    background: #ffeb33;
+
+}
+
+.received .message{
+    background: #fff;
+}

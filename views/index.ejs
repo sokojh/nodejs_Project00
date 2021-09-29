@@ -2,18 +2,50 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Document</title>
+    <title>index</title>
   </head>
+  <style>
+    body {
+      font-size: 2.5em;
+    }
+    input {
+      font-size: 1.5em;
+    }
+  </style>
   <body>
-    <h1>안녕하세요 시작페이지입니다.</h1>
-    <a href="/sendinput">데이터입력예제</a>
-    <br />
+    <h1>관리자 인덱스</h1>
+    <% if (user) {%>
+    <h3><%=user.nickname%>님이 로그인했습니다.</h3>
+    <% } else { %>
+    <h3>로그인되지않았습니다.</h3>
+    <% } %>
+    <a href="/sendinput">데이터입력예제</a> <br />
     <h2>계정정보</h2>
-    <a href="/acount/signup">회원가입예제</a>
+    <a href="/acount/signup">회원가입예제</a> <br />
+    <a href="/acount/signin">로그인예제</a> <br />
+    <a href="/acount/modify">회원정보 수정</a> <br />
+    유저 프로필
+    <input
+      type="text"
+      id="searchProfile"
+      placeholder="userProfile : weeksomId "
+      value="test1"
+    />
+    <input type="submit" value="search" onclick="searchProfile()" />
     <br />
-    <a href="/acount/signin">로그인예제</a>
-    <br />
-    <a href="/profile/test2">test2 프로필페이지</a>
-    <br />
+    <a href="/userlist">유져리스트 팔로우</a> <br />
+    <h2>메인화면</h2>
+    <a href="/article">게시물 출력</a> <br />
+    <a href="/populateTest">디비병합테스트</a> <br />
+    <a href="/comment">댓글 테스트</a> <br />
+    <a href="/chat">채팅</a> <br />
+    <a href="/post">작성하기 테스트</a> <br />
+    <a href="/search">검색 테스트</a> <br />
   </body>
+  <script>
+    const searchProfile = () => {
+      const profile = document.getElementById('searchProfile').value
+      location.href = `/@/${profile}`
+    }
+  </script>
 </html>

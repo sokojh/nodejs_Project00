@@ -1,0 +1,183 @@
+@import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css');
+/* https://www.flaticon.com/kr/uicons */
+body{
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  font-size: 2.2em;
+}
+#main {
+  transition: opacity 0.5s;
+}
+.body{
+  position: absolute;
+  top:100vh;
+  z-index: 0;
+  opacity: 0;
+  transition: top 0.5s, opacity 0.5s ;
+}
+a {
+  text-decoration: none;
+}
+a:visited { color: black; text-decoration: none;}
+
+/* 네비게이션바 정보 */
+nav {
+  position: fixed;
+  height: 5vh;
+  width: 94vw;
+  display: flex;
+  justify-content: space-between;
+  padding: 3vw;
+  background-color: white;
+  z-index: 2;
+}
+nav > div {
+  display: flex;
+  font-size:2.2em;
+  font-weight: 900;
+}
+#navIcon {
+  width: 15vw;
+  font-size: 1.8em;
+  padding-top: 1.5%;
+  justify-content: space-between;
+}
+nav a {
+  padding-top: 3%;
+}
+.modifyBox {
+  width: 90vw;
+  text-align: center;
+  padding: 5%;
+}
+.modify {
+  width: 100%;
+  font-size: 1.1em;
+  text-align: center;
+}
+
+/* 섹션정보 */
+section {
+  position: relative;
+  top: 10vh;
+}
+
+/* 프로필정보 */
+.profile {
+  display: flex;
+  justify-content: space-between;
+  padding:4%;
+}
+.profile > div {
+  width: 20vw;
+  height: 20vw;
+  text-align: center;
+}
+section > div > div > div {
+  /* 게시물 팔로워 팔로잉 카운팅데이터 */
+  font-size:1.5em;
+  font-weight: 900;
+  padding-top: 25%;
+  padding-bottom: 5%;
+}
+section > div > div > span {
+  /* 게시물 팔로워 팔로잉 */
+  font-size:1em;
+  font-weight: 500;
+}
+#profileImg {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius: 100%;
+}
+/* 프로필텍스트정보 */
+.profileText {
+  padding-left: 4%;
+  padding-right: 4%;
+  font-size: 1.1em;
+  height: auto;
+}
+.profileText > div {
+  padding-top: 2%;
+}
+
+/* 탭갤러리 정보 */
+.tab_content {
+  width: 100vw;
+  height: 8vw;
+  font-size: 1.6em;
+  display: flex;
+  flex-flow:wrap;
+  justify-content: space-between;
+  text-align: center;
+}
+input[type="radio"] { display: none; }
+input[type="radio"] + label { 
+  display: inline-block; 
+  width: 33vw;
+  height: 100%;
+  color: gray;
+}
+input[type="radio"]:checked + label {
+  color: yellowgreen;
+  border-bottom: 0.1em solid yellowgreen;
+}
+
+
+/* 출력게시물 정보 */
+
+.tabBox {
+  width: 100vw;
+  display: none;
+  flex-flow:wrap;
+  justify-content: space-between;
+}
+.thumbnail, .dummy {
+  width: 33vw;
+  height: 33vw;
+  margin-top: 0.5%;
+  overflow:hidden;
+  padding: 0;
+  /* 게시물 왼쪽 정렬용 더미박스 */
+  background-color: white; 
+}
+.thumbnail > img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+/* 체크하면 디스플레이 flex */
+input[id="tab1"]:checked ~ .myArticle {display: flex;}
+input[id="tab2"]:checked ~ .bookmarkArticle {display: flex;}
+input[id="tab3"]:checked ~ .likeArticle {display: flex;}
+
+
+
+
+/* 회원정보------------------------------------- */
+/* 비번검사 */
+#password-confirm {
+  padding: 4%;
+  width: 90vw;
+}
+/* 회원정보 */
+.text {
+  font-size: 1em;
+  padding-bottom: 2%;
+  color:rgb(153, 153, 153)  ;
+}
+form {
+  padding: 4%;
+  display: none;
+}
+form > input, #password-confirm > input  {
+  width: 90vw;
+  height: 4vh;
+  margin-bottom: 5%;
+  border: 0;
+  border-bottom: 2px solid rgb(216, 216, 216);
+  font-size: 1.3em;
+}
+input:focus {outline:none;}

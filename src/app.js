@@ -1,118 +1,99 @@
 // @ts-check
-const express = require('express') // 익스프레스 서버모듈 가져오기
+
+// 익스프레스 웹 기본 셋팅
+const express = require('express')
+// 익스프레스 서버모듈 가져오기
 const app = express() // 익스프레스 객체 생성
-//const client = require('../src/mongo') // 몽고디비 연결 정보
-app.use(express.urlencoded({ extended: true })) // 포스트 전송시 인코딩
+// const client = require('../src/mongo') // 몽고디비 연결 정보
+app.use(express.urlencoded({ extended: true })) // 포스트 전송시 인코딩, 익스텐디드는 중첩허용
 app.use(express.json()) // post로 전달된 페이로드를 받을 수 있음 => req.body 로 프론트 폼데이터 전달받음 : 'body'parser
+// static 폴더 지정해주는것 public폴더를 고정폴더로 서버 시작할때 사용하게 만들어줌.
+app.use('/public', express.static('public'))
 app.set('views', 'views') // 익스프레스 뷰 폴더 경로는 기본값으로 views를 사용
-app.set('view engine', 'ejs') //뷰엔진 ejs 사용
+app.set('view engine', 'ejs') // 뷰엔진 ejs 사용
 
-// 몽구스 테스트
-const { Article } = require('../api/0.index')
-app.get('/read', Article.articleRead)
-app.post('/create', Article.articleCreate)
-app.patch('/update', Article.articleUpdate)
-app.delete('/delete/:id', Article.articleDelete)
-
-// ------------- 로그인 기능처리 -----------------
 // @ts-ignore
+// 세션 로그인 확인 미들웨어 ( 쿠키해시값 => 패스포트 디시리얼라이즈 자동실행 => 세션정보 확인 )
 const loginCheck = (req, res, next) => {
   if (req.user) {
-    console.log('req.user 정보 확인.')
+    console.log('사용자 로그인 확인.')
     // console.log('function loginCheck req.user : ', req.user, '확인')
     next()
   } else {
-    console.log('req.user 정보가 없습니다. 로그인페이지로 갑니다.')
+    console.log('로그인 정보가 없습니다. 로그인페이지로 갑니다.')
     res.render('signin.ejs')
   }
 }
 
+// 패스포트 기본셋팅
 const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
 
+// express session
 app.use(session({ secret: '세션비번', resave: true, saveUninitialized: false }))
+// passport미들웨어 사용
 app.use(passport.initialize())
 app.use(passport.session())
+// passport 이메일 비번검사 및, 시리얼 디시리얼라이즈메서드
+require('../config/passport')(passport)
 
-//client.connect()
-//const db = client.db('weeksom')
-
-passport.use(
-  // 로그인 인증 모듈사용
-  new LocalStrategy(
-    {
-      usernameField: 'email', // input name="email"
-      passwordField: 'password',
-      session: true, // 로그인세션 저장여부
-      passReqToCallback: false, // 기타 입력값에 대해 req.body로 검증할지 여부
-    },
-    async (email, password, done) => {
-      console.log('패스포트 로컬전략 로그인시도 :', email)
-
-      const result = await db.collection('users').findOne({ email: email }) // 디비에서 검색
-      // 결과값이 없으면
-      if (!result) {
-        return done(null, false, { message: '아이디가 존재하지 않습니다' })
-      }
-      if (password == result.password) {
-        return done(null, result)
-      } else {
-        return done(null, false, { message: '비번이 틀렸습니다' })
-      }
-    }
-  )
-)
-
-passport.serializeUser((user, done) => {
-  // 패스포트에서 만들어진 result를 user로 받아서 사용
-  console.log(
-    '시리얼라이즈 :',
-    // @ts-ignore
-    user.email,
-    '세션에 저장하고 세션데이터 쿠키에 전송'
-  )
-  // @ts-ignore
-  done(null, user.email) // 세션데이터를 만들어서 쿠키로 보냄
-})
-
-passport.deserializeUser(async (email, done) => {
-  // find 변경시도중
-  // const cursor = await db
-  //   .collection('users')
-  //   .find({ email: email })
-  //   .project({ _id: 0, password: 0, follower: 0, following: 0 })
-  //   .toArray()
-  // console.log('파인드함수로 찾은 결과값 : ')
-  // cursor.forEach(console.log)
-
-  //쿠키에 세션정보 가져와서
-  //디비에서 위에있는 user.id로 유저를 찾은 뒤에 유저정보를
-  db.collection('users').findOne({ email: email }, (err, result) => {
-    console.log('디 시리얼라이즈 확인 : ', result.email) // 검색해보고
-    done(null, result) // 끝냄
-  })
-})
-// ------------------- 로그인처리 ----------------------
-
+// 접속페이지
+// @ts-ignore
 app.get('/', loginCheck, (req, res) => {
   console.log('get / 클라이언트 : 인덱스 페이지 연결 \n')
-  res.render(`index.ejs`)
+  res.render(`index.ejs`, { user: req.user })
 })
 
+// 로그인 인증 페이지 (시작페이지)
 app.post(
   '/',
   passport.authenticate('local', {
-    //로컬 방식으로 인증
-    failureRedirect: '/fail',
+    // 로컬 방식으로 인증
+    failureRedirect: '/acount/signin-fail', // TODO 로그인 실패 페이지구성
   }),
+  // @ts-ignore
   (req, res) => {
-    res.render('index.ejs')
+    res.render('index.ejs', { user: req.user })
   }
 )
+// 유져리스트
 
+// 라우터 연결
 app.use('/sendinput', loginCheck, require('../routes/sendinput'))
 app.use('/acount', require('../routes/acount'))
-app.use('/profile', require('../routes/profile'))
+app.use('/userlist', loginCheck, require('../routes/userlist'))
+app.use('/follow', loginCheck, require('../routes/follow'))
+app.use('/article', loginCheck, require('../routes/article'))
+app.use('/populateTest', require('../routes/populateTest'))
+app.use('/comment', require('../routes/comment'))
+app.use('/chat', loginCheck, require('../routes/chat'))
+app.use('/post', loginCheck, require('../routes/post'))
+app.use('/search', require('../routes/search'))
 
-module.exports = app
+app.use('/@/:weeksomId', loginCheck, require('../routes/profile'))
+
+// -------------------------------------------------------------------------------------
+
+// 소켓 io
+const http = require('http').createServer(app)
+const { Server } = require('socket.io')
+const moment = require('moment')
+
+const io = new Server(http)
+
+io.sockets.on('connection', (socket) => {
+  console.log('websocket connetion')
+  socket.on('chatting', (data) => {
+    // data : 클릭을 했을 때 넘겨받는 닉네임, 내용, 시간
+    const { name, msg } = data
+    console.log(data) // data를 보내고
+    io.emit('chatting', {
+      // 받고
+      name,
+      msg,
+      time: moment(new Date()).format('h:ss A'),
+    })
+  })
+}) // 연결의 정보를 socket에 담음
+
+module.exports = http

@@ -1,4 +1,4 @@
-const client = require('../src/mongo')
+const client = require('../../src/mongo')
 
 async function main() {
   await client.connect() // 디비 연결

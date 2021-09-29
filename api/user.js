@@ -1,41 +1,101 @@
+<<<<<<< HEAD
 const { User } = require('../mongoose/model') //model 객체에 exports한 스키마가 들어있음
 
 // const model = require(../mongoose/model)
 // const user = model.User
 // 이걸 저 위의 한줄로 만든거임
+=======
+const bcrypt = require('bcrypt')
+const { User } = require('../mongoose/model')
+>>>>>>> basechan
 
-// 회원가입
+// 회원가입 /acount/signup
 const userSignup = async (req, res) => {
-  //userSignup 메서드를 만듬. async:동기화함수
-  const { email, weeksomId, password, nickname } = req.body //body : 폼데이터
-
-  const newUser = await User({ email, weeksomId, password, nickname }) //async를 붙이면 await(작업 끝날 때까지 기다려줌)이 붙은 항목에 가서 동기화된 작업을 해줌
-  const saveRequest = await newUser.save() // .save() : 디비에 저장하면 저장된 데이터 리턴
+  const { email, weeksomId, passwordConfirm, nickname } = req.body
+  // 비밀번호 해시값으로 변경( 사용법은 exam > bcryptTest.js참고 )
+  const hashedPassword = await bcrypt.hashSync(passwordConfirm, 10)
+  const newUser = await User({ email, weeksomId, hashedPassword, nickname })
+  const saveRequest = await newUser.save() // 디비에 저장하면 저장된 데이터 리턴
   console.log(saveRequest)
   res.send(saveRequest)
 }
 
-// Read
-const articleRead = async (req, res) => {
-  const email = req.body.email
-  const articles = await Article.find({ email: email })
-  res.send(articles)
+// 프로필 유져 검색 /profile/:weeksomid
+const viewUserProfile = async (req, res, next) => {
+  const { weeksomId } = req.params
+  console.log(weeksomId)
+  const userProfile = await User.find({ weeksomId })
+  req.userProfile = userProfile[0]
+  next()
 }
 
-// Update
-const articleUpdate = async (req, res) => {
-  const { id, contentText } = req.body
-  const updatedArticle = await Article.findByIdAndUpdate(id, { contentText }) //리턴값으로 수정전 오리진데이터 사용
-  res.send(updatedArticle)
+// 유져리스트
+const userList = async (req, res, next) => {
+  // 모든 유져 정보 배열검색
+  const userlist = await User.find({})
+  req.userlist = userlist
+  next()
 }
 
-// Delete
-const articleDelete = async (req, res) => {
-  const { id } = req.params
-  const deleteArticle = await Article.findByIdAndDelete(id)
-  res.send(deleteArticle)
+// 팔로우 추가 취소0
+const followUpdate = async (req, res, next) => {
+  // 모든 유져 정보 배열검색
+  const userId = req.user.weeksomId
+  const { otherId } = req.body
+  const { status } = req.body // 0이면 언팔, 1이면 팔로
+
+  console.log(userId, otherId, status)
+
+  const follow = [
+    {
+      $push: { following: otherId },
+      $inc: { followingCount: 1 },
+    }, // 팔로잉 추가
+    {
+      $pull: { following: otherId },
+      $inc: { followingCount: -1 },
+    }, // 팔로잉 삭제
+    {
+      $push: { follower: userId },
+      $inc: { followerCount: 1 },
+    }, // 팔로워 추가
+    {
+      $pull: { follower: userId },
+      $inc: { followerCount: -1 },
+    }, // 팔로워 삭제
+  ]
+  const userUpdate = status === 0 ? follow[0] : follow[1]
+  const otherUpdate = status === 0 ? follow[2] : follow[3]
+
+  const user = await User.findOneAndUpdate({ weeksomId: userId }, userUpdate, {
+    new: true,
+  })
+  const other = await User.findOneAndUpdate(
+    { weeksomId: otherId },
+    otherUpdate,
+    { new: true }
+  )
+}
+
+const validPassword = async (req, res) => {
+  const { pw } = req.body
+  const userId = req.user.weeksomId
+  console.log(pw, userId)
+  const user = await User.findOne({ weeksomId: userId })
+  // 일치 1 불일치 0
+  const status = bcrypt.compareSync(pw, user.hashedPassword) ? 1 : 0
+  console.log('비번일치 1 불일치 0 :', status)
+  if (status === 1) {
+    res.sendStatus(200)
+  } else {
+    res.sendStatus(400)
+  }
 }
 
 module.exports = {
   userSignup,
+  viewUserProfile,
+  userList,
+  followUpdate,
+  validPassword,
 }

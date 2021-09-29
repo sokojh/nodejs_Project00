@@ -1,17 +1,20 @@
 const mongoose = require('mongoose')
+const AutoIncrement = require('mongoose-sequence')(mongoose)
 
 // 게시물 댓글
 const Comment = mongoose.Schema({
-  //참조게시물
-  article: { type: mongoose.Schema.Types.ObjectId, ref: 'Article' },
-  //작성자
-  auther: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
-  //댓글내용
   text: { type: String, required: true },
   createDate: { type: Date, default: Date.now, required: true },
-
-  // 동적으로 변동될 수 있는 데이터
-  likeCount: { type: Number, default: 0 },
+  likeCount: { type: Number, required: true, default: 0 },
+  article_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'Article',
+  },
+  like: { type: Array, required: true, default: [] },
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 })
+
+Comment.plugin(AutoIncrement, { inc_field: 'commentTotalCount' })
 
 module.exports = Comment

@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <!-- 프로젝트 css -->
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- 구글폰츠 아이콘 -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <title>주간솜뭉치</title> 
+  </head>
+  <!-- Jqeury -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>$('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+  })</script>
+
+
+  <body> 
+    <!-- top nav -->
+    <%- include('htmlPiece/nav.html') %>   
+
+     <br>
+     <br><br><br><br>
+     
+    <h1><center>#😙궁금한걸 검색해요</center></h1>
+    
+     <br><br>   
+     <div class="container input-group mb-2">
+        <input class="form-control" id="search-input">
+        <button class="input-group-append btn btn-danger" id="search">검색</button>
+      </div>
+      
+      <script>
+        $('#search').click(function(){
+          var 입력한값 = $('#search-input').val();
+          window.location.replace('/search/v?value=' + 입력한값)
+        });
+      
+      </script>
+
+
+ 
+
+    <!-- 하단 nav 바 -->
+    <%- include('htmlPiece/bottomNav.html') %>
+
+    <!-- 부트스트랩 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+
+  </body>
+</html>
