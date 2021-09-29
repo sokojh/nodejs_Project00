@@ -27,8 +27,12 @@ body{
     } ::-webkit-scrollbar { 
          display: none; }
          
-
-
+img.ss{
+  text-align: center;
+  
+  width: 80%;
+  height: 80%;
+}
 figure.snip1200 {
     
   font-family: 'Raleway', Arial, sans-serif;
