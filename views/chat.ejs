@@ -7,15 +7,17 @@
     <title>chat</title>
     <link rel="stylesheet" href="/public/css/chat.css" />
   </head>
-  <body>
+  <body> 
     <div class="wrapper">
       <div class="user-container">
         <label for="nickname">대화명</label>
-        <input type="text" id="nickname" />
+        <input type="text" id="nickname" value="<%= user.weeksomId %>" />
+        <input type="text" id="profileImg" value="<%= user.profileImgKey %>" />
+        <%= profileImg = user.profileImgKey %>
       </div>
       <div class="display-container">
         <ul class="chatting-list"></ul>
-        <!-- 채팅을 li 구조로 늘어놓게 함 -->
+        <!-- 채팅을 li 구조로 늘어놓게 함-->
       </div>
       <div class="input-container">
         <span>
@@ -24,9 +26,10 @@
         </span>
       </div>
     </div>
-
     <!-- socket io 라이브러리 -->
-
+    <script>
+      const profileImg = `<%= user.profileImgKey %>`
+    </script>
     <script
       src="https://cdn.socket.io/4.1.2/socket.io.min.js"
       integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg"

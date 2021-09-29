@@ -9,6 +9,7 @@ const chatList = document.querySelector('.chatting-list')
 const chatInput = document.querySelector('.chatting-input')
 const sendButton = document.querySelector('.send-button')
 const displayContainer = document.querySelector('.display-Container')
+console.log(profileImg)
 
 chatInput.addEventListener('keypress', (event) => {
   // input 창에서 키프레스 이벤트가 발생할 때 이벤트를 인자로 넘겨줌
@@ -23,7 +24,6 @@ function send() {
     name: nickname.value,
     msg: chatInput.value,
   }
-
   // emit으로 보내고
   socket.emit('chatting', param) // param : 문자열로 소켓을 보냄, //chatting : 채팅 id
 }
@@ -56,7 +56,7 @@ function LiModel(name, msg, time) {
     // Destructuring
     const dom = `<span class= "profile">
         <span class = "user">${this.name}</span> 
-        <img class="image" src="https://placeimg.com/50/50/any" alt=""> 
+        <img class="image" src="${profileImg}" alt=""> 
         </span>
         <span class="message">${this.msg}</span>
         <span class="time">${this.time}</span> `

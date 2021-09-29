@@ -18,7 +18,7 @@ html, body {
 .user-container {
     background: #a9bdce;
     flex:1; /* 비율로 크기 조정 */
-    display: flex; /* 레이블태그, input 태그 정렬 */
+    display: none; /* 레이블태그, input 태그 정렬 */
     justify-content: flex-start; /* 왼쪽부터 시작 */
     align-items: center;
     padding: 0.5rem;
