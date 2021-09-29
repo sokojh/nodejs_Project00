@@ -85,8 +85,8 @@ io.sockets.on('connection', (socket) => {
   let roomId = ''
   socket.on('oneToOne', (data) => {
     roomId = data
-    console.log(data, '룸아이디가 와야 정상')
     socket.join(data)
+    console.log(data, '룸연결')
   })
 
   socket.on('chatting', (data) => {
@@ -96,7 +96,7 @@ io.sockets.on('connection', (socket) => {
     console.log('접속 roomId : ', roomId)
 
     // 디비작업공간
-    
+
     io.to(roomId).emit('chatting', {
       // 받고
       name,

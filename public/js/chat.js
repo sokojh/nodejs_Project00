@@ -33,7 +33,6 @@ function room(evt) {
   console.log(evt.childNodes[1].childNodes[1]) // 상대방 이미지 태그
   const join = [myId, evt.childNodes[3].innerHTML].sort()
   const roomId = join[0] + join[1]
-  console.log(roomId)
   socket.emit('oneToOne', `${roomId}`)
 }
 // on으로 받음
