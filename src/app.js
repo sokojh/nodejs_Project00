@@ -81,7 +81,7 @@ const moment = require('moment')
 
 const io = new Server(http)
 
-io.on('connection', (socket) => {
+io.sockets.on('connection', (socket) => {
   console.log('websocket connetion')
   socket.on('chatting', (data) => {
     // data : 클릭을 했을 때 넘겨받는 닉네임, 내용, 시간
