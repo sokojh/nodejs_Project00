@@ -5,7 +5,7 @@ h4 {
         cursor: pointer;
         text-decoration: none;
         color: #444444;
-    }
+    } 
     p, .comment-like > p > span{
         font-size: 1em;
     }
