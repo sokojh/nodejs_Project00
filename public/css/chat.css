@@ -34,13 +34,15 @@ body {
 }
 
 .search {
-    width: 293px;
+    width: 20vw;
     height: 58px;
     border-radius: 5em;
     border-style:1px solid #4f555c;
     background-image: url(https://image-upload-server1.s3.ap-northeast-2.amazonaws.com/free-icon-search-3917132.svg);
     background-repeat: no-repeat;
     background-size: 22px;
+    background-position: 15px;
+    padding-left: 10px;
     
     
 }
@@ -55,7 +57,7 @@ body {
 .col_2{    
     position: relative;
     padding-left: 25px;
-    width: 75%;
+    width: 60%;
     float: right;
 }
 #chat:checked ~ .col_2 {
@@ -133,7 +135,13 @@ body {
     font-size: 18px;
     height: 100%;
     flex: 8;
-    border: none;
+    
+    border: 5px solid transparent;
+    border-radius: 20px;
+    background-image: linear-gradient(#efa6c1), linear-gradient(to right, #99bddd);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    border-image-slice: 1;
 }
 
 .send-button{
