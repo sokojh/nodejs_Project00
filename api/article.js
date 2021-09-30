@@ -38,13 +38,14 @@ const articleDelete = async (req, res, next) => {
 }
 //modal 글 가져오기
 const modalUpdate = async (req, res, next) => {
-  const modalArticlesRead = await Article.findById(req.body._id).exec(
-    (error, result) => {
+  const modalArticlesRead = await Article.find({ _id: req.body._id })
+    .sort({ createDate: -1 })
+    .populate('auther')
+    .exec((error, result) => {
       error ? res.status(400).send(error) : res.status(200).send(result)
+      console.log('이건가' + result)
       next()
-      console.log()
-    }
-  )
+    })
 }
 //modal 댓글 가져오기
 const modalCommentUpdate = async (req, res, next) => {
@@ -56,9 +57,6 @@ const modalCommentUpdate = async (req, res, next) => {
     .populate('user_id')
     .exec((error, result) => {
       error ? res.status(400).send(error) : res.status(200).send(result)
-      console.log(
-        '여기부터다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ----' + result
-      )
       next() // 댓글 작성자 정보 첨부
     })
 }

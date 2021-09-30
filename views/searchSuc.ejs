@@ -46,19 +46,23 @@
         'article_id':modalArticleId
       }
     }).done((data) => {
+      console.log('여기부터:'+Object.values(data)[0].auther.nickname)
       commentCountsave=data.commentCount
       repeat()
-      document.getElementById("modalText").innerHTML="<p class='ss'>"+data.contentText+'</p>'
-      document.getElementById("modalImageUrl").innerHTML="<center><img class='ss' src="+data.contentImgKey[0]+"></center>"
-      document.getElementById("modalDate").innerHTML="<div class='modalDate'>"+getDate(data.createDate)+"</div>"
+      document.getElementById("modalText").innerHTML="<p class='ss'>"+Object.values(data)[0].contentText+'</p>'
+      document.getElementById("modalImageUrl").innerHTML="<center><img class='ss' src="+Object.values(data)[0].contentImgKey[0]+"></center>"
+      document.getElementById("modalDate").innerHTML="<div class='modalDate'>"+getDate(Object.values(data)[0].createDate)+"</div>"
+      document.getElementById("modalProfile").innerHTML="<a href=/@/"+Object.values(data)[0].auther.weeksomId+
+      "><div><div class='img-profile'><img src="+Object.values(data)[0].auther.profileImgKey+"></div>"+Object.values(data)[0].auther.nickname+"</div></a>"
       //document.getElementById("modalComment").innerHTML=data.text
        
     }).fail((err) => { 
       console.log(err); 
     })
-  }
+  } 
 
   const repeat = () => {
+    document.getElementById("modalComment").innerHTML=""// 다른 댓글이 남아있으면 안되니 정리합니다.
     console.log('전역변수실행됨?'+modalArticleId);
     $.ajax({
       url: '/search/modalCommentUpdate',
@@ -72,10 +76,12 @@
       
       console.log(commentCountsave)
       var da=Object.values(data)
-      var daC = da.length-1
+      daC = da.length-1
       console.log(daC)
-      console.log(Object.values(da)[daC].text)
-      document.getElementById("modalComment").innerHTML=""
+      
+      if( daC <= -1 ){
+        document.getElementById("modalComment").innerHTML="😂댓글을 남겨주세요..."
+      }
       for (var i = 0; i <= daC; i++) {
         console.log(Object.values(da)[i].text)
         var a= "<li>"+Object.values(da)[i].text+'</li>'
@@ -87,6 +93,7 @@
       //document.getElementById("modalCommentAuthorImage").innerHTML="<img class='commentprofileImg' style='float:left;' src="+Object.values(da)[i].user_id.profileImgKey+">"
       
     }
+    
       
      
       //document.getElementById("modalComment").innerHTML="<p style='float:left;'>"+element[0].text+'</p>'
@@ -96,7 +103,7 @@
       //document.getElementById("modalCommentAuthor").innerHTML="<p style='float:left;'><b>"+data.user_id.nickname+':</p>'
       //document.getElementById("modalCommentAuthorImage").innerHTML="<img class='commentprofileImg' style='float:left;' src="+data.user_id.profileImgKey+">"
       
-      
+       
     }).fail((err) => { 
       console.log(err); 
     })
@@ -119,11 +126,13 @@
       <!-- 모달 가운데 부분-->
       <div class="modal-body">
         
+        
         <div class="center1"> 
-          
+
           <p id="modalImageUrl"></p>
-          <p id="modalText"></p>
-          
+          <hr>
+          <p id="modalProfile"></p>
+          <p id="modalText"></p> 
           <p id="modalDate"></p>
           
           <hr>
@@ -163,7 +172,7 @@
   <center><p><b>게시물</b> <%= searchReq %></p></center>
 </div>
     <!-- 게시물 출력 -->
-    <div class="container-sm"> 
+    <div class="search-margin"> 
     <div class="row">
     <% articles.forEach(element => { %>
         
