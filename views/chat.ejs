@@ -119,6 +119,8 @@
       const myImg = '<%= user.profileImgKey %>'
       const myId = '<%= user.weeksomId %>'
       let urImg = ''
+      let friendsArray = []
+
 
       const chat = () => {
         const chatbtn = document.getElementById('chat')
@@ -129,31 +131,37 @@
         // 검색할 유져 아이디값
         const weeksomId = document.getElementById('chatSearch').value
         const url = 'http://localhost:7080/chat'
-        // 디비에서 유져 검색
-        await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ weeksomId }),
-        })
-          .then((data) => {
-            return data.json()
+        if (!friendsArray.includes(weeksomId)) {
+          // 디비에서 유져 검색
+          await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ weeksomId }),
           })
-          .then((data) => {
-            // 디비에서 유져 검색해서 받아온 데이터
-            urImg = data.profileImgKey
-            urId = data.weeksomId
-            const friends = document.getElementById('friends')
-            const newDiv = document.createElement('div')
-            const template = `
-            <div class="searchUser" onclick="room(this)">
-              <div class="imgBox">
-                <img src="${urImg}" alt=""/>
-                </div>
-                <div class="weeksomId">${urId}</div>
-                </div>`
-            newDiv.innerHTML = template
-            friends.appendChild(newDiv)
-          })
+            .then((data) => {
+              return data.json()
+           
+ })
+ .then((data) => {
+              console.log(data)
+              // 디비에서 유져 검색해서 받아온 데이터
+              urImg = data.profileImgKey
+              urId = data.weeksomId
+              friendsArray.push(urId)
+              const friends = document.getElementById('friends')
+              const newDiv = document.createElement('div')
+              const template = `<div class="searchUser" onclick="room(this)">
+                <div class="imgBox">
+                <img src="${urImg}" alt=""
+                  />
+                  </div>
+                  <div class="weeksomId">${urId}</div>
+                  </div>`
+              newDiv.innerHTML = template
+              friends.appendChild(newDiv)
+              console.log(friendsArray)
+            })
+        }
       }
     </script>
 

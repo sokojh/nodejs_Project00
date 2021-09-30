@@ -21,15 +21,6 @@ const viewUserProfile = async (req, res, next) => {
   req.userProfile = userProfile[0]
   next()
 }
-// 채팅상대찾기 /chat
-const chatUser = async (req, res, next) => {
-  const { weeksomId } = req.body
-  console.log(weeksomId)
-  const userProfile = await User.find({ weeksomId })
-  // eslint-disable-next-line prefer-destructuring
-  req.userProfile = userProfile[0]
-  next()
-}
 
 //채팅상대찾기
 const chatUser = async (req, res, next) => {

@@ -104,18 +104,27 @@ nav img {
     text-align: center;
 }
 
-.col_2{    
-    position: relative;
-    padding-left: 25px;
-    width: 60%;
-    float: right;
+.col_2{
+    width: 100vw;
+    height: 90vh;
+    position: absolute;
+    left: 100vw;
+    top:0;
+    transition: left 0.5s;
 }
 #chat:checked ~ .col_2 {
     display: block;
 }
 .searchUser {
     display: flex;
-    padding-left: 3vw;
+    padding: 3vw 0 0 3vw
+}
+
+.weeksomId{
+   font-size: 1.5em;
+   padding-left: 3vw;
+   padding-top: 1%;
+   text-align: center;
 }
 .imgBox {
     width: 20vw;
@@ -126,10 +135,6 @@ nav img {
     height:100%;
     object-fit:cover;
     border-radius: 100%;
-}
-.weeksomId {
-    padding-top: 3%;
-    font-size: 2em;
 }
 
 .wrapper {
