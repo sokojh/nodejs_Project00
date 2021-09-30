@@ -5,14 +5,16 @@ body{
   width: 100vw;
   height: 100vh;
   font-size: 2.2em;
+  transition: opacity 0.5s;
+  overflow-y: hidden
 }
 #main {
   transition: opacity 0.5s;
 }
 .body{
   position: absolute;
-  top:100vh;
-  z-index: 0;
+  top:30vh;
+  z-index: -1;
   opacity: 0;
   transition: top 0.5s, opacity 0.5s ;
 }
