@@ -21,7 +21,7 @@
 
 .form_title_p{
     font-weight: bold;
-    font-size: 30px;
+    font-size: 40px;
     display: inline-block;
     padding-top: 5px;
 }
@@ -34,15 +34,15 @@
 
 .form_input{
     width: 98%;
-    height: 30px;
+    height: 40px;
     border: 1px solid;
     border-radius: 3px;
     border-color: gray;
 }
 
 .form_input_email{
-    width: 150px;
-    height: 30px;
+    width: 98%;
+    height: 40px;
     border: 1px solid;
     border-radius: 3px;
     border-color: gray;
@@ -50,25 +50,24 @@
 }
 
 .form_user{
+    padding: 1%;
     color:black;
-}
-
-.form_alert{
-    padding-bottom: 10px;
+    margin-top: 5%;
 }
 
 .form_text_alert{
     height: 20px;
 }
 
-.form_login_button{
-    width: 100%;
-    height: 44px;
+.form_join_button {
+    width: 98%;
+    height: 60px;
     margin: 2% 0;
-    background-color: rgb(43, 113, 204);
-    border: 1px solid;
+    background-color: skyblue;
+    border: 1px solid white;
     border-radius: 3px;
     color: white;
     font-size: 17px;
     font-weight: 500;
-}
+    margin-top: 10%;
+  }
