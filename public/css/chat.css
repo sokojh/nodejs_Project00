@@ -56,6 +56,29 @@ nav img {
     height: 100%;
     border: 1px solid #dbdbdb;
 }
+
+.search {
+    padding: 2vw 2vh;
+}
+
+#chatSearch{
+    width: 30vw;
+    height: 58px;
+    border-radius: 5em;
+    border-style:1px solid #4f555c;
+    background-image: url(https://image-upload-server1.s3.ap-northeast-2.amazonaws.com/free-icon-search-3917132.svg);
+    background-repeat: no-repeat;
+    background-size: 22px;
+    background-position: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.chatSearch {
+    width: 5vw;
+    height: 58px;
+}
+
 .col_1 > input, button {
     width: 80vw;
     font-size: 2em;

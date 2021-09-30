@@ -36,16 +36,22 @@
 
       <!-- 친구찾기화면 -->
       <div class="col_1">
-        <input
-          type="text"
-          value="test6"
-          placeholder="weeksomId"
-          name="weeksomId"
-          id="chatSearch"
-        />
-        <button onclick="chatSearch()">친구찾기</button>
+        <div class="search">
+          <input type="text" value="    test6" placeholder="weeksomId" name="weeksomId" id="chatSearch" />
+          <button onclick="chatSearch()" class="chatSearch">search</button>
+        </div>
         <div id="friends"></div>
       </div>
+
+      <script>
+        chatSearch.addEventListener('keypress', (event) => {
+  // input 창에서 키프레스 이벤트가 발생할 때 이벤트를 인자로 넘겨줌
+  if (event.keyCode === 13) {
+    send() // 이벤트 키코드가 13 = 엔터면 실행한다
+    chatSearch.value = '' // 텍스트박스 초기화
+  }
+})
+      </script>
 
       <!-- 채팅창 -->
       <div class="col_2">
