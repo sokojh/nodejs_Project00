@@ -51,16 +51,45 @@ nav img {
     overflow: hidden;
 }
 
-.col_1, .col_2{
+.col_1 {
     width: 100vw;
     height: 90vh;
-    border: 1px solid #000000;
 }
-.col_1 > input, button {
-    width: 80vw;
-    font-size: 2em;
+.inputBox {
+    margin-top: 3vh;
+    text-align: center;
 }
+
+#chatSearch {
+    width: 60vw;
+    height: 7vh;
+    font-size: 1.2em;
+    border-radius: 50px;
+    padding: 0 0 0 9vh;
+    transition: all 0.5s;
+    border: solid rgb(195, 178, 255);
+}
+#chatSearch:focus {
+    outline: none;
+    box-shadow: 0 0 5px 5px rgb(255, 220, 226) ;
+}
+.search {
+    position: absolute;
+    top: 5.76vh;
+    left: 17vw;
+    width: 3vh;
+    height: 3vh;
+}
+.search > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
 .col_2{
+    width: 100vw;
+    height: 90vh;
     position: absolute;
     left: 100vw;
     top:0;
@@ -149,7 +178,6 @@ nav img {
     width: 80vw;
     border: none;
 }
-
 .send-button{
     width: 15vw;
     background: #ffed33;
@@ -195,7 +223,7 @@ nav img {
 .message {
     border-radius: 5px;
     padding: 0.5rem;
-    font-size: 12px;
+    font-size: 1em;
     margin: 0 5px;
     flex: 7;
 }
