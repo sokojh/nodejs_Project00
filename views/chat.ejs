@@ -52,6 +52,43 @@
 
   
 
+    <script>
+      async function chatSearch() {
+          const weeksomId = document.getElementById('chatSearch')
+          const url = 'http://localhost:7080/chat'
+          await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(searchUser),
+          }).then(data => {
+            return data.json()
+          }).then(data => {
+            console.log(data.weeksomId)
+            console.log(data.profileImgKey)
+            const template = `
+            
+            `
+
+
+            const friends = document.getElementById('friends')
+            const newSpan = document.createElement('span')
+            const newImg = document.createElement('img')
+            newDiv.innerHTML = data.weeksomId
+            newImg.setAttribute("src", `${data.profileImgKey}`)
+            friends.appendChild(newSpan)
+            friends.appendChild(newImg)
+
+
+          })
+      }
+
+    </script>
+
+    
+  
+
     <!-- socket io 라이브러리 -->
 
     <script
