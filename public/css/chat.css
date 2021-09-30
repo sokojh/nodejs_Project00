@@ -178,12 +178,15 @@ nav img {
     font-size: 10px;
     margin-bottom: 0.3rem;
 }
-
+.imgBox {
+    width: 7vw;
+    height: 7vw;
+}
 .profile .image{
     border-radius: 50%; /* 동그란 프사 */
     object-fit: cover; /* 이미지 모양에 맞춰서 잘라줌. 깨지지 않음*/
-    width: 50%; /* 리사이징 */
-    height: 50%;
+    width: 100%; /* 리사이징 */
+    height: 100%;
 }
 
 .message {

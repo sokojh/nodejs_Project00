@@ -64,8 +64,10 @@ function LiModel(name, msg, time) {
     const profileImg = youAndMe ? myImg : urImg
     // Destructuring
     const dom = `<span class= "profile">
-        <span class = "user">${this.name}</span> 
-        <img class="image" src="${profileImg}" alt=""> 
+        <span class = "user">${this.name}</span>
+        <div class="imgBox">
+        <img class="image" src="${profileImg}" alt="">
+        </div>
         </span>
         <span class="message">${this.msg}</span>
         <span class="time">${this.time}</span> `
