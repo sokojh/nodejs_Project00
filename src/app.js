@@ -53,7 +53,8 @@ app.post(
   }),
   // @ts-ignore
   (req, res) => {
-    res.render('index.ejs', { user: req.user })
+    // res.render('index.ejs', { user: req.user })
+    res.redirect('/article') // 메인페이지로 바로이동
   }
 )
 // 유져리스트
