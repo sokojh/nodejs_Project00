@@ -24,7 +24,8 @@
     const getDate = (writeDate) => {
       let writeDateFormat = new Date(writeDate)
       let writeDday = new Date().getDate() - writeDateFormat.getDate();
-      (writeDday != 1) ? document.write(writeDday + '일 전') : document.write('오늘')
+      let result=(writeDday != 1) ? writeDday + '일 전' : '오늘'
+      return result
     }
   </script>
   <!-- 모달창 데이터 전달-->
@@ -32,39 +33,85 @@
    
   modalArticleId = null
   const clickModal = (e) => {
-    var text = "";
+    
     let thisArticleAutherId = e.id.split('/')[0] // 게시물의 작성자 id 값 저장
     modalArticleId = e.id.split('/')[1] // 현재 클릭한 게시물의 id 값 저장
     console.log(modalArticleId)
     $.ajax({
       url: '/search/modalUpdate',
       type: 'post',
+      
       data: {
-        '_id': modalArticleId
+        '_id': modalArticleId,
+        'article_id':modalArticleId
       }
     }).done((data) => {
-      console.log(Object.values(data))
-      document.getElementById("modalText").innerHTML=Object.values(data)[3]
-      document.getElementById("imageUrl").innerHTML="<img src="+Object.values(data)[2]+">"
+      console.log('여기부터:'+Object.values(data)[0].auther.nickname)
+      commentCountsave=data.commentCount
+      repeat()
+      document.getElementById("modalText").innerHTML="<p class='ss'>"+Object.values(data)[0].contentText+'</p>'
+      document.getElementById("modalImageUrl").innerHTML="<center><img class='ss' src="+Object.values(data)[0].contentImgKey[0]+"></center>"
+      document.getElementById("modalDate").innerHTML="<div class='modalDate'>"+getDate(Object.values(data)[0].createDate)+"</div>"
+      document.getElementById("modalProfile").innerHTML="<a href=/@/"+Object.values(data)[0].auther.weeksomId+
+      "><div><div class='img-profile'><img src="+Object.values(data)[0].auther.profileImgKey+"></div>"+Object.values(data)[0].auther.nickname+"</div></a>"
+      //document.getElementById("modalComment").innerHTML=data.text
+       
+    }).fail((err) => { 
+      console.log(err); 
+    })
+  } 
+
+  const repeat = () => {
+    document.getElementById("modalComment").innerHTML=""// 다른 댓글이 남아있으면 안되니 정리합니다.
+    console.log('전역변수실행됨?'+modalArticleId);
+    $.ajax({
+      url: '/search/modalCommentUpdate',
+      type: 'post',
       
-    }).fail((err) => {
-      console.log(err);
+      data: {
+        '_id': modalArticleId,
+        'article_id':modalArticleId
+      }
+    }).done((data) => {
+      
+      console.log(commentCountsave)
+      var da=Object.values(data)
+      daC = da.length-1
+      console.log(daC)
+      
+      if( daC <= -1 ){
+        document.getElementById("modalComment").innerHTML="😂댓글을 남겨주세요..."
+      }
+      for (var i = 0; i <= daC; i++) {
+        console.log(Object.values(da)[i].text)
+        var a= "<li>"+Object.values(da)[i].text+'</li>'
+        var b= document.getElementById("modalComment")
+        b.innerHTML=b.innerHTML+a;
+        
+      //document.getElementById("modalComment").innerHTML="<p style='float:left;'>"+Object.values(da)[i].text+'</p>'
+      //document.getElementById("modalCommentAuthor").innerHTML="<p style='float:left;'><b>"+Object.values(da)[i].user_id.nickname+':</p>'
+      //document.getElementById("modalCommentAuthorImage").innerHTML="<img class='commentprofileImg' style='float:left;' src="+Object.values(da)[i].user_id.profileImgKey+">"
+      
+    }
+    
+      
+     
+      //document.getElementById("modalComment").innerHTML="<p style='float:left;'>"+element[0].text+'</p>'
+
+      
+      //document.getElementById("modalComment").innerHTML="<p style='float:left;'>"+data.text+'</p>'
+      //document.getElementById("modalCommentAuthor").innerHTML="<p style='float:left;'><b>"+data.user_id.nickname+':</p>'
+      //document.getElementById("modalCommentAuthorImage").innerHTML="<img class='commentprofileImg' style='float:left;' src="+data.user_id.profileImgKey+">"
+      
+       
+    }).fail((err) => { 
+      console.log(err); 
     })
   }
-
-
-  
   </script>
  
   <body> 
    
-    <!-- top nav -->
-    <%- include('htmlPiece/nav.html') %>   
-    <!-- 검색결과 텍스트-->
-    <div>
-    <center><h3><b><%= valueSuc %></b>의 검색결과 입니다. 😁 </h3></center><br>
-    <center><p><b>게시물</b> <%= searchReq %></p></center>
-  </div>
 
 <!-- 모달창 -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -79,12 +126,28 @@
       <!-- 모달 가운데 부분-->
       <div class="modal-body">
         
-        <div class="row-cols-2">
-          <p class= "row-cols-lg-1" id ="imageUrl"></p>
-          <p id="modalText"></p>
-        </div>
-        </div>
+        
+        <div class="center1"> 
 
+          <p id="modalImageUrl"></p>
+          <hr>
+          <p id="modalProfile"></p>
+          <p id="modalText"></p> 
+          <p id="modalDate"></p>
+          
+          <hr>
+          
+          <div class="commentbox">
+           
+            <p id="modalCommentAuthorImage"></p>
+            <p id="modalCommentAuthor"></p>
+            <p id="modalComment"></p>
+         
+          
+        </div>
+        </div>
+        </div>
+      
 
         <!--모달 밑부분영역-->
       <div class="modal-footer">
@@ -95,13 +158,21 @@
           </div>
         </div>
       </div> 
+    </div>
       </div>
     </div>
-    </div>
-  </div>
-
+    
+ 
+ <!-- 검색결과 텍스트-->
+  <!-- top nav -->
+  <%- include('htmlPiece/nav.html') %>   
+   
+ <div>
+  <center><h3><b><%= valueSuc %></b>의 검색결과 입니다. 😁 </h3></center><br>
+  <center><p><b>게시물</b> <%= searchReq %></p></center>
+</div>
     <!-- 게시물 출력 -->
-    <div class="container-sm">
+    <div class="search-margin"> 
     <div class="row">
     <% articles.forEach(element => { %>
         
@@ -122,10 +193,11 @@
       
   
           
-       
+        
           
       
     <% }) %>
+    
 </div>
 </div>
 
