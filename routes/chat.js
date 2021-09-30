@@ -7,8 +7,8 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', User.chatUser, (req, res) => {
-  const { weeksomId, profileImgKey } = req.userProfile
+  const { weeksomId, profileImgKey, nickname } = req.userProfile
   console.log(weeksomId, profileImgKey)
-  res.send(200, { weeksomId, profileImgKey })
+  res.send(200, { weeksomId, profileImgKey, nickname })
 })
 module.exports = router

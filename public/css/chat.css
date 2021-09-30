@@ -73,7 +73,7 @@ nav img {
         url('https://image-upload-server1.s3.ap-northeast-2.amazonaws.com/free-icon-search-3917132.svg');
     background-size: 22px 22px;
     background-repeat: no-repeat;
-    background-position: 20px 20px;
+    background-position: 20px 18px;
 }
 #chatSearch:focus {
     outline: none;

@@ -77,7 +77,7 @@
       const myImg = '<%= user.profileImgKey %>'
       const myId = '<%= user.weeksomId %>'
       let urImg = ''
-      let friendsArray = []
+      let friendsArray = [myId]
 
       const chat = () => {
         const chatbtn = document.getElementById('chat')
@@ -99,22 +99,20 @@
               return data.json()
             })
             .then((data) => {
-              console.log(data)
               // 디비에서 유져 검색해서 받아온 데이터
               urImg = data.profileImgKey
               urId = data.weeksomId
+              urNickname = data.nickname
               friendsArray.push(urId)
               const friends = document.getElementById('friends')
               const newDiv = document.createElement('div')
               const template = `<div class="searchUser" onclick="room(this)">
-                <div class="imgBox">
-                  <img
-                  src="${urImg}"
-                  alt=""
-                  />
+                  <div class="imgBox">
+                    <img src="${urImg}" alt="" />
                   </div>
+                  <div class="nickname">${urNickname}</div>
                   <div class="weeksomId">${urId}</div>
-                  </div>`
+                </div>`
               newDiv.innerHTML = template
               friends.appendChild(newDiv)
               console.log(friendsArray)
