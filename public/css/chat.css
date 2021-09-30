@@ -70,7 +70,7 @@ nav img {
     background-repeat: no-repeat;
     background-size: 22px;
     background-position: 15px;
-    padding-left: 10px;
+    padding-left: 50px;
     padding-right: 10px;
 }
 
@@ -144,8 +144,9 @@ nav img {
 
 .display-container{
     min-height: 80vh;
-    background: #b2c7d9;
+    background: #ffffff;
     overflow-y: scroll; /* 채팅이 쌓이면 스크롤 생성 */
+    border: none;
 
 }
 
@@ -166,20 +167,36 @@ nav img {
 }
 
 .chatting-input{
-    font-size: 1.5em;
+    font-size: 1.2em;
     
-    height: 8vh;
+    height: 5vh;
     width: 80vw;
     border: none;
+    border-radius: 13em;
+    padding-left: 2vw;
+    color: #4f555c;
+
 }
 
 .send-button{
-    width: 15vw;
-    background: #ffed33;
+    width: 13vw;
+    height: 5vh;
     border: none;
-    height: 100%;
     border-radius: 3px;
-    font-size: 1.5em;
+    font-size: 1em;
+    color: white;
+
+    background: #efa6c1;
+    /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #efa6c1 0%, #99bddd 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #efa6c1 0%, #99bddd 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #efa6c1 0%, #99bddd 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#efa6c1', endColorstr='#99bddd', GradientType=1);
+    /* IE6-9 fallback on horizontal gradient */
+
 }
 
 .chatting-list li{
@@ -217,10 +234,11 @@ nav img {
 
 .message {
     border-radius: 5px;
-    padding: 0.5rem;
+    padding: 1rem;
     font-size: 12px;
     margin: 0 5px;
-    flex: 7;
+    flex: 5;
+    color: white;
 }
 
 .time {
@@ -235,10 +253,10 @@ nav img {
 }
 
 .sent .message {
-    background: #ffeb33;
+    background: #efa6c1;
 
 }
 
 .received .message{
-    background: #fff;
+    background: #efa6c1;
 }

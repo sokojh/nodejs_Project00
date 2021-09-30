@@ -37,7 +37,7 @@
       <!-- 친구찾기화면 -->
       <div class="col_1">
         <div class="search">
-          <input type="text" value="    test6" placeholder="weeksomId" name="weeksomId" id="chatSearch" />
+          <input type="text" value="test6" placeholder="weeksomId" name="weeksomId" id="chatSearch" />
           <button onclick="chatSearch()" class="chatSearch">search</button>
         </div>
         <div id="friends"></div>
@@ -103,12 +103,10 @@
             urId = data.weeksomId
             const friends = document.getElementById('friends')
             const newDiv = document.createElement('div')
-            const template = `<div class="searchUser" onclick="room(this)">
+            const template = `
+            <div class="searchUser" onclick="room(this)">
               <div class="imgBox">
-                <img
-                src="${urImg}"
-                alt=""
-                />
+                <img src="${urImg}" alt=""/>
                 </div>
                 <div class="weeksomId">${urId}</div>
                 </div>`
