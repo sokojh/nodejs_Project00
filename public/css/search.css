@@ -1,18 +1,55 @@
 /* 마우스 오버 css*/
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800);
 /* 스크롤 없애기*/
+div.search-margin{
+  margin: 10%;
+  text-align: center;
 
-div.center1{
-    text-align:center;
 }
+div.img-profile{
+float: left;
+width: 32px;
+height: 32px;
+border: 1px solid #dddddd;
+border-radius: 100%;
+overflow: hidden;
+}
+div.modalDate{
+  color: #C0C0C0;
 
+}
+div.center1{
+  position: relative;
+  width: 100%;
+  height: 20%;
+  
+    
+}
+div.commentbox{
+  
+  text-align: left;
+}
+img.commentprofileImg{
+  width: 5%;
+  height: 5%; 
+}
+img.ss{
+  position: 'absolute';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+li {
+  list-style: none;
+  
+}
 body{
      -ms-overflow-style: none; 
     
     } ::-webkit-scrollbar { 
          display: none; }
          
-
 
 figure.snip1200 {
     
