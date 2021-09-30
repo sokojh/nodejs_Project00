@@ -1,18 +1,25 @@
 /* 마우스 오버 css*/
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800);
 /* 스크롤 없애기*/
+div.modalDate{
+  color: #C0C0C0;
 
+}
 div.center1{
   position: relative;
   width: 100%;
-  height: 0;
-    text-align:center;
-    padding-bottom: 133%
+  height: 20%;
+  
+    
 }
-p.ss{
-  text-align: center;
+div.commentbox{
+  
+  text-align: left;
 }
-
+img.commentprofileImg{
+  width: 5%;
+  height: 5%; 
+}
 img.ss{
   position: 'absolute';
   top: 0;
@@ -20,19 +27,17 @@ img.ss{
   width: 100%;
   height: 100%;
 }
-
+li {
+  list-style: none;
+  
+}
 body{
      -ms-overflow-style: none; 
     
     } ::-webkit-scrollbar { 
          display: none; }
          
-img.ss{
-  text-align: center;
-  
-  width: 80%;
-  height: 80%;
-}
+
 figure.snip1200 {
     
   font-family: 'Raleway', Arial, sans-serif;

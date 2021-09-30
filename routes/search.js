@@ -4,7 +4,7 @@ const db = mongoose.connection
 const router = require('express').Router()
 const { Article, Comment } = require('../api/0.index') // 몽구스 api 임포트
 router.post('/modalUpdate', Article.modalUpdate, (req, res) => {})
-
+router.post('/modalCommentUpdate', Article.modalCommentUpdate, (req, res) => {})
 // 게시물 출력 : article : id
 //Article.articlePopRead 미들웨어 제거
 router.get('/', (req, res) => {
@@ -43,7 +43,6 @@ router.get('/v', (req, res) => {
           valueSuc: req.query.value,
           searchReq: 결과.length,
         })
-        console.log(결과)
       }
     })
 })

@@ -40,24 +40,67 @@
     $.ajax({
       url: '/search/modalUpdate',
       type: 'post',
+      
       data: {
         '_id': modalArticleId,
         'article_id':modalArticleId
       }
     }).done((data) => {
-      console.log(Object.values(data))
-      document.getElementById("modalText").innerHTML="<p>"+data.contentText+'</p>'
+      commentCountsave=data.commentCount
+      repeat()
+      document.getElementById("modalText").innerHTML="<p class='ss'>"+data.contentText+'</p>'
       document.getElementById("modalImageUrl").innerHTML="<center><img class='ss' src="+data.contentImgKey[0]+"></center>"
-      document.getElementById("modalDate").innerHTML=getDate(data.createDate)
-      document.getElementById("modalComment").innerHTML=data.text
-      
+      document.getElementById("modalDate").innerHTML="<div class='modalDate'>"+getDate(data.createDate)+"</div>"
+      //document.getElementById("modalComment").innerHTML=data.text
+       
     }).fail((err) => { 
       console.log(err); 
     })
   }
 
+  const repeat = () => {
+    console.log('전역변수실행됨?'+modalArticleId);
+    $.ajax({
+      url: '/search/modalCommentUpdate',
+      type: 'post',
+      
+      data: {
+        '_id': modalArticleId,
+        'article_id':modalArticleId
+      }
+    }).done((data) => {
+      
+      console.log(commentCountsave)
+      var da=Object.values(data)
+      var daC = da.length-1
+      console.log(daC)
+      console.log(Object.values(da)[daC].text)
+      document.getElementById("modalComment").innerHTML=""
+      for (var i = 0; i <= daC; i++) {
+        console.log(Object.values(da)[i].text)
+        var a= "<li>"+Object.values(da)[i].text+'</li>'
+        var b= document.getElementById("modalComment")
+        b.innerHTML=b.innerHTML+a;
+        
+      //document.getElementById("modalComment").innerHTML="<p style='float:left;'>"+Object.values(da)[i].text+'</p>'
+      //document.getElementById("modalCommentAuthor").innerHTML="<p style='float:left;'><b>"+Object.values(da)[i].user_id.nickname+':</p>'
+      //document.getElementById("modalCommentAuthorImage").innerHTML="<img class='commentprofileImg' style='float:left;' src="+Object.values(da)[i].user_id.profileImgKey+">"
+      
+    }
+      
+     
+      //document.getElementById("modalComment").innerHTML="<p style='float:left;'>"+element[0].text+'</p>'
 
-  
+      
+      //document.getElementById("modalComment").innerHTML="<p style='float:left;'>"+data.text+'</p>'
+      //document.getElementById("modalCommentAuthor").innerHTML="<p style='float:left;'><b>"+data.user_id.nickname+':</p>'
+      //document.getElementById("modalCommentAuthorImage").innerHTML="<img class='commentprofileImg' style='float:left;' src="+data.user_id.profileImgKey+">"
+      
+      
+    }).fail((err) => { 
+      console.log(err); 
+    })
+  }
   </script>
  
   <body> 
@@ -76,14 +119,26 @@
       <!-- 모달 가운데 부분-->
       <div class="modal-body">
         
-        <div class=""> 
+        <div class="center1"> 
+          
           <p id="modalImageUrl"></p>
           <p id="modalText"></p>
+          
           <p id="modalDate"></p>
-          <p id="modalComment"></p>
+          
+          <hr>
+          
+          <div class="commentbox">
+           
+            <p id="modalCommentAuthorImage"></p>
+            <p id="modalCommentAuthor"></p>
+            <p id="modalComment"></p>
+         
+          
         </div>
         </div>
-      </div>
+        </div>
+      
 
         <!--모달 밑부분영역-->
       <div class="modal-footer">
@@ -94,10 +149,10 @@
           </div>
         </div>
       </div> 
+    </div>
       </div>
     </div>
-    </div>
-  </div>
+    
  
  <!-- 검색결과 텍스트-->
   <!-- top nav -->

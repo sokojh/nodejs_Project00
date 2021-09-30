@@ -42,18 +42,26 @@ const modalUpdate = async (req, res, next) => {
     (error, result) => {
       error ? res.status(400).send(error) : res.status(200).send(result)
       next()
+      console.log()
     }
   )
-  console.log(req.body)
+}
+//modal 댓글 가져오기
+const modalCommentUpdate = async (req, res, next) => {
   var foo = new Object()
   foo.article_id = req.body['article_id']
-  console.log(foo)
-  const commentList = await Comment.findOne(foo) //가져와 검색
+  console.log(req.body._id)
+  const commentList = await Comment.find({ article_id: req.body._id }) //id 객체 가져와서 검색
     .sort({ createDate: -1 }) // 댓글 내림차순
-    .populate('user_id') // 댓글 작성자 정보 첨부
-  console.log('코멘트시작-------' + commentList)
+    .populate('user_id')
+    .exec((error, result) => {
+      error ? res.status(400).send(error) : res.status(200).send(result)
+      console.log(
+        '여기부터다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ----' + result
+      )
+      next() // 댓글 작성자 정보 첨부
+    })
 }
-
 // 좋아요 설정
 const likeUpdate = async (req, res, next) => {
   let myWeeksomId = { weeksomId: req.user.weeksomId }
@@ -139,4 +147,5 @@ module.exports = {
   likeUpdate,
   bookmarkUpdate,
   modalUpdate,
+  modalCommentUpdate,
 }
