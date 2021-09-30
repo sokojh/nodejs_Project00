@@ -1,14 +1,35 @@
-const { exec } = require('child_process')
-const { Article } = require('../mongoose/model')
-const { User, Comment } = require('../mongoose/model')
+const { Article, User, Comment } = require('../mongoose/model')
 
-//@ts-check
+// @ts-check
 // Create
 const articleCreate = async (req, res) => {
   const { auther, contentImgKey, contentText } = req.body
   const newArticle = await Article({ auther, contentImgKey, contentText })
   const saveRequest = await newArticle.save() // 디비에 저장
   res.send(saveRequest)
+}
+
+// Read
+const articleRead = async (req, res, next) => {
+  const { email } = req.body
+  const articles = await Article.find({ email })
+  req.articles = articles
+  next()
+}
+// /@/:weeksomId 유저게시물, 북마크, 좋아요 컨텐츠 검색
+const profileArticle = async (req, res, next) => {
+  const { _id, weeksomId } = req.userProfile
+  const userArticle = await Article.find({ auther: _id })
+  const likeArticle = await Article.find({
+    likePeoples: weeksomId,
+  })
+  const bookmarkArticle = await Article.find({
+    bookmarkPeoples: weeksomId,
+  })
+  req.likeArticle = likeArticle
+  req.userArticle = userArticle
+  req.bookmarkArticle = bookmarkArticle
+  next()
 }
 
 // populate Read
@@ -23,7 +44,7 @@ const articlePopRead = async (req, res, next) => {
 // Update
 const articleUpdate = async (req, res) => {
   const { id, contentText } = req.body
-  const updatedArticle = await Article.findByIdAndUpdate(id, { contentText }) //리턴값으로 수정전 오리진데이터 사용
+  const updatedArticle = await Article.findByIdAndUpdate(id, { contentText }) // 리턴값으로 수정전 오리진데이터 사용
   res.send(updatedArticle)
 }
 
@@ -36,7 +57,7 @@ const articleDelete = async (req, res, next) => {
     }
   )
 }
-//modal 글 가져오기
+// modal 글 가져오기
 const modalUpdate = async (req, res, next) => {
   const modalArticlesRead = await Article.find({ _id: req.body._id })
     .sort({ createDate: -1 })
@@ -62,13 +83,13 @@ const modalCommentUpdate = async (req, res, next) => {
 }
 // 좋아요 설정
 const likeUpdate = async (req, res, next) => {
-  let myWeeksomId = { weeksomId: req.user.weeksomId }
-  let likePeoples = { likePeoples: req.user.weeksomId }
-  let likeArticle = { likeArticle: req.body.articleId }
-  let _id = { _id: req.body.articleId }
-  let status = req.body.status
-  //status === 1 // 좋아요 처리
-  //status === 0 // 좋아요 취소 처리
+  const myWeeksomId = { weeksomId: req.user.weeksomId }
+  const likePeoples = { likePeoples: req.user.weeksomId }
+  const likeArticle = { likeArticle: req.body.articleId }
+  const _id = { _id: req.body.articleId }
+  const { status } = req.body
+  // status === 1 // 좋아요 처리
+  // status === 0 // 좋아요 취소 처리
   if (status === '1') {
     await Article.findByIdAndUpdate(_id, {
       $inc: { likeCount: 1 },
@@ -101,13 +122,13 @@ const likeUpdate = async (req, res, next) => {
 
 // 북마크 설정
 const bookmarkUpdate = async (req, res, next) => {
-  let myWeeksomId = { weeksomId: req.user.weeksomId }
-  let bookmarkPeoples = { bookmarkPeoples: req.user.weeksomId }
-  let bookmark = { bookmark: req.body.articleId }
-  let _id = { _id: req.body.articleId }
-  let status = req.body.status
-  //status === 1 // 북마크 설정
-  //status === 0 // 북마크 취소 설정
+  const myWeeksomId = { weeksomId: req.user.weeksomId }
+  const bookmarkPeoples = { bookmarkPeoples: req.user.weeksomId }
+  const bookmark = { bookmark: req.body.articleId }
+  const _id = { _id: req.body.articleId }
+  const { status } = req.body
+  // status === 1 // 북마크 설정
+  // status === 0 // 북마크 취소 설정
   if (status === '1') {
     console.log('좋아요 처리')
     await Article.findByIdAndUpdate(_id, { $addToSet: bookmarkPeoples }).exec(
@@ -143,6 +164,7 @@ module.exports = {
   articleDelete,
   articlePopRead,
   likeUpdate,
+  profileArticle,
   bookmarkUpdate,
   modalUpdate,
   modalCommentUpdate,

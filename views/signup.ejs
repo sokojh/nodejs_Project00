@@ -1,28 +1,134 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <title>회원가입</title>
-  </head>
-  <body>
-    <h1>회원가입</h1>
-    <form action="/acount/signup" method="POST" onsubmit="return validation()">
-      <input type="text" placeholder="email" name="email" /> <br />
-      <input type="text" placeholder="password" name="password" /> <br />
-      <input
-        type="text"
-        placeholder="password confirm"
-        name="passwordConfirm"
-      />
-      <br />
-      <input type="text" placeholder="nickname" name="nickname" /><br />
-      <input type="text" placeholder="weeksomid" name="weeksomId" /><br />
-      <input type="submit" value="서브밋" /><br />
-    </form>
-  </body>
-  <script>
-    function validation() {
-      // 유효성 검사좀 해줘용
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <title>회원가입 페이지</title>
+    <link rel="stylesheet"  type="text/css" media="all" />
+    <script type="text/javascript"></script>
+    <link rel="stylesheet" href="/public/css/signup.css">
+</head>
+<body>
+    <div id="box" class="main_box">
+        <div class="login_box">
+            <div class="form_box">
+                <form name="join_form" action="./signup.ejs" method="POST">
+                    <div class="form_title">
+                        <p class="form_title_p">주간솜뭉치</p>
+                        <p class="form__sub_p">회원가입</p>
+                    </div>
+                    <div>
+                      <div>
+                        <p class="form_user">USERNAME</p>
+                        <input type="text" name="username" placeholder="이름을 입력해주세요."  class="form_input" />
+                      </div>
+                    </div>
+                    <div>
+                        <div>
+                            <p class="form_user">EMAIL</p>
+                        </div>
+                        <div>
+                            <input type="text" name="email" class="form_input_email" value=""/>
+                            <span>@</span>
+                            <input type="text"  id="emailInput" name="email2" class="form_input_email" value=""/>
+                            <select name="select" id="select_email" onchange="emailshow()">
+                                <option value=""> 직접 입력</option>
+                                <option value="naver.com" >naver.com</option>
+                                <option value="gmail.com">gmail.com</option>
+                            </select>
+                        </div>
+                        <div class="form_alert">
+                            <div id="alert_email" class="form_text_alert"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <p class="form_user">PASSWORD</p>
+                        </div>
+                        <div>
+                            <input type="password" name="password" placeholder="Enter password" class="form_input" onkeydown="if(event.keyCode == 13) login()"/>
+                        </div>
+                        <div class="form_alert">
+                            <div id="alert_password" class="form_text_alert"></div>
+                        </div>
+                    </div>
+                    <div>
+                      <div>
+                          <p class="form_user">PASSWORD CHECK</p>
+                      </div>
+                      <div>
+                          <input type="password" name="password2" placeholder="Enter password" class="form_input" onkeyup="passwordcheck()"/>
+                      </div>
+                      <div class="form_alert">
+                          <div id="alert_passwordChk" class="form_text_alert"></div>
+                      </div>
+                  </div>
+                    <div>
+                        <button type="submit" class="form_login_button" onclick="join()" >가입 완료<button>   
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<script>
+function join() {
+    let form = document.signup_form;
+    function checkMail(email2) {
+        let emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+        if(!emailRegExp.test(email)){
+            alert("이메일 형식이 올바르지 않습니다.");
+            form.email.focus();
+            return false;
+        }
+        return true;
     }
-  </script>
+    if(!form.email.value) {
+        alert("이메일을 입력해주세요.");
+        form.email.focus();
+        return;
+    }
+    if (!form.password.value) {
+        alert("비밀번호를 입력해주세요.");
+        form.password.focus();
+        return;
+    }
+    if (!form.username.value) {
+      alert("이름을 입력해주세요.");
+      form.username.focus();
+    }
+}
+
+function passwordcheck() {
+  let password = document.getElementsByName("password").value;
+  let passwordChk = document.getElementsByName("password2").value;
+
+  if(passwordChk == ""){
+    document.getElementById("alert_passwordChk").innerHTML=""
+  }
+  else if (password != passwordChk){
+    document.getElementById("alert_passwordChk").innerHTML="일치하지 않습니다."
+  }
+  else{
+    document.getElementById("alert_passwordChk").innerHTML="일치합니다."
+  }
+}
+
+
+    function emailshow(){
+        let select = document.getElementsByName("select");
+        let displaytext = options[select.selectedIndex].text;
+        document.getElementByName("email2").value = displaytext;
+    };
+
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+</body>
 </html>
