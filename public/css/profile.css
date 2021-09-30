@@ -218,3 +218,23 @@ input:focus {outline:none;}
   text-align: right;
   color: white;
 }
+.modalIn {
+  width: 90%;
+  height: 90%;
+  padding: 5%;
+}
+.followList {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  padding-top: 1vh;
+  font-size: 2em;
+}
+.followList > button {
+  font-size: 0.7em;
+  border-radius: 25px;
+  border: none;
+  background-color: rgb(224, 197, 250);
+  color: blueviolet;
+}

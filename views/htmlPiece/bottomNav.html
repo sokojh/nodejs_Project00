@@ -2,30 +2,32 @@
 <!-- @https://codepen.io/dcode-software/pen/wvagWEP -->
 
 <!-- 구글폰츠 아이콘 -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+/>
 <!-- css -->
-<link rel="stylesheet" href="/public/css/bottomNav.css">
-
+<link rel="stylesheet" href="/public/css/bottomNav.css" />
 
 <nav class="nav">
   <!-- 홈 버튼 -->
-  <a href="/article" id='article' class="nav__link">
+  <a href="/article" id="article" class="nav__link">
     <i class="material-icons nav__icon">home</i>
   </a>
   <!-- 검색 버튼 -->
-  <a href="/search" id='searchPage' class="nav__link">
+  <a href="/search" id="searchPage" class="nav__link">
     <i class="material-icons nav__icon">search</i>
   </a>
-  <!-- 추천게시물 -->
-  <a href="#" id='yardPage' class="nav__link">
+  <!-- 개시물 작성 -->
+  <a href="/post" id="yardPage" class="nav__link">
     <i class="material-icons nav__icon">yard</i>
   </a>
-  <!-- 게시판(예정) -->
-  <a href="#" id='feedPage' class="nav__link">
+  <!-- 채팅 -->
+  <a href="/chat" id="feedPage" class="nav__link">
     <i class="material-icons nav__icon">feed</i>
   </a>
   <!-- 마이페이지 -->
-  <a href="/@/<%=myUserInfo.weeksomId%>" id='personPage' class="nav__link">
+  <a href="/@/<%=myUserInfo.weeksomId%>" id="personPage" class="nav__link">
     <i class="material-icons nav__icon">person</i>
   </a>
 </nav>
