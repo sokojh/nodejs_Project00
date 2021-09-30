@@ -36,26 +36,22 @@
 
       <!-- 친구찾기화면 -->
       <div class="col_1">
-        <div class="inputBox">
-          <input
-            type="text"
-            value="test6"
-            placeholder="weeksomId"
-            name="weeksomId"
-            id="chatSearch"
-            class="chatSearch"
-          />
-          <div class="search" onclick="chatSearch()">
-            <img
-              src="https://image-upload-server1.s3.ap-northeast-2.amazonaws.com/free-icon-search-3917132.svg"
-              alt=""
-            />
-          </div>
+        <div class="search">
+          <input type="text" value="test6" placeholder="weeksomId" name="weeksomId" id="chatSearch" />
+          <button onclick="chatSearch()" class="chatSearch">search</button>
         </div>
-        <div class="friendBox">
-          <div id="friends"></div>
-        </div>
+        <div id="friends"></div>
       </div>
+
+      <script>
+        chatSearch.addEventListener('keypress', (event) => {
+  // input 창에서 키프레스 이벤트가 발생할 때 이벤트를 인자로 넘겨줌
+  if (event.keyCode === 13) {
+    send() // 이벤트 키코드가 13 = 엔터면 실행한다
+    chatSearch.value = '' // 텍스트박스 초기화
+  }
+})
+      </script>
 
       <!-- 채팅창 -->
       <div class="col_2">
@@ -77,6 +73,47 @@
         </div>
       </div>
     </div>
+        </div>
+        </div>
+        </div>
+
+        
+
+  
+
+    <script>
+      async function chatSearch() {
+          const weeksomId = document.getElementById('chatSearch')
+          const url = 'http://localhost:7080/chat'
+          await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(searchUser),
+          }).then(data => {
+            return data.json()
+          }).then(data => {
+            console.log(data.weeksomId)
+            console.log(data.profileImgKey)
+            const template = `
+            
+            `
+
+
+            const friends = document.getElementById('friends')
+            const newSpan = document.createElement('span')
+            const newImg = document.createElement('img')
+            newDiv.innerHTML = data.weeksomId
+            newImg.setAttribute("src", `${data.profileImgKey}`)
+            friends.appendChild(newSpan)
+            friends.appendChild(newImg)
+
+
+          })
+      }
+
+    </script>
 
     <script>
       const myImg = '<%= user.profileImgKey %>'
@@ -107,12 +144,10 @@
             urId = data.weeksomId
             const friends = document.getElementById('friends')
             const newDiv = document.createElement('div')
-            const template = `<div class="searchUser" onclick="room(this)">
+            const template = `
+            <div class="searchUser" onclick="room(this)">
               <div class="imgBox">
-                <img
-                src="${urImg}"
-                alt=""
-                />
+                <img src="${urImg}" alt=""/>
                 </div>
                 <div class="weeksomId">${urId}</div>
                 </div>`

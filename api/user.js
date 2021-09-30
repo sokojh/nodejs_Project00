@@ -31,6 +31,15 @@ const chatUser = async (req, res, next) => {
   next()
 }
 
+//채팅상대찾기
+const chatUser = async (req, res, next) => {
+  const { weeksomId } = req.body //폼데이터는 body
+  console.log(weeksomId)
+  const userProfile = await User.find({ weeksomId })
+  req.userProfile = userProfile[0]
+  next()
+}
+
 // 유져리스트
 const userList = async (req, res, next) => {
   // 모든 유져 정보 배열검색
