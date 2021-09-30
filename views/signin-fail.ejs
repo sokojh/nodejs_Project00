@@ -13,29 +13,25 @@
         <div class="form_box">
           <form name="login_form" action="/" method="POST">
             <div class="form_title">
-              <p class="form_title_p">주간솜뭉치</p>
+              <p class="form_title_p"></p>
             </div>
             <div>
-              <%= msg %>
               <div>
-                <p class="form_user">EMAIL</p>
+                <p class="form_user"></p>
               </div>
               <div>
                 <input
                   type="text"
                   name="email"
-                  placeholder="abcd1234@email.com"
+                  placeholder="User Email"
                   class="form_input"
                   value="test1@kakao.com"
                 />
               </div>
-              <div class="form_alert">
-                <div id="alert_email" class="form_text_alert"></div>
-              </div>
             </div>
             <div>
               <div>
-                <p class="form_user">PASSWORD</p>
+                <p class="form_user"></p>
               </div>
               <div>
                 <input
@@ -46,9 +42,6 @@
                   onkeydown="if(event.keyCode == 13) login()"
                   value="qwer1234#"
                 />
-              </div>
-              <div class="form_alert">
-                <div id="alert_password" class="form_text_alert"></div>
               </div>
             </div>
 
@@ -64,6 +57,12 @@
                 회원가입
               </button>
             </div>
+            <p>
+              <label id="find">
+                <a id="findpassword" href="findPassword.ejs">비밀번호 찾기</a>
+                <a id="findemail" href="findEmail.ejs">이메일 찾기</a>
+              </label>
+            </p>
           </form>
         </div>
       </div>
@@ -90,10 +89,7 @@
         }
         return true
       }
-      $('#signupbtn').bind("click", function(){
-        window.location.href = 'http://localhost:7080/account/signup';
-      })
-  
     </script>
   </body>
 </html>
+

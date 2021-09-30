@@ -21,7 +21,7 @@
   display: inline-block;
   margin-right: 100px;
   padding-right: 10px;
-  content:url(https://image-upload-server1.s3.ap-northeast-2.amazonaws.com/weeksom_logo.svg);
+  content: url(https://image-upload-server1.s3.ap-northeast-2.amazonaws.com/weeksom_logo.svg);
   align-content: center;
 }
 
@@ -77,4 +77,13 @@
   color: rgb(107, 107, 206);
   font-size: 17px;
   font-weight: 500;
+}
+
+a { 
+  color:rgb(107, 107, 206);
+}
+
+#findemail {
+  position:relative;
+  left: 100px;
 }

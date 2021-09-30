@@ -25,7 +25,7 @@
     display: inline-block;
     margin-right: 100px;
     padding-right: 10px;
-    content:url(https://image-upload-server1.s3.ap-northeast-2.amazonaws.com/weeksom_logo.svg);
+    content: url(https://image-upload-server1.s3.ap-northeast-2.amazonaws.com/weeksom_logo.svg);
     align-content: center;
   }
 
