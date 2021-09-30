@@ -185,7 +185,6 @@ nav img {
     background: #ffffff;
     overflow-y: scroll; /* 채팅이 쌓이면 스크롤 생성 */
     border: none;
-
 }
 
 .input-container{
