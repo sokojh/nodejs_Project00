@@ -16,7 +16,7 @@ nav {
     width: 94vw;
     display: flex;
     justify-content: space-between;
-    padding: 3vw;
+    padding: 2vh;
     background-color: white;
     z-index: 2;
 }
