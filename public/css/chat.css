@@ -7,7 +7,6 @@
 body {
     width: 100vw;
     height: 100vh;
-<<<<<<< HEAD
     overflow: hidden;
 }
 
@@ -40,14 +39,11 @@ a {
 a:visited { color: black; text-decoration: none;}
 nav img {
     height: 100%;
-=======
->>>>>>> de8516b7d0f0ad9ed73811bbeebc6ebe0ed5c814
 }
 
 
 .container{
     position: relative;
-<<<<<<< HEAD
     width: 100vw;
     height: 90vh;
     top: 9%;
@@ -55,36 +51,11 @@ nav img {
     overflow: hidden;
 }
 
-.col_1 {
+.col_1, .col_2{
     width: 100vw;
     height: 90vh;
+    border: 1px solid #000000;
 }
-<<<<<<< HEAD
-.inputBox {
-    margin-top: 3vh;
-    text-align: center;
-}
-
-#chatSearch {
-    width: 60vw;
-    height: 7vh;
-    font-size: 1.2em;
-    border-radius: 50px;
-    padding: 0 0 0 9vh;
-    transition: all 0.5s;
-    border: solid rgb(195, 178, 255);
-}
-#chatSearch:focus {
-    outline: none;
-    box-shadow: 0 0 5px 5px rgb(255, 220, 226) ;
-}
-.search {
-    position: absolute;
-    top: 5.76vh;
-    left: 17vw;
-    width: 3vh;
-    height: 3vh;
-=======
 
 .search {
     padding: 2vw 2vh;
@@ -111,18 +82,8 @@ nav img {
 .col_1 > input, button {
     width: 80vw;
     font-size: 2em;
->>>>>>> f6a0b21a92edf397dcc1c07dad425cbae703ad98
 }
-.search > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-
 .col_2{
-    width: 100vw;
-    height: 90vh;
     position: absolute;
     left: 100vw;
     top:0;
@@ -134,60 +95,6 @@ nav img {
 #chat:checked ~ .col_2 {
     display: block;
     left: 0vw;
-}
-.searchUser {
-    display: flex;
-}
-.imgBox {
-    width: 20vw;
-    height: 20vw;
-}
-.imgBox > img {
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    border-radius: 100%;
-}
-.weeksomId {
-    padding-top: 3%;
-    font-size: 2em;
-=======
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    ;
-}
-
-/* .col_1, .col_2{
-    width: 100vw;
-    height: 100vh;
-    border: 1px solid #dbdbdb;
-} */
-
-
-.row{
-    width: 75vw;
-}
-.col_1{
-    position: absolute;
-    width: 25%;
-    float: left;
-    border: 1px solid #fefefe;
-}
-
-.search {
-    width: 20vw;
-    height: 58px;
-    border-radius: 5em;
-    border-style:1px solid #4f555c;
-    background-image: url(https://image-upload-server1.s3.ap-northeast-2.amazonaws.com/free-icon-search-3917132.svg);
-    background-repeat: no-repeat;
-    background-size: 22px;
-    background-position: 15px;
-    padding-left: 10px;
-    
-    
->>>>>>> de8516b7d0f0ad9ed73811bbeebc6ebe0ed5c814
 }
 
 .friends-list li {
@@ -208,6 +115,7 @@ nav img {
 }
 .searchUser {
     display: flex;
+    padding-left: 3vw;
 }
 .imgBox {
     width: 20vw;
@@ -277,7 +185,6 @@ nav img {
 }
 
 .chatting-input{
-<<<<<<< HEAD
     font-size: 1.2em;
     
     height: 5vh;
@@ -287,19 +194,8 @@ nav img {
     padding-left: 2vw;
     color: #4f555c;
 
-=======
-    font-size: 18px;
-    height: 100%;
-    flex: 8;
-    
-    border: 5px solid transparent;
-    border-radius: 20px;
-    background-image: linear-gradient(#efa6c1), linear-gradient(to right, #99bddd);
-    background-origin: border-box;
-    background-clip: content-box, border-box;
-    border-image-slice: 1;
->>>>>>> de8516b7d0f0ad9ed73811bbeebc6ebe0ed5c814
 }
+
 .send-button{
     width: 13vw;
     height: 5vh;
@@ -356,13 +252,8 @@ nav img {
 
 .message {
     border-radius: 5px;
-<<<<<<< HEAD
-    padding: 0.5rem;
-    font-size: 1em;
-=======
     padding: 1rem;
     font-size: 12px;
->>>>>>> f6a0b21a92edf397dcc1c07dad425cbae703ad98
     margin: 0 5px;
     flex: 5;
     color: white;
@@ -385,12 +276,5 @@ nav img {
 }
 
 .received .message{
-<<<<<<< HEAD
-    background: #efa6c1;
+    background: #99bddd;
 }
-=======
-    background: #fff;
-}
-
-/* new */
->>>>>>> de8516b7d0f0ad9ed73811bbeebc6ebe0ed5c814
