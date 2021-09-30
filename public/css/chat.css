@@ -75,9 +75,26 @@ nav img {
     background-repeat: no-repeat;
     background-position: 20px 18px;
 }
+
 #chatSearch:focus {
     outline: none;
     box-shadow: 0 0 5px 5px rgb(255, 220, 226) ;
+}
+
+.chatSearch {
+    width: 5vw;
+    height: 58px;
+}
+
+.col_1 > input, button {
+    width: 80vw;
+    font-size: 2em;
+}
+.col_2{
+    position: absolute;
+    left: 100vw;
+    top:0;
+    transition: left 0.5s;
 }
 .search {
     position: absolute;
@@ -89,12 +106,12 @@ nav img {
     //background-color: rgba(193, 241, 193, 0.7);
 }
 .friendBox {
-    padding: 10vw;
+    padding-left: 10vw;
+    padding-right: 10vw;
     width: 80vw;
     height: 70vh;
-    background-color: yellowgreen;
+    //background-color: yellowgreen;
 }
-
 
 .col_2{
     width: 100vw;
@@ -107,12 +124,22 @@ nav img {
 #chat {
     display: none;
 }
+
 #chat:checked ~ .col_2 {
     display: block;
     left: 0vw;
 }
+
 .searchUser {
     display: flex;
+    padding: 3vw 0 0 3vw
+}
+
+.weeksomId, .nickname{
+    font-size: 1.5em;
+    padding-left: 3vw;
+    padding-top: 1%;
+    text-align: center;
 }
 .imgBox {
     width: 20vw;
@@ -123,10 +150,6 @@ nav img {
     height:100%;
     object-fit:cover;
     border-radius: 100%;
-}
-.weeksomId {
-    padding-top: 3%;
-    font-size: 2em;
 }
 
 .wrapper {
@@ -159,8 +182,9 @@ nav img {
 
 .display-container{
     min-height: 80vh;
-    background: #b2c7d9;
+    background: #ffffff;
     overflow-y: scroll; /* 채팅이 쌓이면 스크롤 생성 */
+    border: none;
 
 }
 
@@ -181,19 +205,36 @@ nav img {
 }
 
 .chatting-input{
-    font-size: 1.5em;
+    font-size: 1.2em;
     
-    height: 8vh;
+    height: 5vh;
     width: 80vw;
     border: none;
+    border-radius: 13em;
+    padding-left: 2vw;
+    color: #4f555c;
+
 }
+
 .send-button{
-    width: 15vw;
-    background: #ffed33;
+    width: 13vw;
+    height: 5vh;
     border: none;
-    height: 100%;
     border-radius: 3px;
-    font-size: 1.5em;
+    font-size: 1em;
+    color: white;
+
+    background: #efa6c1;
+    /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #efa6c1 0%, #99bddd 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #efa6c1 0%, #99bddd 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #efa6c1 0%, #99bddd 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#efa6c1', endColorstr='#99bddd', GradientType=1);
+    /* IE6-9 fallback on horizontal gradient */
+
 }
 
 .chatting-list li{
@@ -231,10 +272,11 @@ nav img {
 
 .message {
     border-radius: 5px;
-    padding: 0.5rem;
-    font-size: 1em;
+    padding: 1rem;
+    font-size: 12px;
     margin: 0 5px;
-    flex: 7;
+    flex: 5;
+    color: white;
 }
 
 .time {
@@ -249,10 +291,10 @@ nav img {
 }
 
 .sent .message {
-    background: #ffeb33;
+    background: #efa6c1;
 
 }
 
 .received .message{
-    background: #fff;
+    background: #99bddd;
 }
