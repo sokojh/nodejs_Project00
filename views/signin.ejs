@@ -13,28 +13,25 @@
         <div class="form_box">
           <form name="login_form" action="/" method="POST">
             <div class="form_title">
-              <p class="form_title_p">주간솜뭉치</p>
+              <p class="form_title_p"></p>
             </div>
             <div>
               <div>
-                <p class="form_user">EMAIL</p>
+                <p class="form_user"></p>
               </div>
               <div>
                 <input
                   type="text"
                   name="email"
-                  placeholder="abcd1234@email.com"
+                  placeholder="User Email"
                   class="form_input"
                   value="test1@kakao.com"
                 />
               </div>
-              <div class="form_alert">
-                <div id="alert_email" class="form_text_alert"></div>
-              </div>
             </div>
             <div>
               <div>
-                <p class="form_user">PASSWORD</p>
+                <p class="form_user"></p>
               </div>
               <div>
                 <input
@@ -46,9 +43,6 @@
                   value="qwer1234#"
                 />
               </div>
-              <div class="form_alert">
-                <div id="alert_password" class="form_text_alert"></div>
-              </div>
             </div>
 
             <div>
@@ -58,17 +52,17 @@
               <button
                 type="submit"
                 class="form_join_button"
-                onclick="location.href='./signup.ejs'"
+                id="signupbtn"
               >
                 회원가입
               </button>
-              <!-- <button type="submit" class="form_kakao_button" onclick="login()">
-                카카오로 시작하기
-              </button>
-              <button type="submit" class="form_goole_button" onclick="login()">
-                구글로 시작하기
-              </button> -->
             </div>
+            <!--<p>
+              <label id="find">
+                <a id="findpassword" href="findPassword.ejs">비밀번호 찾기</a>
+                <a id="findemail" href="findEmail.ejs">이메일 찾기</a>
+              </label>
+            </p> -->
           </form>
         </div>
       </div>
@@ -76,10 +70,17 @@
     <script>
       function login() {
         let form = document.login_form
+        let emchk = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
         if (!form.email.value) {
           alert('이메일을 입력해주세요.')
           form.email.focus()
           return false
+        }
+        if (!emchk.test(form.email.value)) {
+            alert('이메일을 다시 입력해주세요.')
+            form.email.focus()
+            return false
         }
         if (!form.password.value) {
           alert('비밀번호를 입력해주세요.')
