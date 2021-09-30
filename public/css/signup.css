@@ -20,11 +20,14 @@
 }
 
 .form_title_p{
-    font-weight: bold;
-    font-size: 40px;
+    width: 300px;
+    height: 100px;
     display: inline-block;
-    padding-top: 5px;
-}
+    margin-right: 100px;
+    padding-right: 10px;
+    content:url(https://image-upload-server1.s3.ap-northeast-2.amazonaws.com/weeksom_logo.svg);
+    align-content: center;
+  }
 
 .form_sub_p{
     font-weight: bold;
@@ -54,20 +57,15 @@
     color:black;
     margin-top: 5%;
 }
-
-.form_text_alert{
-    height: 20px;
-}
-
-.form_join_button {
+ 
+  .form_join_button {
     width: 98%;
-    height: 60px;
-    margin: 2% 0;
-    background-color: skyblue;
-    border: 1px solid white;
+    height: 44px;
+    margin-top: 10%;
+    background-color: rgb(225, 225, 252);
+    border: 1px solid;
     border-radius: 3px;
-    color: white;
+    color: rgb(107, 107, 206);
     font-size: 17px;
     font-weight: 500;
-    margin-top: 10%;
   }
