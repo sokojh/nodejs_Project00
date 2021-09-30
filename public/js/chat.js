@@ -34,7 +34,9 @@ function room(thisElement) {
   const urId = thisElement.childNodes[3].innerHTML
   const join = [myId, urId].sort()
   const roomName = join[0] + join[1]
+  console.log(roomName)
   socket.emit('oneToOne', `${roomName}`)
+  console.log('소켓에밋')
   chat()
 }
 

@@ -57,6 +57,7 @@ nav img {
 }
 .inputBox {
     margin-top: 3vh;
+    margin-bottom: 3vh;
     text-align: center;
 }
 
@@ -65,9 +66,14 @@ nav img {
     height: 7vh;
     font-size: 1.2em;
     border-radius: 50px;
-    padding: 0 0 0 9vh;
+    padding: 0 0 0 7vh;
     transition: all 0.5s;
     border: solid rgb(195, 178, 255);
+    background-image: 
+        url('https://image-upload-server1.s3.ap-northeast-2.amazonaws.com/free-icon-search-3917132.svg');
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    background-position: 20px 20px;
 }
 #chatSearch:focus {
     outline: none;
@@ -75,15 +81,18 @@ nav img {
 }
 .search {
     position: absolute;
-    top: 5.76vh;
-    left: 17vw;
-    width: 3vh;
-    height: 3vh;
+    top: 3vh;
+    left: 24vw;
+    transform: translateX(-90%);
+    width: 15vh;
+    height: 8vh;
+    //background-color: rgba(193, 241, 193, 0.7);
 }
-.search > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.friendBox {
+    padding: 10vw;
+    width: 80vw;
+    height: 70vh;
+    background-color: yellowgreen;
 }
 
 
