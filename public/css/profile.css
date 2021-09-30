@@ -15,8 +15,13 @@ body{
 }
 .body{
   position: absolute;
+<<<<<<< HEAD
   top:30vh;
   z-index: -1;
+=======
+  top:100vh;
+  z-index: 0;
+>>>>>>> de8516b7d0f0ad9ed73811bbeebc6ebe0ed5c814
   opacity: 0;
   transition: top 0.5s, opacity 0.5s ;
 }

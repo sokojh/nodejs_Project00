@@ -7,6 +7,7 @@
 body {
     width: 100vw;
     height: 100vh;
+<<<<<<< HEAD
     overflow: hidden;
 }
 
@@ -39,11 +40,14 @@ a {
 a:visited { color: black; text-decoration: none;}
 nav img {
     height: 100%;
+=======
+>>>>>>> de8516b7d0f0ad9ed73811bbeebc6ebe0ed5c814
 }
 
 
 .container{
     position: relative;
+<<<<<<< HEAD
     width: 100vw;
     height: 90vh;
     top: 9%;
@@ -95,6 +99,77 @@ nav img {
 #chat:checked ~ .col_2 {
     display: block;
     left: 0vw;
+}
+.searchUser {
+    display: flex;
+}
+.imgBox {
+    width: 20vw;
+    height: 20vw;
+}
+.imgBox > img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius: 100%;
+}
+.weeksomId {
+    padding-top: 3%;
+    font-size: 2em;
+=======
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    ;
+}
+
+/* .col_1, .col_2{
+    width: 100vw;
+    height: 100vh;
+    border: 1px solid #dbdbdb;
+} */
+
+
+.row{
+    width: 75vw;
+}
+.col_1{
+    position: absolute;
+    width: 25%;
+    float: left;
+    border: 1px solid #fefefe;
+}
+
+.search {
+    width: 20vw;
+    height: 58px;
+    border-radius: 5em;
+    border-style:1px solid #4f555c;
+    background-image: url(https://image-upload-server1.s3.ap-northeast-2.amazonaws.com/free-icon-search-3917132.svg);
+    background-repeat: no-repeat;
+    background-size: 22px;
+    background-position: 15px;
+    padding-left: 10px;
+    
+    
+>>>>>>> de8516b7d0f0ad9ed73811bbeebc6ebe0ed5c814
+}
+
+.friends-list li {
+    list-style: none;
+    width: 293px;
+    height: 58px;
+    text-align: center;
+}
+
+.col_2{    
+    position: relative;
+    padding-left: 25px;
+    width: 60%;
+    float: right;
+}
+#chat:checked ~ .col_2 {
+    display: block;
 }
 .searchUser {
     display: flex;
@@ -167,6 +242,7 @@ nav img {
 }
 
 .chatting-input{
+<<<<<<< HEAD
     font-size: 1.2em;
     
     height: 5vh;
@@ -176,6 +252,18 @@ nav img {
     padding-left: 2vw;
     color: #4f555c;
 
+=======
+    font-size: 18px;
+    height: 100%;
+    flex: 8;
+    
+    border: 5px solid transparent;
+    border-radius: 20px;
+    background-image: linear-gradient(#efa6c1), linear-gradient(to right, #99bddd);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    border-image-slice: 1;
+>>>>>>> de8516b7d0f0ad9ed73811bbeebc6ebe0ed5c814
 }
 
 .send-button{
@@ -258,5 +346,12 @@ nav img {
 }
 
 .received .message{
+<<<<<<< HEAD
     background: #efa6c1;
 }
+=======
+    background: #fff;
+}
+
+/* new */
+>>>>>>> de8516b7d0f0ad9ed73811bbeebc6ebe0ed5c814
