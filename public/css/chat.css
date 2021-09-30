@@ -1,3 +1,4 @@
+@import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css');
 *{
     margin: 0;
     padding: 0;
@@ -6,31 +7,71 @@
 body {
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
 
-.container{
-    width: 100vw;
-    height: 100vh;
-    background: #fafafa;
+nav {
+    position: fixed;
+    height: 5vh;
+    width: 94vw;
+    display: flex;
+    justify-content: space-between;
+    padding: 3vw;
+    background-color: white;
+    z-index: 2;
 }
+nav > div {
+    display: flex;
+    font-size:2.2em;
+    font-weight: 900;
+}
+#navIcon {
+    font-size: 1.8em;
+    padding-top: 1%;
+    justify-content: space-between;
+}
+nav a {
+    padding-top: 1%;
+}
+a {
+    text-decoration: none;
+}
+a:visited { color: black; text-decoration: none;}
+nav img {
+    height: 100%;
+}
+
+
 .container{
+    position: relative;
     width: 100vw;
-    height: 100vh;
+    height: 90vh;
+    top: 9%;
     background: #fafafa;
+    overflow: hidden;
 }
 
 .col_1, .col_2{
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     border: 1px solid #dbdbdb;
 }
+.col_1 > input, button {
+    width: 80vw;
+    font-size: 2em;
+}
 .col_2{
-    display: none;
     position: absolute;
-    top : 5vh;
+    left: 100vw;
+    top:0;
+    transition: left 0.5s;
+}
+#chat {
+    display: none;
 }
 #chat:checked ~ .col_2 {
     display: block;
+    left: 0vw;
 }
 .searchUser {
     display: flex;
@@ -61,7 +102,7 @@ body {
 .user-container {
     background: #a9bdce;
     flex:1; /* 비율로 크기 조정 */
-    display: flex; /* 레이블태그, input 태그 정렬 */
+    display: none; /* 레이블태그, input 태그 정렬 */
     justify-content: flex-start; /* 왼쪽부터 시작 */
     align-items: center;
     padding: 0.5rem;

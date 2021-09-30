@@ -6,7 +6,7 @@ body{
   height: 100vh;
   font-size: 2.2em;
   transition: opacity 0.5s;
-  overflow-y: hidden
+  overflow-y: hidden;
 }
 #main {
   transition: opacity 0.5s;
@@ -183,3 +183,36 @@ form > input, #password-confirm > input  {
   font-size: 1.3em;
 }
 input:focus {outline:none;}
+
+/* 팔로우 정보 */
+.follow {
+  position:absolute;
+  z-index: -1;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  transition: all 0.5s;
+}
+.follow > .modal {
+  position: relative;
+  top: 45%;
+  left: 50%;
+  width: 80vw;
+  height: 60vh;
+  border-radius: 50px;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: white;
+}
+.follow > .modalClose {
+  position: relative;
+  top: 15%;
+  left: 50%;
+  width: 80vw;
+  height: 6vh;
+  transform: translateX(-50%) translateY(-50%);
+  font-size: 3em;
+  text-align: right;
+  color: white;
+}

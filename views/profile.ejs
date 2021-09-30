@@ -16,7 +16,7 @@
       <!-- 상단바 -->
       <nav>
         <div id="weeksomId">
-          <a href="http://localhost:7080/">
+          <a href="/">
             <i class="fi fi-rr-angle-double-small-left"></i>
           </a>
           <%= 프로필.weeksomId %>
@@ -45,11 +45,11 @@
             <div><%= 프로필.articleCount %></div>
             <span>게시물</span>
           </div>
-          <div>
+          <div onclick="modalOn(this)">
             <div><%= 프로필.followerCount %></div>
             <span>팔로워</span>
           </div>
-          <div>
+          <div onclick="modalOn(this)">
             <div><%= 프로필.followerCount %></div>
             <span>팔로잉</span>
           </div>
@@ -121,8 +121,40 @@
     </div>
 
     <%- include('htmlPiece/profileModify.ejs') %>
+
+    <div class="follower follow">
+      <div class="modalClose">
+        <i class="fi fi-rr-cross-small" onclick="modalClose()"></i>
+      </div>
+      <div class="modal">팔로워</div>
+    </div>
+    <div class="following follow">
+      <div class="modalClose">
+        <i class="fi fi-rr-cross-small" onclick="modalClose()"></i>
+      </div>
+      <div class="modal">팔로잉</div>
+    </div>
   </body>
   <script>
+    const modalClose = () => {
+      const ele = document.querySelectorAll('.follow')
+      ele.forEach((el) => {
+        el.style.opacity = 0
+        el.style.zIndex = -1
+      })
+    }
+    const modalOn = (thisEle) => {
+      const query =
+        thisEle.childNodes[3].innerHTML === '팔로워'
+          ? '.follower'
+          : '.following'
+      const ele = document.querySelectorAll(query)
+      ele.forEach((el) => {
+        el.style.opacity = 1
+        el.style.zIndex = 1
+      })
+    }
+
     const up = () => {
       const modal = document.querySelector('.body')
       modal.style.top = 0

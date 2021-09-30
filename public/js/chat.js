@@ -35,6 +35,7 @@ function room(thisElement) {
   const join = [myId, urId].sort()
   const roomName = join[0] + join[1]
   socket.emit('oneToOne', `${roomName}`)
+  chat()
 }
 
 // on으로 받음

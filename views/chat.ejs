@@ -13,9 +13,28 @@
     />
   </head>
   <body>
+    <!-- 상단바 -->
+    <nav>
+      <div id="weeksomId">
+        <a href="http://localhost:7080/">
+          <img
+            src="https://image-upload-server1.s3.ap-northeast-2.amazonaws.com/weeksom_logo.svg"
+            alt=""
+          />
+        </a>
+      </div>
+      <div id="navIcon">
+        <div onclick="chat()">
+          <i class="fi fi-rr-menu-burger"></i>
+        </div>
+      </div>
+    </nav>
+
     <div class="container">
+      <!-- 채팅창 활성화버튼 -->
       <input type="checkbox" id="chat" />
-      <label for="chat">채팅</label>
+
+      <!-- 친구찾기화면 -->
       <div class="col_1">
         <input
           type="text"
@@ -27,6 +46,8 @@
         <button onclick="chatSearch()">친구찾기</button>
         <div id="friends"></div>
       </div>
+
+      <!-- 채팅창 -->
       <div class="col_2">
         <div class="wrapper">
           <div class="user-container">
@@ -51,6 +72,12 @@
       const myImg = '<%= user.profileImgKey %>'
       const myId = '<%= user.weeksomId %>'
       let urImg = ''
+
+      const chat = () => {
+        const chatbtn = document.getElementById('chat')
+        chatbtn.checked = !chatbtn.checked
+      }
+
       async function chatSearch() {
         // 검색할 유져 아이디값
         const weeksomId = document.getElementById('chatSearch').value
