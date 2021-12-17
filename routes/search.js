@@ -11,7 +11,7 @@ router.post('/modalCommentUpdate', Article.modalCommentUpdate, (req, res) => {})
 // Article.articlePopRead 미들웨어 제거
 router.get('/', (req, res) => {
   console.log('search 라우터 연결')
-  res.render('search')
+  res.render('search', { myUserInfo: req.user })
 })
 
 // 검색 value값 전용
