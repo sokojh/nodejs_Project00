@@ -5,7 +5,11 @@ const { Comment } = require('../api/0.index') // 몽구스 api 임포트
 // :articleId 댓글 리스트 출력
 router.get('/', Comment.articleCommentList, (req, res) => {
   // @ts-ignore
-  res.render('commentList', { list: req.commentList, user: req.user })
+  res.render('commentList', {
+    list: req.commentList,
+    user: req.user,
+    myUserInfo: req.user,
+  })
 })
 
 router.post('/write', Comment.commentWrite, (req, res) => {

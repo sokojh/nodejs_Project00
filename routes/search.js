@@ -42,7 +42,7 @@ router.get('/v', (req, res) => {
       } else {
         res.render('searchSuc.ejs', {
           articles: 결과,
-
+          myUserInfo: req.user,
           valueSuc: req.query.value,
           searchReq: 결과.length,
         })

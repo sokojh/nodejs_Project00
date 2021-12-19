@@ -84,7 +84,7 @@
       }
       for (var i = 0; i <= daC; i++) {
         console.log(Object.values(da)[i].text)
-        var a= "<li>"+Object.values(da)[i].text+'</li>'
+        var a= "<li><img class='img-profile' src="+Object.values(da)[i].user_id.profileImgKey+">"+Object.values(da)[i].user_id.nickname+":"+Object.values(da)[i].text+'</li>'
         var b= document.getElementById("modalComment")
         b.innerHTML=b.innerHTML+a;
         

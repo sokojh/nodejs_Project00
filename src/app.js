@@ -61,15 +61,15 @@ app.post(
 
 // 라우터 연결
 app.use('/sendinput', loginCheck, require('../routes/sendinput'))
-app.use('/acount', require('../routes/acount'))
+app.use('/acount', loginCheck, require('../routes/acount'))
 app.use('/userlist', loginCheck, require('../routes/userlist'))
 app.use('/follow', loginCheck, require('../routes/follow'))
 app.use('/article', loginCheck, require('../routes/article'))
 app.use('/populateTest', require('../routes/populateTest'))
-app.use('/comment', require('../routes/comment'))
+app.use('/comment', loginCheck, require('../routes/comment'))
 app.use('/chat', loginCheck, require('../routes/chat'))
 app.use('/post', loginCheck, require('../routes/post'))
-app.use('/search', require('../routes/search'))
+app.use('/search', loginCheck, require('../routes/search'))
 
 app.use('/@/:weeksomId', loginCheck, require('../routes/profile'))
 
